@@ -35,3 +35,12 @@ The project is a website for an Italian restaurant which advertises the restaura
 
 
 ## Sketches
+
+Menu browsing
+![menu](https://user-images.githubusercontent.com/22069313/58152387-4e3e9500-7c21-11e9-8db4-7925a3558d49.png)
+
+Customize menu item
+![menu2](https://user-images.githubusercontent.com/22069313/58152486-880f9b80-7c21-11e9-93e9-5619b2e0e943.png)
+
+Sign In / Sign Up
+![signin](https://user-images.githubusercontent.com/22069313/58152497-8e057c80-7c21-11e9-8fef-a73e09392b5c.png)
