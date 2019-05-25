@@ -1,6 +1,6 @@
-# Project Title
+# AL DENTE
 
-Italian Restaurant
+An Italian Restaurant
 
 ## Project Description
 
