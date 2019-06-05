@@ -1,10 +1,12 @@
 import React from 'react';
+import './ui.css';
 import Hello from './Hello.jsx';
 import Info from './Info.jsx';
+import Header from './components/Header.jsx';
 
 const App = () => (
   <div>
-    <h1>Welcome to Meteor!</h1>
+    <Header />
     <Hello />
     <Info />
   </div>
