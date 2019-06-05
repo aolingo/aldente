@@ -1,38 +1,31 @@
 # AL DENTE
 
-An Italian Restaurant
+An Online Restaurant Reservation Platform
 
 ## Project Description
 
-The project is a website for an Italian restaurant which advertises the restaurant and offers an online ordering system. We will be storing info on the menu items, orders, and user accounts. New users can create an account with username and password. The users will have options of selecting add-ons for some additional cost. A reward system for frequent customers can be added based on time constraints.
+The project is a reservation platform for restaurants. There will be two type of users, customers and restaurant/business owners. Both of which will have their own separate account portal once they signed up for an account on the website. For customers, they will be able to browse through restaurants displayed on the platform (basic restaurant information) and make a reservation through the website's system. Customers will then be able to see their list of made reservations (including past reservations) on their account page. For restaurant owners, once they log in to the system,they will be able to see and manage reservations made at their diners.
 
 ## Project Task Requirements
 
 ### Minimum Requirements
 
-1. Display information of the restaurant (description, chefs, location)
-2. Browse through menu items with photos
-3. Able to select different menu items for ordering
+1. Browse through a selection of premade restaurants on the website's home page (displayed like cards)
+2. Display information of each specific restaurant (introduction, contacts, location, food pictures) in a separate page once the user clicks on its card on the home page
+3. A functional reservation system 
 
 ### Standard Requirements
 
-1. User can customize the menu items to their liking (pizza, pasta, appetizers)
-2. A tag system for different items (new items, vegetarian, signature dish)
-3. Accounts can be created that holds ordering information for convience (address, billing info)
-4. An user account portal that allows them to modify their personal information (eg. password)
+1. Account sign up for both customers and restaurant owners and appropriate portal page for them once they log in.
+2. Two factor authentication when users sign up for accounts
+3. Customer users are able to cancel reservations up until a certain time before reserved date
+4. Ability for new restaurant owners to sign up for accounts and input relevant information regarding their restaurant. After which, the platform will parse the info and make a corresponding listing to be featured on the home page.
 
 ### Stretch Requirements
 
-1. Implement Payment system
-2. Rewards system for frequent customers
-3. A history of past orders made from a specific account.
-4. Browse through menu items with photos
-5. Create “photo cards” for each item.
-6. Create pop up “preview” with brief description for each photo.
-7. Able to select different menu items 
-8. Each card should have an order button
-9. A shopping cart page with an overview of entire order.
-
+1. Basic business analytics tools for restaurant owners when they log in (eg. data visualizations on the number of reservations made in a certain time frame)
+2. A corresponding waitlist system so that last minute cancellations on the reservation system will be automatically filled.
+3. Possible payment system in which reservations can be prepaid with purchase of tickets
 
 ## Sketches
 
