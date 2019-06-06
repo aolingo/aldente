@@ -1,14 +1,12 @@
 import React from 'react';
 import './ui.css';
-import Hello from './Hello.jsx';
-import Info from './Info.jsx';
-import Header from './components/Header.jsx';
+import Home from './components/Home';
+import Hello from './Hello'
 
 const App = () => (
   <div>
-    <Header />
+    <Home />
     <Hello />
-    <Info />
   </div>
 );
 
