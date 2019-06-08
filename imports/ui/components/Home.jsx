@@ -9,7 +9,9 @@ export default class Home extends Component {
     return (
       <div>
         <Header />
-        <Body />
+        <main role="main" className="container">
+          <Body />
+        </main>
         <Footer />
       </div>
     )
