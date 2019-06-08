@@ -12,7 +12,7 @@ export default class Home extends Component {
       <div>
         <Header />
         <Slideshow />
-        <main role="main" className="container">
+        <main role="main">
           <Body />
         </main>
         <Footer />
