@@ -1,12 +1,10 @@
 import React from 'react';
-import Hello from './Hello.jsx';
-import Info from './Info.jsx';
+import './ui.css';
+import Home from './components/Home';
 
 const App = () => (
-  <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello />
-    <Info />
+  <div> 
+    <Home />
   </div>
 );
 
