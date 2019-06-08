@@ -1,12 +1,18 @@
 import React from 'react';
 import './ui.css';
 import Home from './components/Home';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import SignUp from './components/Header/SignUp'
+import Login from './components/Header/Login'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => (
   <Router>
     <div>
-      <Home />
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/login' component={Login} />
+      </Switch>
     </div>
   </Router>
 );
