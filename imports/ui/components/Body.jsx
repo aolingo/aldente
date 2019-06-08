@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Slideshow from './Slideshow'
 
 export default class Body extends Component {
   render() {
