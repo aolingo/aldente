@@ -22,3 +22,12 @@
 .App-intro {
   font-size: large;
 }
+
+.su-container {
+  text-align: center;
+  margin: 20px;
+}
+
+.form-control {
+  margin-top: 5px;
+}
