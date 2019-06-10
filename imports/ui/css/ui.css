@@ -27,6 +27,15 @@
   padding: 8px;
 }
 
+.su-container {
+  text-align: center;
+  margin: 20px;
+}
+
+.form-control {
+  margin-top: 5px;
+}
+
 .login-form {
   width: 100%;
   max-width: 330px;
