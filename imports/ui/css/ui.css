@@ -23,6 +23,10 @@
   font-size: large;
 }
 
+.link-space {
+  padding: 8px;
+}
+
 .su-container {
   text-align: center;
   margin: 20px;
@@ -30,4 +34,20 @@
 
 .form-control {
   margin-top: 5px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+}
+
+.login-box {
+width: 100%;
+max-width: 330px;
+border-width:2px;
+border-style:solid;
+border-color:black;
 }

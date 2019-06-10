@@ -1,5 +1,5 @@
 import React from 'react';
-import './ui.css';
+import './css/ui.css'
 import Home from './components/Home';
 import SignUp from './components/Header/SignUp'
 import Login from './components/Header/Login'
