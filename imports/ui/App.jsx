@@ -1,19 +1,22 @@
 import React from 'react';
-import './css/ui.css'
 import Home from './components/Home';
-import SignUp from './components/Header/SignUp'
-import Login from './components/Header/Login'
+import About from './components/About'
+import Contact from './components/Contact'
+import SignUp from './components/Header/Menu/SignUp'
+import Login from './components/Header/Menu/Login'
+import NoMatch from './components/NoMatch'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => (
   <Router>
-    <div>
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/signup' component={SignUp} />
-        <Route path='/login' component={Login} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route path='/about' component={About} />
+      <Route path='/contact' component={Contact} />
+      <Route path='/signup' component={SignUp} />
+      <Route path='/login' component={Login} />
+      <Route component={NoMatch} />
+    </Switch>
   </Router>
 );
 

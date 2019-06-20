@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
 import Header from './Header/Header'
-import Body from './Body'
-import Footer from './Footer'
-import Slideshow from './Slideshow'
-import 'bootstrap'
-
+import Body from './Body/Body'
+import Footer from './Footer/Footer'
 
 export default class Home extends Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Header />
-        <Slideshow />
         <Body />
         <Footer />
-      </div>
+      </React.Fragment>
     )
   }
 }
