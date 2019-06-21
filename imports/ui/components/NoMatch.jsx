@@ -4,7 +4,7 @@ export default class NoMatch extends Component {
   render() {
     return (
       <div>
-        <h2>404: No Match Found</h2>
+        <h2>No Match</h2>
       </div>
     )
   }

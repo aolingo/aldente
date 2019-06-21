@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { FacebookLoginButton } from 'react-social-login-buttons';
-import '../../../css/ui.css'
+import '../css/ui.css'
 import Container from 'react-bootstrap/Container'
 
 
