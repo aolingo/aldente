@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../imports/ui/reducers';
 import App from '/imports/ui/App'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 function main() {
   return (
