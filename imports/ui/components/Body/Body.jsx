@@ -5,7 +5,7 @@ import Slideshow from './Slideshow/Slideshow'
 import RestaurantCard from './Restaurants/RestaurantCard';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
-import { viewRestaurant } from '../../actions';
+import { viewRestaurant, reserve } from '../../actions';
 
 const Intro = styled.div`
   h1 {
@@ -41,7 +41,7 @@ class Body extends Component {
             <div className="row">
               {
                 this.props.restaurants.map((value, id) => (
-                  <RestaurantCard key={id} name={value.name} location={value.location} photo={value.photo} seats={value.seats} />
+                  <RestaurantCard key={id} name={value.name} location={value.location} photo={value.photo} seats={value.seats} id={value.id} />
                 ))
               }
             </div>
@@ -59,7 +59,7 @@ class Body extends Component {
                   <p>Seats Remaining: {this.props.restaurant.seats}</p>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-default">Reserve</button>
+                  <button type="button" className="btn btn-default" onClick={() => this.props.reserve(this.props.restaurant)}>Reserve</button>
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
@@ -78,5 +78,8 @@ const mapStateToProps = (state) => {
   };
 }
 
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({reserve: reserve}, dispatch)
+}
 
-export default connect(mapStateToProps)(Body);
+export default connect(mapStateToProps, matchDispatchToProps)(Body);

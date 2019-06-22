@@ -6,3 +6,10 @@ export const viewRestaurant = (restaurant) => {
     payload: restaurant
   }
 }
+
+export const reserve = restaurant => {
+    return {
+      type: 'RESERVE',
+      payload: restaurant
+    }
+}
