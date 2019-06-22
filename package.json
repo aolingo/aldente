@@ -16,9 +16,13 @@
     "react": "^16.5.0",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.5.0",
+    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-social-login-buttons": "^2.3.1",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.3.2"
   },
   "meteor": {
     "mainModule": {
