@@ -38,8 +38,8 @@ class Body extends Component {
           <div className="album py-5">
             <div className="row">
               {
-                this.props.restaurants.map((value, i) => (
-                  <RestaurantCard name={value.name} location={value.location} photo={value.photo} />
+                this.props.restaurants.map((value, id) => (
+                  <RestaurantCard key={id} name={value.name} location={value.location} photo={value.photo} />
                 ))
               }
             </div>

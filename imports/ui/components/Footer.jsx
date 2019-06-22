@@ -14,8 +14,8 @@ export default class Footer extends Component {
             <div className="col-6 col-md">
               <h5>Features</h5>
               <ul className="list-unstyled text-small">
-                <li><a className="text-muted" href="#">Sign Up</a></li>
-                <li><a className="text-muted" href="#">Log In</a></li>
+                <li><a className="text-muted" href="/signup">Sign Up</a></li>
+                <li><a className="text-muted" href="/login">Log In</a></li>
               </ul>
             </div>
 
