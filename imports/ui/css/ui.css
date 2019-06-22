@@ -26,3 +26,8 @@ border-width:2px;
 border-style:solid;
 border-color:black;
 }
+
+.modal {
+  margin: 0;
+  text-align: center;
+}

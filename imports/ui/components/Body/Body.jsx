@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux';
 import Slideshow from './Slideshow/Slideshow'
 import RestaurantCard from './Restaurants/RestaurantCard';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
+import { viewRestaurant } from '../../actions';
 
 const Intro = styled.div`
   h1 {
@@ -39,9 +41,28 @@ class Body extends Component {
             <div className="row">
               {
                 this.props.restaurants.map((value, id) => (
-                  <RestaurantCard key={id} name={value.name} location={value.location} photo={value.photo} />
+                  <RestaurantCard key={id} name={value.name} location={value.location} photo={value.photo} seats={value.seats} />
                 ))
               }
+            </div>
+          </div>
+          <div className="modal" id="restaurantModal" role="dialog">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h4 className="modal-title">{this.props.restaurant.name}</h4>
+                  <button type="button" className="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div className="modal-body">
+                  <img className="bd-placeholder-img card-img-top" src={this.props.restaurant.photo}/>
+                  <p>Location: {this.props.restaurant.location}</p>
+                  <p>Seats Remaining: {this.props.restaurant.seats}</p>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-default">Reserve</button>
+                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
             </div>
           </div>
         </Container>
@@ -51,7 +72,11 @@ class Body extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { restaurants: state.restaurants };
+  return {
+    restaurants: state.restaurants,
+    restaurant: state.restaurant,
+  };
 }
 
-export default connect(mapStateToProps, {})(Body);
+
+export default connect(mapStateToProps)(Body);
