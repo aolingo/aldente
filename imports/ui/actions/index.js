@@ -8,8 +8,8 @@ export const viewRestaurant = (restaurant) => {
 }
 
 export const reserve = restaurant => {
-    return {
-      type: 'RESERVE',
-      payload: restaurant
-    }
+  return {
+    type: 'RESERVE',
+    payload: restaurant
+  }
 }
