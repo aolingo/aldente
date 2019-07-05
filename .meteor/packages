@@ -26,10 +26,6 @@ accounts-facebook
 service-configuration
 facebook-config-ui
 accounts-google
-google-config-ui
-accounts-twitter
 accounts-github
-accounts-weibo
 github-config-ui
-twitter-config-ui
-weibo-config-ui
+google-config-ui
