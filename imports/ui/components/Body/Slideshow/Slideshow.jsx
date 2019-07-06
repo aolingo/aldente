@@ -7,7 +7,7 @@ export default class Slideshow extends Component {
         return (
             <Container>
                 <Row>
-                    <Col md={{ span: 10, offset: 1 }}>
+                    <Col>
                         <Slide />
                     </Col>
                 </Row>

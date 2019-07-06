@@ -31,3 +31,40 @@ border-color:black;
   margin: 0;
   text-align: center;
 }
+
+.slide_photos {
+  width: 100%;
+}
+
+.vertical-crop {
+  max-height: 380px;
+  overflow: hidden;
+}
+.farmer{
+  margin-top: -200px;
+}
+
+.bauhaus{
+  margin-top: -450px;
+}
+.vertical-crop img {
+  max-height: initial;
+}
+
+@media (max-width: 960px){
+  .farmer{
+    margin-top:0;
+  }
+  .bauhaus{
+    margin-top: -150px;
+  }
+}
+
+@media (max-width: 370px){
+  .bauhaus{
+    margin-top: 0;
+  }
+  .vertical-crop {
+    max-height: 160px;
+  }
+}
