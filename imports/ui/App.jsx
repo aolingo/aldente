@@ -1,12 +1,12 @@
 import React from 'react';
 import Menu from './components/Menu';
 import Footer from './components/Footer'
-import Home from './components/Home';
-import About from './components/About'
-import Contact from './components/Contact'
-import SignUp from './components/SignUp'
-import Login from './components/Login'
-import NoMatch from './components/NoMatch'
+import Home from './components/Pages/Homepage/Home';
+import About from './components/Pages/About'
+import Contact from './components/Pages/Contact'
+import SignUp from './components/Auth/SignUp'
+import Login from './components/Auth/Login'
+import NoMatch from './components/Pages/NoMatch'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 const App = () => (

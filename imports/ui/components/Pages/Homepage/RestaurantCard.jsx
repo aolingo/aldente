@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
-import {viewRestaurant} from '../../../actions'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { viewRestaurant } from '../../../actions'
 
 class RestaurantCard extends Component {
   render() {
     return (
       <div className="col-md-4">
         <div className="card mb-4 shadow-sm">
-          <img className="bd-placeholder-img card-img-top" src={this.props.photo} />
+          <div className="vertical-crop-card">
+            <img className="bd-placeholder-img card-img-top" src={this.props.photo} />
+          </div>
           <div className="card-body">
             <p className="card-text">{this.props.name}</p>
             <div className="d-flex justify-content-between align-items-center">
@@ -32,7 +34,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({viewRestaurant: viewRestaurant}, dispatch)
+  return bindActionCreators({ viewRestaurant: viewRestaurant }, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(RestaurantCard);

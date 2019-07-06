@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Nav, Navbar } from 'react-bootstrap';
 import styled from 'styled-components';
+import AccountsUIWrapper from './Auth/AccountsUIWrapper';
 
 const Styles = styled.div`
   .navbar {
@@ -27,8 +28,7 @@ export default class Menu extends Component {
 
           <Nav variant="pills" className="ml-auto">
             <Nav.Item> <Nav.Link href="/">Home</Nav.Link></Nav.Item>
-            <Nav.Item> <Nav.Link href="/signup">Sign Up</Nav.Link></Nav.Item>
-            <Nav.Item> <Nav.Link href="/login">Log In</Nav.Link></Nav.Item>
+            <Nav.Item> <AccountsUIWrapper /> </Nav.Item>
             <Nav.Item> <Nav.Link href="/about">About</Nav.Link></Nav.Item>
             <Nav.Item> <Nav.Link href="/contact">Contact</Nav.Link></Nav.Item>
           </Nav>
