@@ -20,3 +20,12 @@ insecure@1.0.7                # Allow all DB writes from clients (for prototypin
 static-html             # Define static page content in .html files
 react-meteor-data       # React higher-order component for reactively tracking Meteor data
 bootstrap
+accounts-ui
+accounts-password
+accounts-facebook
+service-configuration
+facebook-config-ui
+accounts-google
+accounts-github
+github-config-ui
+google-config-ui
