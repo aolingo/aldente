@@ -24,10 +24,10 @@ const GeoSchema = new Schema({
 
 //create a Restaurant Schema & model
 const RestaurantSchema = new Schema({
-  owner: { type: Schema.ObjectId, ref: 'User' },
   name: {
     type: String, required: [true, 'Sitcom field is required']
   },
+  owner: { type: Schema.ObjectId, ref: 'User' },
   description: {
     type: String, required: [true, 'Character field is required']
   },
@@ -35,16 +35,14 @@ const RestaurantSchema = new Schema({
     type: String, required: [true, 'A photo link is required']
   },
   contactInfo: {
-    phone: [Number],
+    phone: Number,
     website: String,
     menu: String,
-    address: {
+    location: {
       postalCode: String,
-      country: String,
       state: String,
       city: String,
-      street: String,
-      streetNumber: String,
+      address: String,
       geometry: GeoSchema
     }
   },
