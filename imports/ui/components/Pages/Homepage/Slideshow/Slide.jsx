@@ -3,7 +3,7 @@ import Carousel from 'react-bootstrap/Carousel'
 import styled from 'styled-components'
 
 const Styles = styled.div`
-  @media (max-width: 900px) {
+  @media (max-width: 960px) {
     .carousel {
       width:auto;
       height:auto;
@@ -11,34 +11,50 @@ const Styles = styled.div`
 }
 `;
 
+
 export default class Slide extends Component {
   render() {
     return (
       <Styles>
-        <Carousel>
+        <Carousel className="slideshow">
           <Carousel.Item>
-            <img
-              src="https://deliverydecomida.files.wordpress.com/2014/10/italian-pizza.jpg"
-              alt="First slide"
-            />
+            <div className="vertical-crop">
+              <img
+                src="https://farm3.staticflickr.com/2882/11302596064_7aac176bf6_b.jpg"
+                alt="First slide"
+                className="slide_photos farmer"
+              />
+            </div>
             <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <h3>Farmer's Apprentice</h3>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img
-              src="https://cbsnews1.cbsistatic.com/hub/i/2017/05/12/f9e143b5-9392-478e-8b5a-941e6986c4df/istock-511991334.jpg"
-              alt="Third slide"
-            />
-
+            <div className="vertical-crop">
+              <img
+                src="https://foodsntales.files.wordpress.com/2013/04/sushi-the-best1.jpg"
+                alt="Second slide"
+                className="slide_photos"
+              />
+            </div>
             <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h3>Sushi Bar Shu</h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="vertical-crop">
+              <img
+                src="https://resizer.otstatic.com/v2/photos/large/24929017.jpg"
+                alt="Third slide"
+                className="slide_photos bauhaus"
+              />
+            </div>
+            <Carousel.Caption>
+              <h3>Bauhaus Restaurant</h3>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-      </Styles>
+      </Styles >
     )
   }
 }
