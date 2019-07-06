@@ -40,6 +40,16 @@ border-color:black;
   max-height: 380px;
   overflow: hidden;
 }
+
+.vertical-crop-card {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.vertical-crop-car img {
+  max-height: initial;
+}
+
 .farmer{
   margin-top: -200px;
 }

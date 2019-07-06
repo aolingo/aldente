@@ -6,6 +6,7 @@ import RestaurantCard from './RestaurantCard';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import { reserve } from '../../../actions/index';
+import '/imports/ui/css/ui.css'
 
 const Intro = styled.div`
   h1 {
