@@ -1,8 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import Restaurants from '/imports/api/restaurants';
+import Restaurants from '../imports/api/restaurants';
+import Reservations from '../imports/api/reservations';
 
-function insertLink(title, url) {
-  Links.insert({ title, url, createdAt: new Date() });
+function insertRestaurant(title, url) {
+  Restaurants.insert({ title, url, createdAt: new Date() });
 }
 
 Meteor.startup(() => {
