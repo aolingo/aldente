@@ -1,12 +1,29 @@
 import React, { Component } from 'react'
+import { withTracker } from 'meteor/react-meteor-data';
 
-export default class About extends Component {
+import { Info } from '../../../api/aboutus';
+
+class About extends Component {
+
+
+
   render() {
     return (
       <div>
-        <h2>Group project</h2>
+        {
+          this.props.info.map((val) => (
+            <p>{val.title}</p>
+          ))
+        }
       </div>
     )
   }
 }
 
+export default withTracker(() => {
+
+  return {
+    info: Info.find().fetch(),
+  };
+
+})(About);
