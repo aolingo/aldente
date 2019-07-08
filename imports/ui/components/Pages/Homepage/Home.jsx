@@ -7,6 +7,8 @@ import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import { reserve } from '../../../actions/index';
 import '/imports/ui/css/ui.css'
+import { Restaurants } from '../../../../api/restaurants'
+import { withTracker } from 'meteor/react-meteor-data';
 
 const Intro = styled.div`
   h1 {
@@ -33,6 +35,7 @@ const Intro = styled.div`
 
 class Body extends Component {
   render() {
+    console.log(this.props.restaurants);
     return (
       <React.Fragment>
 
@@ -52,7 +55,7 @@ class Body extends Component {
                 }
               </div>
             </div>
-            <div className="modal" id="restaurantModal" role="dialog">
+            {/* <div className="modal" id="restaurantModal" role="dialog">
               <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -70,7 +73,7 @@ class Body extends Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </Container>
         </Intro>
       </React.Fragment>
@@ -78,15 +81,10 @@ class Body extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+export default withTracker(() => {
+
   return {
-    restaurants: state.restaurants,
-    restaurant: state.restaurant,
+    restaurants: Restaurants.find().fetch(),
   };
-}
 
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ reserve: reserve }, dispatch)
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(Body);
+})(Body);
