@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import Home from './components/Pages/Homepage/Home';
 import About from './components/Pages/About'
 import Contact from './components/Pages/Contact'
+import Restaurant from './components/Pages/Restaurants/Restaurant'
 import SignUp from './components/Auth/SignUp'
 import Login from './components/Auth/Login'
 import NoMatch from './components/Pages/NoMatch'
@@ -19,6 +20,7 @@ const App = () => (
         <Route path='/contact' component={Contact} />
         <Route path='/signup' component={SignUp} />
         <Route path='/login' component={Login} />
+        <Route path='/restaurant=:id' component={Restaurant} />
         <Route component={NoMatch} />
       </Switch>
       <Footer />

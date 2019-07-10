@@ -1,11 +1,41 @@
 import React, { Component } from 'react'
+import { withTracker } from 'meteor/react-meteor-data';
+import { Restaurants } from '../../../../api/restaurants';
+import NoMatch from '../NoMatch'
 
-export default class Restaurant extends Component {
+class Restaurant extends Component {
+
   render() {
+    let id = this.props.match.params.id;
+    const ObjectId = require('mongoose').Types.ObjectId;
+
+    if (ObjectId.isValid(id)) {
+      let oid = new Meteor.Collection.ObjectID(id);
+      let restaurant = Restaurants.find(oid).fetch();
+      console.log(restaurant);
+
+      if (restaurant.length > 0) {
+        return (
+          <div>
+            {
+              restaurant.map((val) => (
+                <h1 key='name'>{val.name}</h1>
+              ))
+            }
+          </div>
+        )
+      }
+    }
     return (
-      <div>
-      
-      </div>
+      <NoMatch />
     )
   }
 }
+
+export default withTracker(() => {
+
+  return {
+    restaurants: Restaurants.find().fetch(),
+  };
+
+})(Restaurant);
