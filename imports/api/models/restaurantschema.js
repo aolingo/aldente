@@ -1,8 +1,10 @@
+import SimpleSchema from 'simpl-schema';
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //schema for restaurant reservations
-const ReservationSchema = new Schema({
+const ReservationSchema = new SimpleSchema({
   _resId: Schema.Types.ObjectId,
   customer: { type: Schema.ObjectId, ref: 'User' },
   resDate: Date,
@@ -11,7 +13,7 @@ const ReservationSchema = new Schema({
 });
 
 //create geolocation Schema to be used in restaurant schema
-const GeoSchema = new Schema({
+const GeoSchema = new SimpleSchema({
   type: {
     type: String,
     default: "Point"
@@ -23,7 +25,7 @@ const GeoSchema = new Schema({
 });
 
 //create a Restaurant Schema & model
-const RestaurantSchema = new Schema({
+const RestaurantSchema = new SimpleSchema({
   name: {
     type: String, required: [true, 'Sitcom field is required']
   },

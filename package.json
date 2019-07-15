@@ -24,6 +24,7 @@
     "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "simpl-schema": "^1.5.5",
     "styled-components": "^4.3.2"
   },
   "meteor": {
