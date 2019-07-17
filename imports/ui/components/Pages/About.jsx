@@ -18,7 +18,10 @@ class About extends Component {
     return (
       <div>
         {this.props.info.map((val) => (
-          <p>{val.title}</p>
+          <div>
+            <h1>{val.title}</h1>
+            <p>{val.description}</p>
+          </div>
         ))}
         <Map>
           <LoadScript id="script-loader" googleMapsApiKey="AIzaSyDuRmMGD9IngdlIEe2hcyumhStFLwmYM0Q">

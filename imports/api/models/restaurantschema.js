@@ -3,10 +3,10 @@ import SimpleSchema from 'simpl-schema';
 //schema for restaurant reservations, by default all keys are required
 export const ReservationSchema = new SimpleSchema({
   _revId: SimpleSchema.RegEx.Id,
-  customer: { type: SimpleSchema.RegEx.Id, ref: 'User' },
+  customer: SimpleSchema.RegEx.Id,
   resDate: Date,
   resTimeSlot: Number,
-  restaurantId: { type: SimpleSchema.RegEx.Id, ref: 'Restaurant' },
+  restaurantId: SimpleSchema.RegEx.Id,
   createdAt: {
     type: Date,
     // Force value to be current date (on server) upon insert
@@ -23,49 +23,29 @@ export const ReservationSchema = new SimpleSchema({
   }
 });
 
-//create geolocation Schema to be used in restaurant schema for restaurant coordinates
-export const GeoSchema = new SimpleSchema({
-  type: {
-    type: String,
-    default: "Point"
-  },
-  coordinates: {
-    type: [Number],
-    index: "2dsphere"
-  }
-});
-
 //create a Restaurant Schema & model
 export const RestaurantSchema = new SimpleSchema({
-  name: {
-    type: String, required: [true, 'Sitcom field is required']
+  name: String,
+  owner: SimpleSchema.RegEx.Id,
+  description: String,
+  photo: String,
+  contactInfo: Object,
+  'contactInfo.phone': Number,
+  'contactInfo.website': String,
+  'contactInfo.postalCode': String,
+  'contactInfo.state': String,
+  'contactInfo.city': String,
+  'contactInfo.address': String,
+  'contactInfo.lat': Number,
+  'contactInfo.lng': Number,
+  reservationInfo: Object,
+  'reservationInfo.seats': Number,
+  'reservationInfo.timeSlots': [Number],
+  'reservationInfo.maxParty': {
+    type: Number, min: 1, max: 20, optional: true
   },
-  owner: { type: SimpleSchema.RegEx.Id, ref: 'User' },
-  description: {
-    type: String, required: [true, 'Character field is required']
-  },
-  photo: {
-    type: String, required: [true, 'A photo link is required']
-  },
-  contactInfo: {
-    phone: Number,
-    website: String,
-    menu: String,
-    location: {
-      postalCode: String,
-      state: String,
-      city: String,
-      address: String,
-      geometry: GeoSchema
-    }
-  },
-  reservationInfo: {
-    seats: Number,
-    timeSlots: [Number],
-    maxParty: {
-      type: Number, min: 1, max: 20
-    },
-    closedDays: [String]
-  },
-  reservations: [ReservationSchema]
+  'reservationInfo.closedDays': { type: Array, optional: true },
+  'reservationInfo.closedDays.$': String,
+  reservations: { type: Array, optional: true },
+  'reservations.$': ReservationSchema
 });
