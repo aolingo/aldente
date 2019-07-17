@@ -6,6 +6,8 @@ import AccountsUIWrapper from './Auth/AccountsUIWrapper';
 const Styles = styled.div`
   .navbar {
     background-color: #e3f2fd;
+    width: 100%;
+    top: 0;
   }
   a, .navbar-brand, .navbar-nav .nav-link {
     color: black;
