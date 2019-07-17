@@ -1,19 +1,30 @@
 import SimpleSchema from 'simpl-schema';
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-//schema for restaurant reservations
-const ReservationSchema = new SimpleSchema({
-  _resId: Schema.Types.ObjectId,
-  customer: { type: Schema.ObjectId, ref: 'User' },
+//schema for restaurant reservations, by default all keys are required
+export const ReservationSchema = new SimpleSchema({
+  _revId: SimpleSchema.RegEx.Id,
+  customer: { type: SimpleSchema.RegEx.Id, ref: 'User' },
   resDate: Date,
   resTimeSlot: Number,
-  restId: { type: Schema.ObjectId, ref: 'Restaurant' }
+  restaurantId: { type: SimpleSchema.RegEx.Id, ref: 'Restaurant' },
+  createdAt: {
+    type: Date,
+    // Force value to be current date (on server) upon insert
+    // and prevent updates thereafter.
+    autoValue: function () {
+      if (this.isInsert) {
+        return new Date();
+      } else if (this.isUpsert) {
+        return { $setOnInsert: new Date() };
+      } else {
+        this.unset(); // Prevent user from supplying their own value
+      }
+    }
+  }
 });
 
-//create geolocation Schema to be used in restaurant schema
-const GeoSchema = new SimpleSchema({
+//create geolocation Schema to be used in restaurant schema for restaurant coordinates
+export const GeoSchema = new SimpleSchema({
   type: {
     type: String,
     default: "Point"
@@ -25,11 +36,11 @@ const GeoSchema = new SimpleSchema({
 });
 
 //create a Restaurant Schema & model
-const RestaurantSchema = new SimpleSchema({
+export const RestaurantSchema = new SimpleSchema({
   name: {
     type: String, required: [true, 'Sitcom field is required']
   },
-  owner: { type: Schema.ObjectId, ref: 'User' },
+  owner: { type: SimpleSchema.RegEx.Id, ref: 'User' },
   description: {
     type: String, required: [true, 'Character field is required']
   },
@@ -58,9 +69,3 @@ const RestaurantSchema = new SimpleSchema({
   },
   reservations: [ReservationSchema]
 });
-
-const Restaurant = mongoose.model('restaurant', RestaurantSchema);
-const Reservation = mongoose.model('reservation', ReservationSchema);
-
-module.exports = Restaurant;
-module.exports = Reservation;
