@@ -7,24 +7,21 @@ class Restaurant extends Component {
 
   render() {
     let id = this.props.match.params.id;
-    const ObjectId = require('mongoose').Types.ObjectId;
+    console.log(id);
 
-    if (ObjectId.isValid(id)) {
-      let oid = new Meteor.Collection.ObjectID(id);
-      let restaurant = Restaurants.find(oid).fetch();
-      console.log(restaurant);
+    let restaurant = Restaurants.find(id).fetch();
+    console.log(restaurant);
 
-      if (restaurant.length > 0) {
-        return (
-          <div>
-            {
-              restaurant.map((val) => (
-                <h1 key='name'>{val.name}</h1>
-              ))
-            }
-          </div>
-        )
-      }
+    if (restaurant.length > 0) {
+      return (
+        <div>
+          {
+            restaurant.map((val) => (
+              <h1 key='name'>{val.name}</h1>
+            ))
+          }
+        </div>
+      )
     }
     return (
       <NoMatch />

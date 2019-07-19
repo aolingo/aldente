@@ -67,7 +67,7 @@ class Body extends Component {
               <div className="row">
                 {
                   this.props.restaurants.map((value, id) => (
-                    <RestaurantCard key={id} name={value.name} location={value.location} photo={value.photo} seats={value.seats} id={value._id._str} handler={this.handleOnClick}/>
+                    <RestaurantCard key={id} name={value.name} location={value.location} photo={value.photo} seats={value.seats} id={value._id} handler={this.handleOnClick}/>
                   ))
                 }
               </div>
