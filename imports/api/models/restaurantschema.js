@@ -1,64 +1,51 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import SimpleSchema from 'simpl-schema';
 
-//schema for restaurant reservations
-const ReservationSchema = new Schema({
-  _resId: Schema.Types.ObjectId,
-  customer: { type: Schema.ObjectId, ref: 'User' },
+//schema for restaurant reservations, by default all keys are required
+export const ReservationSchema = new SimpleSchema({
+  _revId: SimpleSchema.RegEx.Id,
+  customer: SimpleSchema.RegEx.Id,
   resDate: Date,
   resTimeSlot: Number,
-  restId: { type: Schema.ObjectId, ref: 'Restaurant' }
-});
-
-//create geolocation Schema to be used in restaurant schema
-const GeoSchema = new Schema({
-  type: {
-    type: String,
-    default: "Point"
-  },
-  coordinates: {
-    type: [Number],
-    index: "2dsphere"
+  restaurantId: SimpleSchema.RegEx.Id,
+  createdAt: {
+    type: Date,
+    // Force value to be current date (on server) upon insert
+    // and prevent updates thereafter.
+    autoValue: function () {
+      if (this.isInsert) {
+        return new Date();
+      } else if (this.isUpsert) {
+        return { $setOnInsert: new Date() };
+      } else {
+        this.unset(); // Prevent user from supplying their own value
+      }
+    }
   }
 });
 
 //create a Restaurant Schema & model
-const RestaurantSchema = new Schema({
-  name: {
-    type: String, required: [true, 'Sitcom field is required']
+export const RestaurantSchema = new SimpleSchema({
+  name: String,
+  owner: SimpleSchema.RegEx.Id,
+  description: String,
+  photo: String,
+  contactInfo: Object,
+  'contactInfo.phone': Number,
+  'contactInfo.website': String,
+  'contactInfo.postalCode': String,
+  'contactInfo.state': String,
+  'contactInfo.city': String,
+  'contactInfo.address': String,
+  'contactInfo.lat': Number,
+  'contactInfo.lng': Number,
+  reservationInfo: Object,
+  'reservationInfo.seats': Number,
+  'reservationInfo.timeSlots': [Number],
+  'reservationInfo.maxParty': {
+    type: Number, min: 1, max: 20, optional: true
   },
-  owner: { type: Schema.ObjectId, ref: 'User' },
-  description: {
-    type: String, required: [true, 'Character field is required']
-  },
-  photo: {
-    type: String, required: [true, 'A photo link is required']
-  },
-  contactInfo: {
-    phone: Number,
-    website: String,
-    menu: String,
-    location: {
-      postalCode: String,
-      state: String,
-      city: String,
-      address: String,
-      geometry: GeoSchema
-    }
-  },
-  reservationInfo: {
-    seats: Number,
-    timeSlots: [Number],
-    maxParty: {
-      type: Number, min: 1, max: 20
-    },
-    closedDays: [String]
-  },
-  reservations: [ReservationSchema]
+  'reservationInfo.closedDays': { type: Array, optional: true },
+  'reservationInfo.closedDays.$': String,
+  reservations: { type: Array, optional: true },
+  'reservations.$': ReservationSchema
 });
-
-const Restaurant = mongoose.model('restaurant', RestaurantSchema);
-const Reservation = mongoose.model('reservation', ReservationSchema);
-
-module.exports = Restaurant;
-module.exports = Reservation;
