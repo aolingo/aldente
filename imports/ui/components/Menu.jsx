@@ -30,11 +30,29 @@ export default class Menu extends Component {
     return Meteor.user();
   }
 
+  dashboards() {
+    console.log(Meteor.user());
+    if (!Meteor.loggingIn() && Meteor.user()) {
+      // If user is logged in, display their appropriate dashboards
+      return (
+        <Nav className="nav navbar-nav pull-right">
+          <Nav.Item><a href="/dashboard">Dashboard</a></Nav.Item>
+        </Nav>
+      );
+    } else {
+      return (
+        <Nav className="nav navbar-nav pull-right">
+          <Nav.Item><a href="/sign-in">Sign In</a></Nav.Item>
+        </Nav>
+      );
+    }
+  }
+
+
   render() {
     return (
       <Styles>
         <Navbar className="navbar fixed-top navbar-light">
-
           <Navbar.Brand href="/">
             <img src="/imgs/logo-Aldente1.png" width="250" className="d-inline-block align-top" alt="Al Dente Logo" />
           </Navbar.Brand>
@@ -43,6 +61,7 @@ export default class Menu extends Component {
             <Nav.Item> <Nav.Link href="/">Home</Nav.Link></Nav.Item>
             <Nav.Item> <Nav.Link href="/about">About</Nav.Link></Nav.Item>
           </Nav>
+          {this.dashboards()}
         </Navbar >
       </Styles>
     )

@@ -4,6 +4,7 @@ import { Reservations } from '../imports/api/reservations';
 
 // Populate database with initial restaurants if it's currently empty
 Meteor.startup(() => {
+
   if (Restaurants.find().count() === 0) {
     const data = [
       {
