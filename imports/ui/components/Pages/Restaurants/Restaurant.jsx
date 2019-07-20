@@ -2,25 +2,46 @@ import React, { Component } from 'react'
 import { withTracker } from 'meteor/react-meteor-data';
 import { Restaurants } from '../../../../api/restaurants';
 import NoMatch from '../NoMatch'
+import Reservation from './Reservation'
+
+import {Button, ButtonToolBar} from 'react-bootstrap'
 
 class Restaurant extends Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+    this.state = {
+      id: this.props.match.params.id,
+      showReservation: false
+    }
+  }
+
+  setShowReservation = () => {
+    this.setState({showReservation: false});
+  }
 
   render() {
-    let id = this.props.match.params.id;
-    console.log(id);
+    console.log(this.state.id);
 
-    let restaurant = Restaurants.find(id).fetch();
+    let restaurant = Restaurants.find(this.state.id).fetch();
     console.log(restaurant);
 
     if (restaurant.length > 0) {
       return (
-        <div>
-          {
-            restaurant.map((val) => (
-              <h1 key='name'>{val.name}</h1>
-            ))
-          }
-        </div>
+        <React.Fragment>
+            <div>
+              {
+                restaurant.map((val) => (
+                  <h1 key='name'>{val.name}</h1>
+                ))
+              }
+            </div>
+            <ButtonToolBar>
+              <Button>
+              </Button>
+            </ButtonToolBar>
+
+        </React.Fragment>
       )
     }
     return (
