@@ -1,3 +1,11 @@
+h2 {
+  font-size: 3.5rem;
+}
+
+h3 {
+  font-size:2.5rem;
+}
+
 .link-space {
   padding: 8px;
 }
@@ -32,13 +40,16 @@ border-color:black;
   text-align: center;
 }
 
-.slide_photos {
+.width100 {
   width: 100%;
 }
 
 .vertical-crop {
-  max-height: 380px;
   overflow: hidden;
+}
+
+.slideshow-height {
+  max-height: 380px;
 }
 
 .vertical-crop-card {
@@ -54,9 +65,10 @@ border-color:black;
   margin-top: -200px;
 }
 
-.bauhaus{
+.bauhaus-slideshow {
   margin-top: -450px;
 }
+
 .vertical-crop img {
   max-height: initial;
 }
@@ -65,16 +77,52 @@ border-color:black;
   .farmer{
     margin-top:0;
   }
-  .bauhaus{
+  .bauhaus-slideshow{
     margin-top: -150px;
   }
 }
 
 @media (max-width: 370px){
-  .bauhaus{
+  .bauhaus-slideshow{
     margin-top: 0;
   }
   .vertical-crop {
     max-height: 160px;
   }
+}
+
+.sushibarshu {
+  margin-top: -150px;
+}
+
+.bauhaus {
+  margin-top: -50px;
+}
+
+.farmersapprentice {
+  margin-top: -80px;
+}
+
+.cacao {
+  margin-top: -200px;
+}
+
+.poplargrovewinery {
+  margin-top: -200px;
+}
+
+.wildebeest {
+  margin-top: -50px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.text-center {
+  text-align: center;
 }
