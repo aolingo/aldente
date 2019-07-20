@@ -18,11 +18,11 @@ export default class Slide extends Component {
       <Styles>
         <Carousel className="slideshow">
           <Carousel.Item>
-            <div className="vertical-crop">
+            <div className="vertical-crop slideshow-height">
               <img
                 src="https://farm3.staticflickr.com/2882/11302596064_7aac176bf6_b.jpg"
                 alt="First slide"
-                className="slide_photos farmer"
+                className="width100 farmer"
               />
             </div>
             <Carousel.Caption>
@@ -30,11 +30,11 @@ export default class Slide extends Component {
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <div className="vertical-crop">
+            <div className="vertical-crop slideshow-height">
               <img
                 src="https://foodsntales.files.wordpress.com/2013/04/sushi-the-best1.jpg"
                 alt="Second slide"
-                className="slide_photos"
+                className="width100"
               />
             </div>
             <Carousel.Caption>
@@ -42,11 +42,11 @@ export default class Slide extends Component {
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <div className="vertical-crop">
+            <div className="vertical-crop slideshow-height">
               <img
                 src="https://resizer.otstatic.com/v2/photos/large/24929017.jpg"
                 alt="Third slide"
-                className="slide_photos bauhaus"
+                className="width100 bauhaus-slideshow"
               />
             </div>
             <Carousel.Caption>
