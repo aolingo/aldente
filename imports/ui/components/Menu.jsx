@@ -37,8 +37,6 @@ export class Menu extends Component {
 
   // If user is logged in, display their appropriate dashboards
   showDashboard() {
-    console.log(userId)
-    console.log(this.props.currentUser)
     if (userId != null) {
       console.log("logged in");
       if (Roles.userIsInRole(userId, 'customer')) {
