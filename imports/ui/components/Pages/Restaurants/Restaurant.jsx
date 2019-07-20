@@ -16,7 +16,7 @@ class Restaurant extends Component {
     }
   }
 
-  setShowReservation = () => {
+  closeModal = () => {
     this.setState({showReservation: false});
   }
 
@@ -37,7 +37,7 @@ class Restaurant extends Component {
               }
             </div>
             <ButtonToolBar>
-              <Button>
+              <Button variant='primary' onClick={()}>
               </Button>
             </ButtonToolBar>
 
