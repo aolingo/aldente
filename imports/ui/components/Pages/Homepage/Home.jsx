@@ -5,13 +5,17 @@ import Slideshow from './Slideshow/Slideshow'
 import RestaurantCard from './RestaurantCard';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
-import { reserve } from '../../../actions/index';
 import '/imports/ui/css/ui.css'
 import { Restaurants } from '../../../../api/restaurants'
 import { withTracker } from 'meteor/react-meteor-data';
 import { Redirect } from 'react-router'
 
 const Intro = styled.div`
+  .homepage {
+    padding-top: 75px;
+    background-image: url(/imgs/bg.jpg);
+  }
+
   h1 {
     color: #23233e;
     text-align: center;
@@ -54,9 +58,9 @@ class Body extends Component {
       return <Redirect push to={"/restaurant=" + this.state.redirectId} />;
     }
     return (
-      <React.Fragment>
+      <Intro>
+        <div className="homepage">
 
-        <Intro>
           <h1>Too shy to make a reservation through the phone?</h1>
           <p>There are hot local restaurants in your area dying to meet you</p>
 
@@ -94,16 +98,15 @@ class Body extends Component {
               </div>
             </div> */}
           </Container>
-        </Intro>
-      </React.Fragment>
+        </div>
+      </Intro>
     )
   }
 }
 
 export default withTracker(() => {
-
+  Meteor.subscribe('restaurants');
   return {
     restaurants: Restaurants.find().fetch(),
   };
-
 })(Body);

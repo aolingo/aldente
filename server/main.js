@@ -1,9 +1,36 @@
 import { Meteor } from 'meteor/meteor';
 import { Restaurants } from '../imports/api/restaurants';
+import { Random } from 'meteor/random'
 import { Reservations } from '../imports/api/reservations';
+
+// Assign newly created user to default role of customer
+Accounts.onCreateUser(function (options, user) {
+  // Semantics for adding things to users after the user document has been inserted
+  var userId = user._id = Random.id();
+  console.log(userId);
+  console.log(user._id);
+  var handle = Meteor.users.find({ _id: userId }, { fields: { _id: 1 } }).observe({
+    added: function () {
+      console.log(userId);
+      Roles.addUsersToRoles(userId, ['customer']);
+      handle.stop();
+      handle = null;
+    }
+  });
+
+  // In case the document is never inserted
+  Meteor.setTimeout(function () {
+    if (handle) {
+      handle.stop();
+    }
+  }, 30000);
+
+  return user;
+});
 
 // Populate database with initial restaurants if it's currently empty
 Meteor.startup(() => {
+
   if (Restaurants.find().count() === 0) {
     const data = [
       {
