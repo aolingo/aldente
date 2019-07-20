@@ -1,9 +1,11 @@
 import React from 'react';
-import Menu from './components/Menu';
+import { Menu } from './components/Menu';
 import Home from './components/Pages/Homepage/Home';
-import About from './components/Pages/About'
-import NoMatch from './components/Pages/NoMatch'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import About from './components/Pages/About';
+import NoMatch from './components/Pages/NoMatch';
+import Customer from './components/Pages/Dashboard/Customer';
+import Owner from './components/Pages/Dashboard/Owner';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => (
   <React.Fragment>
@@ -12,6 +14,8 @@ const App = () => (
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/about' component={About} />
+        <Route path='/dashboard/customer' component={Customer} />
+        <Route path='/dashboard/owner' component={Owner} />
         <Route component={NoMatch} />
       </Switch>
     </Router>

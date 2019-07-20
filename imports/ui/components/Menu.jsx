@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Nav, Navbar } from 'react-bootstrap';
 import styled from 'styled-components';
 import SignIn from './Auth/SignIn';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Tracker } from 'meteor/tracker';
 
 const Styles = styled.div`
   .navbar {
@@ -25,29 +27,35 @@ const Styles = styled.div`
   }
 `;
 
-export default class Menu extends Component {
-  user() {
-    return Meteor.user();
-  }
+userId = Meteor.userId();
 
-  dashboards() {
-    console.log(Meteor.user());
-    if (!Meteor.loggingIn() && Meteor.user()) {
-      // If user is logged in, display their appropriate dashboards
-      return (
-        <Nav className="nav navbar-nav pull-right">
-          <Nav.Item><a href="/dashboard">Dashboard</a></Nav.Item>
-        </Nav>
-      );
-    } else {
-      return (
-        <Nav className="nav navbar-nav pull-right">
-          <Nav.Item><a href="/sign-in">Sign In</a></Nav.Item>
-        </Nav>
-      );
+Tracker.autorun(() => {
+  userId = Meteor.userId();
+});
+
+export class Menu extends Component {
+
+  // If user is logged in, display their appropriate dashboards
+  showDashboard() {
+    console.log(userId)
+    console.log(this.props.currentUser)
+    if (userId != null) {
+      console.log("logged in");
+      if (Roles.userIsInRole(userId, 'owner')) {
+        return (
+          <Nav className="nav navbar-nav pull-right">
+            <Nav.Item><Nav.Link href="/dashboard/owner">Owner Dashboard</Nav.Link></Nav.Item>
+          </Nav>
+        );
+      } else {
+        return (
+          <Nav className="nav navbar-nav pull-right">
+            <Nav.Item><Nav.Link href="/dashboard/customer">Customer Dashboard</Nav.Link></Nav.Item>
+          </Nav>
+        );
+      }
     }
   }
-
 
   render() {
     return (
@@ -57,13 +65,21 @@ export default class Menu extends Component {
             <img src="/imgs/logo-Aldente1.png" width="250" className="d-inline-block align-top" alt="Al Dente Logo" />
           </Navbar.Brand>
           <SignIn />
+
           <Nav className="ml-auto">
             <Nav.Item> <Nav.Link href="/">Home</Nav.Link></Nav.Item>
             <Nav.Item> <Nav.Link href="/about">About</Nav.Link></Nav.Item>
           </Nav>
-          {this.dashboards()}
+          {this.showDashboard()}
         </Navbar >
       </Styles>
     )
   }
 }
+
+export default withTracker(() => {
+  Meteor.subscribe('userData');
+  return {
+    currentUser: Meteor.user(),
+  };
+})
