@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import '/imports/ui/css/ui.css'
 import { Restaurants } from '../../../../api/restaurants'
 import { withTracker } from 'meteor/react-meteor-data';
+import { Redirect } from 'react-router'
 
 const Intro = styled.div`
   .homepage {
@@ -38,7 +39,24 @@ const Intro = styled.div`
 `;
 
 class Body extends Component {
+  constructor() {
+    super();
+    this.handleOnClick = this.handleOnClick.bind(this);
+    this.state = {
+      redirect: false,
+      redirectId: ""
+    }
+  }
+
+  handleOnClick = (id) => {
+    this.setState({redirect: true, redirectId: id});
+  }
+
   render() {
+    console.log(this.props.restaurants);
+    if (this.state.redirect) {
+      return <Redirect push to={"/restaurant=" + this.state.redirectId} />;
+    }
     return (
       <Intro>
         <div className="homepage">
@@ -53,7 +71,9 @@ class Body extends Component {
               <div className="row">
                 {
                   this.props.restaurants.map((value, id) => (
-                    <RestaurantCard key={id} name={value.name} location={value.contactInfo.city + ", " + value.contactInfo.state} photo={value.photo} />
+
+                    <RestaurantCard key={id} name={value.name} location={value.contactInfo.city + ", " + value.contactInfo.state} photo={value.photo} id={value._id} handler={this.handleOnClick}/>
+
                   ))
                 }
               </div>
