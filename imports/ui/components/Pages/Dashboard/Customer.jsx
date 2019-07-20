@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { Reservations } from '../../../../api/reservations'
+import { withTracker } from 'meteor/react-meteor-data';
 
-export default class Customer extends Component {
+class Customer extends Component {
   render() {
     return (
       <div>
@@ -21,3 +23,10 @@ export default class Customer extends Component {
     )
   }
 }
+
+export default withTracker(() => {
+  Meteor.subscribe('reservations');
+  return {
+    restaurants: Reservations.find().fetch(),
+  };
+})(Customer);
