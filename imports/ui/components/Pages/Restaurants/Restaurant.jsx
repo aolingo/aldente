@@ -52,7 +52,7 @@ class Restaurant extends Component {
               <Row className="margin-top-20">
                 <Col sm="9">
                   <h2>{restaurant[0].name}</h2>
-                  <p className="margin-top-20">{restaurant[0].description}</p>
+                  <p className="margin-top-20 text-left">{restaurant[0].description}</p>
                   <Row className="margin-top-50">
                     <Col>
                       <img src="https://puu.sh/DV49D/170afac6e6.png" />
