@@ -67,6 +67,7 @@ export class Menu extends Component {
           <Nav className="ml-auto">
             <Nav.Item> <Nav.Link href="/">Home</Nav.Link></Nav.Item>
             <Nav.Item> <Nav.Link href="/about">About</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link href="/dashboard/customer">Customer Dashboard</Nav.Link></Nav.Item>
           </Nav>
           {this.showDashboard()}
         </Navbar >
