@@ -2,7 +2,6 @@ import SimpleSchema from 'simpl-schema';
 
 //schema for restaurant reservations, by default all keys are required
 export const ReservationSchema = new SimpleSchema({
-  _revId: SimpleSchema.RegEx.Id,
   customer: SimpleSchema.RegEx.Id,
   resDate: Date,
   resTimeSlot: Number,

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withTracker } from 'meteor/react-meteor-data';
 import { Restaurants } from '../../../../api/restaurants';
+import { Reservations } from '../../../../api/reservations';
 import NoMatch from '../NoMatch'
 import { Container, Row, Col, Form, Button, Table } from 'react-bootstrap'
 import styled from 'styled-components';
@@ -26,20 +27,39 @@ const Intro = styled.div`
     font-family: "GT America Regular", "Comic Sans", cursive;
     font-size: 1.4 rem;
   }
+
 `;
 
 class Restaurant extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       id: this.props.match.params.id,
-      showReservation: false
     }
   }
 
-  closeModal = () => {
-    this.setState({showReservation: false});
+  handleSubmit(event) {
+    event.preventDefault();
+
+    if (Meteor.user()) {
+        Reservations.insert({
+          customer: Meteor.userId(),
+          resDate: event.target.formDate.value,
+          resTimeSlot: event.target.formTime.value,
+          restaurantId: this.state.id
+        }, function(err, res) {
+          if (err) {
+            alert("Something went wrong with your booking");
+            throw err;
+          } else {
+            alert("Your booking was successful");
+          }
+        })
+    }
+    else {
+      alert("Sign In or Create an Account to book a reservation");
+    }
   }
 
   render() {
@@ -98,12 +118,21 @@ class Restaurant extends Component {
                   </Row>
                 </Col>
                 <Col sm="3">
-                  <Form className="margin-top-20">
-                    <Form.Group controlId="formPlaintextEmail">
-                      <Form.Control size="lg" placeholder="# of Guests" />
+                  <Form className="margin-top-20" onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="formDate">
+                      <Form.Label>Date</Form.Label>
+                      <Form.Control type="date" size="lg" required/>
+                    </Form.Group>
+                    <Form.Group controlId="formTime">
+                      <Form.Label>Time</Form.Label>
+                      <Form.Control as="select" size="lg" >
+                        {restaurant[0].reservationInfo.timeSlots.map((value, index) =>
+                          <option key={index}>{value}</option>
+                        )}
+                      </Form.Control>
                     </Form.Group>
                     <Button variant="success" type="submit" className="width100">
-                      Search Reservations
+                      Book Now
                   </Button>
                   </Form>
                 </Col>
@@ -121,6 +150,7 @@ class Restaurant extends Component {
 
 export default withTracker(() => {
   Meteor.subscribe('restaurants');
+  Meteor.subscribe('reservations');
   return {
     restaurants: Restaurants.find().fetch(),
   };
