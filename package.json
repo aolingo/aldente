@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
+    "@react-google-maps/api": "^1.3.0",
     "bcrypt": "^3.0.6",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
@@ -17,12 +18,14 @@
     "react": "^16.5.0",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.5.0",
+    "react-fontawesome": "^1.6.1",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-social-login-buttons": "^2.3.1",
     "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "simpl-schema": "^1.5.5",
     "styled-components": "^4.3.2"
   },
   "meteor": {
