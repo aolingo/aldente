@@ -5,6 +5,7 @@ import { Reservations } from '../../../../api/reservations';
 import NoMatch from '../NoMatch'
 import { Container, Row, Col, Form, Button, Table } from 'react-bootstrap'
 import styled from 'styled-components';
+import Swal from 'sweetalert2'
 
 const Intro = styled.div`
   .restaurant {
@@ -50,15 +51,27 @@ class Restaurant extends Component {
           restaurantId: this.state.id
         }, function(err, res) {
           if (err) {
-            alert("Something went wrong with your booking");
+            Swal.fire(
+              'Opps!',
+              'Something went wrong with your booking. Please try again.',
+              'error'
+            )
             throw err;
           } else {
-            alert("Your booking was successful");
+            Swal.fire(
+              'Good job!',
+              'Your reservation was successfully booked.',
+              'success'
+            )
           }
         })
     }
     else {
-      alert("Sign In or Create an Account to book a reservation");
+      Swal.fire(
+        'Are you logged in?',
+        'Please log in to make a reservation.',
+        'question'
+      )
     }
   }
 
