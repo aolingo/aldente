@@ -23,9 +23,6 @@ accounts-facebook
 service-configuration
 facebook-config-ui
 accounts-google
-accounts-github
-github-config-ui
 google-config-ui
 aldeed:collection2@3.0.0
-alanning:roles
 accounts-ui
