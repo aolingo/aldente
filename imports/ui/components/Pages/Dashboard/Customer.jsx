@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Reservations } from '../../../../api/reservations'
+import { Restaurants } from '../../../../api/restaurants'
 import { withTracker } from 'meteor/react-meteor-data';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
@@ -33,29 +34,31 @@ let url = "/restaurant=";
 
 class Customer extends Component {
   render() {
-    console.log(this.props.reservations);
-    const data = [{
-      name: 'Tanner Linsley',
-      age: 26,
-      friend: {
-        name: 'Jason Maurer',
-        age: 23,
-      }
-    }]
+    let data = []
+    this.props.reservations.map((value) => (
+      data.push({
+        restaurantId: value.restaurantId,
+        name: this.props.restaurantNames.filter(rest => rest._id === value.restaurantId),
+        link: url + value.restaurantId,
+        date: value.resDate.toISOString().substring(0, 10),
+        timeslot: value.resTimeSlot,
+      })
+    ));
+
+    console.log(this.props.restaurantNames)
+    console.log(data)
+
     const columns = [{
-      Header: 'Name',
-      accessor: 'name' // String-based value accessors!
+      Header: 'Restaurant ID',
+      accessor: 'link', // String-based value accessors!
+      Cell: e => <a href={e.value}>{e.value}</a>
     }, {
-      Header: 'Age',
-      accessor: 'age',
-      Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+      id: 'date',
+      Header: 'Reservation Date',
+      accessor: 'date',
     }, {
-      id: 'friendName', // Required because our accessor is not a string
-      Header: 'Friend Name',
-      accessor: d => d.friend.name // Custom value accessors!
-    }, {
-      Header: props => <span>Friend Age</span>, // Custom header components!
-      accessor: 'friend.age'
+      Header: 'Reservation Time', // Custom header components!
+      accessor: 'timeslot'
     }]
 
     return (
@@ -67,20 +70,6 @@ class Customer extends Component {
               data={data}
               columns={columns}
             />
-            <ul>
-              {
-                this.props.reservations.map((value) => (
-                  <li key={value._id}>
-                    <div>
-                      <p>{"RestaurantID: " + value.restaurantId}</p>
-                      <p><a href={url + value.restaurantId}>Show Restaurant</a></p>
-                      <p>{"Date: " + value.resDate.toISOString().substring(0, 10)}</p>
-                      <p>{"Timeslot: " + value.resTimeSlot}</p>
-                    </div>
-                  </li>
-                ))
-              }
-            </ul>
           </Container>
         </div>
       </Intro>
@@ -93,5 +82,6 @@ export default withTracker(() => {
   Meteor.subscribe('restaurants');
   return {
     reservations: Reservations.find({ customer: Meteor.userId() }).fetch(),
+    restaurantNames: Restaurants.find({}, { fields: { name: 1 } }).fetch(),
   };
 })(Customer);
