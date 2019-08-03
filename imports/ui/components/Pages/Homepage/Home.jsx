@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux';
 import Slideshow from './Slideshow/Slideshow'
 import RestaurantCard from './RestaurantCard';
 import { Container } from 'react-bootstrap';

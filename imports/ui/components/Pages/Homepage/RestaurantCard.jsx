@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { viewRestaurant } from '../../../actions'
 
-class RestaurantCard extends Component {
+export default class RestaurantCard extends Component {
   render() {
     return (
       <div className="col-md-4">
@@ -25,16 +22,3 @@ class RestaurantCard extends Component {
     )
   }
 }
-
-// TODO: Reformat this
-function mapStateToProps(state) {
-  return {
-    restaurant: state.restaurant
-  };
-}
-
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ viewRestaurant: viewRestaurant }, dispatch)
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(RestaurantCard);

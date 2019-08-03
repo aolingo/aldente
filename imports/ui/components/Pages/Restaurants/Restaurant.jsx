@@ -5,7 +5,7 @@ import { Reservations } from '../../../../api/reservations';
 import NoMatch from '../NoMatch'
 import { Container, Row, Col, Form, Button, Table } from 'react-bootstrap'
 import styled from 'styled-components';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 const Intro = styled.div`
   .restaurant {
@@ -29,6 +29,12 @@ const Intro = styled.div`
     font-size: 1.4 rem;
   }
 
+  .container-reservation {
+    border: 5px solid black;
+    border-radius: 25px;
+    padding: 10px;
+  }
+  
   input {
     height: 50px;
     font-size: 18px;
@@ -46,7 +52,6 @@ const Intro = styled.div`
     padding-bottom: 8px;
     padding-left: 16px;
   }
-
 `;
 
 class Restaurant extends Component {
@@ -87,27 +92,29 @@ class Restaurant extends Component {
     event.preventDefault();
 
     if (Meteor.user()) {
-        Reservations.insert({
-          customer: Meteor.userId(),
-          resDate: event.target.formDate.value,
-          resTimeSlot: event.target.formTime.value,
-          restaurantId: this.state.id
-        }, function(err, res) {
-          if (err) {
-            Swal.fire(
-              'Opps!',
-              'Something went wrong with your booking. Please try again.',
-              'error'
-            )
-            throw err;
-          } else {
-            Swal.fire(
-              'Good job!',
-              'Your reservation was successfully booked.',
-              'success'
-            )
-          }
-        })
+      Reservations.insert({
+        customer: Meteor.userId(),
+        resDate: event.target.formDate.value,
+        resTimeSlot: event.target.formTime.value,
+        resName: event.target.formName.value,
+        resPhone: event.target.formPhone.value,
+        restaurantId: this.state.id
+      }, function (err, res) {
+        if (err) {
+          Swal.fire(
+            'Opps!',
+            'Something went wrong with your booking. Please try again.',
+            'error'
+          )
+          throw err;
+        } else {
+          Swal.fire(
+            'Success!',
+            'Your reservation was successfully booked.',
+            'success'
+          )
+        }
+      })
     }
     else {
       Swal.fire(
@@ -162,11 +169,11 @@ class Restaurant extends Component {
                             <td>{restaurant[0].contactInfo.address}</td>
                           </tr>
                           <tr>
-                            <td>{`${restaurant[0].contactInfo.city}, ${restaurant[0].contactInfo.state}`}</td>
+                            <td>{`${restaurant[0].contactInfo.city}, ${restaurant[0].contactInfo.state}  ${restaurant[0].contactInfo.postalCode}`}</td>
                           </tr>
                           <tr>
                             <td>
-                              <a href={restaurant[0].contactInfo.website}>Website</a>
+                              <a href={restaurant[0].contactInfo.website} target="_blank">{restaurant[0].contactInfo.website}</a>
                             </td>
                           </tr>
                         </tbody>
@@ -175,9 +182,19 @@ class Restaurant extends Component {
                   </Row>
                 </Col>
                 <Col sm="3">
+                  <div className="container-reservation">
                   <Form className="margin-top-20" onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="formName" >
+                      <Form.Label>Name of Reservation</Form.Label>
+                      <Form.Control type="input" required></Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formPhone">
+                      <Form.Label>Phone Number</Form.Label>
+                      <Form.Control type="tel" required></Form.Control>
+                    </Form.Group>
                     <Form.Group controlId="formDate">
                       <Form.Label>Date</Form.Label>
+                      <Form.Control type="date" size="lg" required />
                       <Form.Control type="date" size="lg" defaultValue={this.formatDate(this.state.date)} min={this.formatDate(this.state.date)} max={this.getMaxDate(this.state.date)} required/>
                     </Form.Group>
                     <Form.Group controlId="formTime">
@@ -192,6 +209,7 @@ class Restaurant extends Component {
                       Book Now
                   </Button>
                   </Form>
+                  </div>
                 </Col>
               </Row>
             </Container>

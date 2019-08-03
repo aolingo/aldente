@@ -39,16 +39,16 @@ export class Menu extends Component {
   showDashboard() {
     if (userId != null) {
       console.log("logged in");
-      if (Roles.userIsInRole(userId, 'customer')) {
+      if (userId != null) {
         return (
           <Nav className="nav navbar-nav pull-right">
-            <Nav.Item><Nav.Link href="/dashboard/customer">Customer Dashboard</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link href="/dashboard/owner">Owner Dashboard</Nav.Link></Nav.Item>
           </Nav>
         );
       } else {
         return (
           <Nav className="nav navbar-nav pull-right">
-            <Nav.Item><Nav.Link href="/dashboard/owner">Owner Dashboard</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link href="/dashboard/customer">Customer Dashboard</Nav.Link></Nav.Item>
           </Nav>
         );
       }
