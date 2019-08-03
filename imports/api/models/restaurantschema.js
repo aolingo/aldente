@@ -26,10 +26,12 @@ export const ReservationSchema = new SimpleSchema({
 
 //create a Restaurant Schema & model
 export const RestaurantSchema = new SimpleSchema({
+  restaurantId: String,
   name: String,
   owner: SimpleSchema.RegEx.Id,
   description: String,
   photo: String,
+  photo2: String,
   contactInfo: Object,
   'contactInfo.phone': Number,
   'contactInfo.website': String,
