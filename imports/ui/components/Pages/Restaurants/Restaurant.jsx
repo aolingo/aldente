@@ -30,7 +30,7 @@ const Intro = styled.div`
   }
 
   .container-reservation {
-    border: 5px solid black;
+    border: 4px solid grey;
     border-radius: 25px;
     padding: 10px;
   }
@@ -51,6 +51,14 @@ const Intro = styled.div`
     padding-right: 16px;
     padding-bottom: 5px;
     padding-left: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 2px;
+  }
+
+  .btn-space {
+    margin-top: 12px;
   }
 `;
 
@@ -97,6 +105,7 @@ class Restaurant extends Component {
         resDate: event.target.formDate.value,
         resTimeSlot: event.target.formTime.value,
         resName: event.target.formName.value,
+        resGuest: event.target.formGuest.value,
         resPhone: event.target.formPhone.value,
         restaurantId: this.state.id
       }, function (err, res) {
@@ -183,10 +192,14 @@ class Restaurant extends Component {
                 </Col>
                 <Col sm="3">
                   <div className="container-reservation">
-                  <Form className="margin-top-20" onSubmit={this.handleSubmit}>
+                  <Form className="margin-top-10" onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formName" >
                       <Form.Label>Name of Reservation</Form.Label>
                       <Form.Control type="input" required></Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formGuest" >
+                      <Form.Label>Guests</Form.Label>
+                      <Form.Control type="number" min="1" max={restaurant[0].reservationInfo.maxParty} required></Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formPhone">
                       <Form.Label>Phone Number</Form.Label>
@@ -204,7 +217,7 @@ class Restaurant extends Component {
                         )}
                       </Form.Control>
                     </Form.Group>
-                    <Button variant="success" type="submit" className="width100">
+                    <Button variant="success" type="submit" className="width100 btn-space">
                       Book Now
                   </Button>
                   </Form>

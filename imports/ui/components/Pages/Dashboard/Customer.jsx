@@ -56,7 +56,8 @@ class Customer extends Component {
         date: value.resDate.toISOString().substring(0, 10),
         timeslot: value.resTimeSlot,
         reservationName: value.resName,
-        reservationPhone: value.resPhone
+        reservationPhone: value.resPhone,
+        reservationGuest: value.resGuest
       })
     ));
 
@@ -80,6 +81,10 @@ class Customer extends Component {
       Header: 'Reservation Time', // Custom header components!
       accessor: 'timeslot'
     },
+    {
+      Header: 'Guests', // Custom header components!
+      accessor: 'reservationGuest'
+    }
     ]
 
     return (
