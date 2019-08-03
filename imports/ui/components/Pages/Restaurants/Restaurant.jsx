@@ -36,20 +36,20 @@ const Intro = styled.div`
   }
 
   input {
-    height: 50px;
-    font-size: 18px;
-    padding-top: 8px;
+    height: 30px;
+    font-size: 16px;
+    padding-top: 5px;
     padding-right: 16px;
-    padding-bottom: 8px;
+    padding-bottom: 5px;
     padding-left: 16px;
   }
 
   select {
-    height: 50px;
-    font-size: 18px;
-    padding-top: 8px;
+    height: 30px;
+    font-size: 16px;
+    padding-top: 5px;
     padding-right: 16px;
-    padding-bottom: 8px;
+    padding-bottom: 5px;
     padding-left: 16px;
   }
 `;
