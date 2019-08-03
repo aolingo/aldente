@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { withTracker } from 'meteor/react-meteor-data';
-import { Info } from '../../../api/aboutus';
 import styled from 'styled-components';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
@@ -12,17 +10,14 @@ const Map = styled.div`
   }
 `;
 
-class About extends Component {
+export default class About extends Component {
 
   render() {
     return (
       <div>
-        {this.props.info.map((val) => (
-          <div>
-            <h1>{val.title}</h1>
-            <p>{val.description}</p>
-          </div>
-        ))}
+        <h1>Team Al Dente</h1>
+        <iframe width="600" height="450" frameborder="0" style="border:0"
+          src="https://www.google.com/maps/embed/v1/view?zoom=17&center=49.5123,-119.5738&key=..." allowfullscreen></iframe>
         <Map>
           <LoadScript id="script-loader" googleMapsApiKey="AIzaSyDuRmMGD9IngdlIEe2hcyumhStFLwmYM0Q">
             <GoogleMap
@@ -43,9 +38,3 @@ class About extends Component {
     )
   }
 }
-
-export default withTracker(() => {
-  return {
-    info: Info.find().fetch(),
-  };
-})(About);

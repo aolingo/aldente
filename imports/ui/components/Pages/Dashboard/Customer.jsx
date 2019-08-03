@@ -33,25 +33,36 @@ const Intro = styled.div`
 let url = "/restaurant=";
 
 class Customer extends Component {
+
+  getRestaurantName(id, nameArray) {
+    console.log(id)
+    console.log(nameArray)
+    let res = nameArray.find(function (element) {
+      return element._id === id
+    })
+  }
+
   render() {
     let data = []
+    let names = this.props.restaurantNames
+    console.log(names);
     this.props.reservations.map((value) => (
       data.push({
         restaurantId: value.restaurantId,
-        name: this.props.restaurantNames.filter(rest => rest._id === value.restaurantId),
+        name: this.getRestaurantName(value.restaurantId, names),
         link: url + value.restaurantId,
         date: value.resDate.toISOString().substring(0, 10),
         timeslot: value.resTimeSlot,
       })
     ));
 
-    console.log(this.props.restaurantNames)
-    console.log(data)
-
     const columns = [{
       Header: 'Restaurant ID',
       accessor: 'link', // String-based value accessors!
       Cell: e => <a href={e.value}>{e.value}</a>
+    }, {
+      Header: 'Restaurant Name',
+      accessor: 'name', // String-based value accessors!
     }, {
       id: 'date',
       Header: 'Reservation Date',
