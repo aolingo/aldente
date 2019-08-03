@@ -52,14 +52,11 @@ class Customer extends Component {
     let names = this.props.restaurantNames
     this.props.reservations.map((value) => (
       data.push({
-        restaurantId: value.restaurantId,
         nameId: { name: this.getRestaurantName(value.restaurantId, names), link: url + value.restaurantId },
-        link: url + value.restaurantId,
         date: value.resDate.toISOString().substring(0, 10),
         timeslot: value.resTimeSlot,
         reservationName: value.resName,
         reservationPhone: value.resPhone
-
       })
     ));
 
@@ -77,15 +74,15 @@ class Customer extends Component {
       accessor: 'timeslot'
     },
     {
-      Header: 'Reservation Name', // Custom header components!
+      Header: 'Customer Name', // Custom header components!
       accessor: 'reservationName'
     },
     {
-      Header: 'Reservation Phone', // Custom header components!
+      Header: 'Customer Phone', // Custom header components!
       accessor: 'reservationPhone'
     },
-  
-  ]
+
+    ]
 
     return (
       <Intro>
