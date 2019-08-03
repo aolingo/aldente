@@ -29,6 +29,24 @@ const Intro = styled.div`
     font-size: 1.4 rem;
   }
 
+  input {
+    height: 50px;
+    font-size: 18px;
+    padding-top: 8px;
+    padding-right: 16px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+  }
+
+  select {
+    height: 50px;
+    font-size: 18px;
+    padding-top: 8px;
+    padding-right: 16px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+  }
+
 `;
 
 class Restaurant extends Component {
