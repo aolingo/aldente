@@ -35,21 +35,25 @@ let url = "/restaurant=";
 class Customer extends Component {
 
   getRestaurantName(id, nameArray) {
-    console.log(id)
-    console.log(nameArray)
-    let res = nameArray.find(function (element) {
-      return element._id === id
-    })
+
+    if (nameArray.length > 0) {
+      for (let rest of nameArray) {
+        console.log(rest);
+        if (rest._id === id) {
+          return rest.name;
+        }
+      }
+    }
+    return;
   }
 
   render() {
     let data = []
     let names = this.props.restaurantNames
-    console.log(names);
     this.props.reservations.map((value) => (
       data.push({
         restaurantId: value.restaurantId,
-        name: this.getRestaurantName(value.restaurantId, names),
+        nameId: { name: this.getRestaurantName(value.restaurantId, names), link: url + value.restaurantId },
         link: url + value.restaurantId,
         date: value.resDate.toISOString().substring(0, 10),
         timeslot: value.resTimeSlot,
@@ -57,12 +61,10 @@ class Customer extends Component {
     ));
 
     const columns = [{
-      Header: 'Restaurant ID',
-      accessor: 'link', // String-based value accessors!
-      Cell: e => <a href={e.value}>{e.value}</a>
-    }, {
-      Header: 'Restaurant Name',
-      accessor: 'name', // String-based value accessors!
+      id: 'nameId',
+      Header: 'Restaurant',
+      accessor: 'nameId', // String-based value accessors!
+      Cell: e => <a href={e.value.link}>{e.value.name}</a>
     }, {
       id: 'date',
       Header: 'Reservation Date',
