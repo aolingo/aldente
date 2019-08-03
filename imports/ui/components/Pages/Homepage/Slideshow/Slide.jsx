@@ -20,7 +20,7 @@ export default class Slide extends Component {
           <Carousel.Item>
             <div className="vertical-crop slideshow-height">
               <img
-                src="https://farm3.staticflickr.com/2882/11302596064_7aac176bf6_b.jpg"
+                src="https://lh3.googleusercontent.com/s2NmKhqpCmed2-dACsr3YjMIU59CVNb3vZ79Yqv7svnolnm-z_3LiBaVOeptqjHPRPOFYCHx8GbxTDr4cX0bfEDMeTc=e7-v1-rw-w576-h384-n"
                 alt="First slide"
                 className="width100 farmer"
               />
@@ -32,7 +32,7 @@ export default class Slide extends Component {
           <Carousel.Item>
             <div className="vertical-crop slideshow-height">
               <img
-                src="https://foodsntales.files.wordpress.com/2013/04/sushi-the-best1.jpg"
+                src="https://i.pinimg.com/originals/21/4c/6e/214c6e41cf354db5fa3d017d307f098d.jpg"
                 alt="Second slide"
                 className="width100"
               />
