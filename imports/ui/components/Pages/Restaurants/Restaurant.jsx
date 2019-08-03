@@ -55,7 +55,32 @@ class Restaurant extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       id: this.props.match.params.id,
+      date: new Date(),
     }
+  }
+
+  formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
+  getMaxDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 4),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
   handleSubmit(event) {
@@ -95,6 +120,7 @@ class Restaurant extends Component {
 
   render() {
     console.log(this.state.id);
+    console.log(this.state.date);
 
     let restaurant = Restaurants.find(this.state.id).fetch();
     console.log(restaurant);
@@ -152,7 +178,7 @@ class Restaurant extends Component {
                   <Form className="margin-top-20" onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formDate">
                       <Form.Label>Date</Form.Label>
-                      <Form.Control type="date" size="lg" required/>
+                      <Form.Control type="date" size="lg" defaultValue={this.formatDate(this.state.date)} min={this.formatDate(this.state.date)} max={this.getMaxDate(this.state.date)} required/>
                     </Form.Group>
                     <Form.Group controlId="formTime">
                       <Form.Label>Time</Form.Label>
