@@ -34,7 +34,7 @@ const Intro = styled.div`
     border-radius: 25px;
     padding: 10px;
   }
-  
+
   input {
     height: 50px;
     font-size: 18px;
@@ -194,7 +194,6 @@ class Restaurant extends Component {
                     </Form.Group>
                     <Form.Group controlId="formDate">
                       <Form.Label>Date</Form.Label>
-                      <Form.Control type="date" size="lg" required />
                       <Form.Control type="date" size="lg" defaultValue={this.formatDate(this.state.date)} min={this.formatDate(this.state.date)} max={this.getMaxDate(this.state.date)} required/>
                     </Form.Group>
                     <Form.Group controlId="formTime">
