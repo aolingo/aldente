@@ -42,6 +42,9 @@ class Customer extends Component {
         link: url + value.restaurantId,
         date: value.resDate.toISOString().substring(0, 10),
         timeslot: value.resTimeSlot,
+        reservationName: value.resName,
+        reservationPhone: value.resPhone
+
       })
     ));
 
@@ -59,7 +62,17 @@ class Customer extends Component {
     }, {
       Header: 'Reservation Time', // Custom header components!
       accessor: 'timeslot'
-    }]
+    },
+    {
+      Header: 'Reservation Name', // Custom header components!
+      accessor: 'reservationName'
+    },
+    {
+      Header: 'Reservation Phone', // Custom header components!
+      accessor: 'reservationPhone'
+    },
+  
+  ]
 
     return (
       <Intro>

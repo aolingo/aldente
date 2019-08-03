@@ -5,7 +5,7 @@ import { Reservations } from '../../../../api/reservations';
 import NoMatch from '../NoMatch'
 import { Container, Row, Col, Form, Button, Table } from 'react-bootstrap'
 import styled from 'styled-components';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 const Intro = styled.div`
   .restaurant {
@@ -29,6 +29,13 @@ const Intro = styled.div`
     font-size: 1.4 rem;
   }
 
+  .container-reservation {
+    border: 5px solid black;
+    border-radius: 25px;
+    padding: 10px;
+  }
+  
+
 `;
 
 class Restaurant extends Component {
@@ -48,6 +55,8 @@ class Restaurant extends Component {
         customer: Meteor.userId(),
         resDate: event.target.formDate.value,
         resTimeSlot: event.target.formTime.value,
+        resName: event.target.formName.value,
+        resPhone: event.target.formPhone.value,
         restaurantId: this.state.id
       }, function (err, res) {
         if (err) {
@@ -59,7 +68,7 @@ class Restaurant extends Component {
           throw err;
         } else {
           Swal.fire(
-            'Good job!',
+            'Success!',
             'Your reservation was successfully booked.',
             'success'
           )
@@ -131,7 +140,16 @@ class Restaurant extends Component {
                   </Row>
                 </Col>
                 <Col sm="3">
+                  <div className="container-reservation">
                   <Form className="margin-top-20" onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="formName" >
+                      <Form.Label>Name of Reservation</Form.Label>
+                      <Form.Control type="input" required></Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formPhone">
+                      <Form.Label>Phone Number</Form.Label>
+                      <Form.Control type="tel" required></Form.Control>
+                    </Form.Group>
                     <Form.Group controlId="formDate">
                       <Form.Label>Date</Form.Label>
                       <Form.Control type="date" size="lg" required />
@@ -148,6 +166,7 @@ class Restaurant extends Component {
                       Book Now
                   </Button>
                   </Form>
+                  </div>
                 </Col>
               </Row>
             </Container>
