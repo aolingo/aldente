@@ -66,6 +66,13 @@ class Customer extends Component {
       accessor: 'nameId', // String-based value accessors!
       Cell: e => <a href={e.value.link}>{e.value.name}</a>
     }, {
+      Header: 'Customer Name', // Custom header components!
+      accessor: 'reservationName'
+    },
+    {
+      Header: 'Customer Phone', // Custom header components!
+      accessor: 'reservationPhone'
+    }, {
       id: 'date',
       Header: 'Reservation Date',
       accessor: 'date',
@@ -73,15 +80,6 @@ class Customer extends Component {
       Header: 'Reservation Time', // Custom header components!
       accessor: 'timeslot'
     },
-    {
-      Header: 'Customer Name', // Custom header components!
-      accessor: 'reservationName'
-    },
-    {
-      Header: 'Customer Phone', // Custom header components!
-      accessor: 'reservationPhone'
-    },
-
     ]
 
     return (
