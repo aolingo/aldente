@@ -29,7 +29,7 @@ const Intro = styled.div`
   }
 
   .btn-style {
-    border-radius: 15% 
+    border-radius: 8% 
   }
 `;
 
