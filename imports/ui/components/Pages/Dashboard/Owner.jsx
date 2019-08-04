@@ -3,6 +3,9 @@ import { Restaurants } from '../../../../api/restaurants'
 import { withTracker } from 'meteor/react-meteor-data';
 import styled from 'styled-components';
 import { Container } from 'react-bootstrap';
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
+import { Reservations } from '../../../../api/reservations';
 
 const Intro = styled.div`
   .dashboard {
@@ -30,25 +33,31 @@ let url = "/restaurant=";
 
 class Owner extends Component {
   render() {
+    console.log(this.props.reservations);
+    let data = []
+    this.props.manageRestaurants.map((value) => (
+      data.push({
+        nameId: { name: value.name, link: url + value._id },
+      })
+    ));
+
+    const columns = [{
+      id: 'nameId',
+      Header: 'Restaurant',
+      accessor: 'nameId', // String-based value accessors!
+      Cell: e => <a href={e.value.link}>{e.value.name}</a>
+    }
+    ]
+
     return (
       <Intro>
         <div className="dashboard">
           <Container>
             <h4>Manage Your Restaurants</h4>
-            <ul>
-              {
-                this.props.restaurants.map((value) => (
-                  <li key={value._id}>
-                    <div>
-                      <p>{"RestaurantID: " + value._id}</p>
-                      <p>{"Restaurant Name: " + value.name}</p>
-                      <p><a href={url + value._id}>View Restaurant Page</a></p>
-                      <p>{"Reservations: " + value.reservations}</p>
-                    </div>
-                  </li>
-                ))
-              }
-            </ul>
+            <ReactTable
+              data={data}
+              columns={columns}
+            />
           </Container>
         </div>
       </Intro>
@@ -57,8 +66,10 @@ class Owner extends Component {
 }
 
 export default withTracker(() => {
+  Meteor.subscribe('reservations');
   Meteor.subscribe('manageRestaurants');
   return {
-    restaurants: Restaurants.find({ owner: Meteor.userId() }).fetch(),
+    manageRestaurants: Restaurants.find().fetch(),
+    reservations: Reservations.find({ restaurantId: "JGeweAASSpiHCgq58" }).fetch(),
   };
 })(Owner);
