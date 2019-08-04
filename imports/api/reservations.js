@@ -7,13 +7,22 @@ export const Reservations = new Mongo.Collection('reservations');
 Reservations.attachSchema(ReservationSchema);
 
 Reservations.allow({
-  insert: function(userId, tag) {
+  insert: function (userId, tag) {
     return true;
   }
 });
 
 if (Meteor.isServer) {
-  Meteor.publish('reservations', function restaurantsPublication() {
-    return Reservations.find();
+  // Publish all reservations associated with one customer
+  Meteor.publish('custReservations', () => {
+    return Reservations.find({ customer: Meteor.userId() })
   })
+
+  // TODO: Secure reservations publishing
+  // Publish reservations for its associated restaurant only
+  // Meteor.publish('restReservations', () => {
+  //   return Reservations.find({
+  //     restaurantId: _id
+  //   })
+  // })
 }

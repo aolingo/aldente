@@ -29,16 +29,17 @@ const Styles = styled.div`
 
 userId = Meteor.userId();
 
-Tracker.autorun(() => {
-  userId = Meteor.userId();
-});
+// Tracker.autorun(() => {
+//   if (Meteor.user()) {
+//     console.log("you are now logged in, refresh page")
+//   }
+// });
 
 export class Menu extends Component {
 
   // If user is logged in, display their appropriate dashboards
   showDashboard() {
     if (userId != null) {
-      console.log("logged in");
       if (userId != null) {
         return (
           <Nav className="nav navbar-nav pull-right">
@@ -77,6 +78,9 @@ export class Menu extends Component {
 }
 
 export default withTracker(() => {
+  if (Meteor.user()) {
+    console.log("you are now logged in, refresh page")
+  }
   Meteor.subscribe('userData');
   return {
     currentUser: Meteor.user(),
