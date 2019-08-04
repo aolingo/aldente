@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Nav, Navbar } from 'react-bootstrap';
 import styled from 'styled-components';
 import SignIn from './Auth/SignIn';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Tracker } from 'meteor/tracker';
+import { Redirect } from 'react-router';
 
 const Styles = styled.div`
   .navbar {
@@ -26,30 +26,45 @@ const Styles = styled.div`
     }
   }
 `;
-
+// Flags for redirecting after user login and log out
 userId = Meteor.userId();
+loggedIn = false;
+if (userId != null) {
+  loggedIn = true;
+}
 
-// Tracker.autorun(() => {
-//   if (Meteor.user()) {
-//     console.log("you are now logged in, refresh page")
-//   }
-// });
+Tracker.autorun(() => {
+  userId = Meteor.userId();
+  if (Meteor.user() && !loggedIn) {
+    location.reload();
+  }
+  if (Meteor.userId() == null && loggedIn) {
+    window.location.href = '/'
+  }
+});
 
 export class Menu extends Component {
 
   // If user is logged in, display their appropriate dashboards
   showDashboard() {
     if (userId != null) {
-      if (userId != null) {
+      console.log("got here" + userId)
+      if (userId === '2uqqAQpxi3hdNWxRd') {
         return (
-          <Nav className="nav navbar-nav pull-right">
-            <Nav.Item><Nav.Link href="/dashboard/owner">Owner Dashboard</Nav.Link></Nav.Item>
-          </Nav>
+          <div>
+            <Nav className="nav navbar-nav pull-right">
+              <Nav.Item><Nav.Link href="/dashboard/owner">Owner</Nav.Link></Nav.Item>
+            </Nav>
+            <Nav className="nav navbar-nav pull-right">
+              <Nav.Item><Nav.Link href="/dashboard/customer">Customer</Nav.Link></Nav.Item>
+            </Nav>
+          </div>
         );
       } else {
+        console.log("else")
         return (
           <Nav className="nav navbar-nav pull-right">
-            <Nav.Item><Nav.Link href="/dashboard/customer">Customer Dashboard</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link href="/dashboard/customer">Customer</Nav.Link></Nav.Item>
           </Nav>
         );
       }
@@ -57,6 +72,7 @@ export class Menu extends Component {
   }
 
   render() {
+
     return (
       <Styles>
         <Navbar className="navbar fixed-top navbar-light">
@@ -68,7 +84,6 @@ export class Menu extends Component {
           <Nav className="ml-auto">
             <Nav.Item> <Nav.Link href="/">Home</Nav.Link></Nav.Item>
             <Nav.Item> <Nav.Link href="/about">About</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link href="/dashboard/customer">Customer Dashboard</Nav.Link></Nav.Item>
           </Nav>
           {this.showDashboard()}
         </Navbar >
@@ -76,13 +91,3 @@ export class Menu extends Component {
     )
   }
 }
-
-export default withTracker(() => {
-  if (Meteor.user()) {
-    console.log("you are now logged in, refresh page")
-  }
-  Meteor.subscribe('userData');
-  return {
-    currentUser: Meteor.user(),
-  };
-})
