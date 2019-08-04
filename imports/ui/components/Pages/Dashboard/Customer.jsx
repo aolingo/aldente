@@ -51,12 +51,29 @@ class Customer extends Component {
 
   deleteReservation(resId) {
     event.preventDefault();
-    Reservations.remove({_id: resId})
-    Swal.fire(
-      'Success!',
-      'Your reservation was successfully cancelled.',
-      'success'
-    )
+    Swal.fire({
+      title: 'Cancel your reservation?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, I cannot make it!'
+    }).then((result) => {
+      if (result.value) {
+        Reservations.remove({_id: resId})
+        Swal.fire(
+          'Cancelled!',
+          'Your reservation was cancelled.',
+          'success'
+        )
+      }
+    })
+    // Swal.fire(
+    //   'Success!',
+    //   'Your reservation was successfully cancelled.',
+    //   'success'
+    // )
   }
 
   render() {
