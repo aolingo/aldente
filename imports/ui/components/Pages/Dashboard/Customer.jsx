@@ -67,7 +67,7 @@ class Customer extends Component {
       accessor: 'nameId', // String-based value accessors!
       Cell: e => <a href={e.value.link}>{e.value.name}</a>
     }, {
-      Header: 'Customer Name', // Custom header components!
+      Header: 'Reservation Under', // Custom header components!
       accessor: 'reservationName'
     },
     {
