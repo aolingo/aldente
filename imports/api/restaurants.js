@@ -11,8 +11,7 @@ if (Meteor.isServer) {
     return Restaurants.find();
   })
 
-  Meteor.publish('manageRestaurants', () => {
-    console.log(this.userId);
+  Meteor.publish('manageRestaurants', function managePublication() {
     return Restaurants.find({
       owner: this.userId
     })

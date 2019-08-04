@@ -12,7 +12,7 @@ export default class RestaurantCard extends Component {
             <p className="card-text">{this.props.name}</p>
             <div className="d-flex justify-content-between align-items-center">
               <div className="btn-group">
-                <button type="button" className="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#restaurantModal" onClick={() => this.props.handler(this.props.id)}>View</button>
+                <button type="button" className="btn btn-sm btn-outline" data-toggle="modal" data-target="#restaurantModal" onClick={() => this.props.handler(this.props.id)}>View</button>
               </div>
               <small className="text-muted">{this.props.location}</small>
             </div>

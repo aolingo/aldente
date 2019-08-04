@@ -41,7 +41,6 @@ class Customer extends Component {
 
     if (nameArray.length > 0) {
       for (let rest of nameArray) {
-        console.log(rest);
         if (rest._id === id) {
           return rest.name;
         }
@@ -63,7 +62,7 @@ class Customer extends Component {
   render() {
     let data = []
     let names = this.props.restaurantNames
-    this.props.reservations.map((value) => (
+    this.props.custReservations.map((value) => (
       data.push({
         nameId: { name: this.getRestaurantName(value.restaurantId, names), link: url + value.restaurantId },
         date: value.resDate.toISOString().substring(0, 10),
@@ -128,10 +127,10 @@ onClick={() => this.deleteReservation(e.value)}>Cancel</button>
 }
 
 export default withTracker(() => {
-  Meteor.subscribe('reservations');
+  Meteor.subscribe('custReservations');
   Meteor.subscribe('restaurants');
   return {
-    reservations: Reservations.find({ customer: Meteor.userId() }).fetch(),
+    custReservations: Reservations.find().fetch(),
     restaurantNames: Restaurants.find({}, { fields: { name: 1 } }).fetch(),
   };
 })(Customer);
