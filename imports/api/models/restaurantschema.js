@@ -7,6 +7,7 @@ export const ReservationSchema = new SimpleSchema({
   resTimeSlot: Number,
   resName: String,
   resPhone: String,
+  resGuest: Number,
   restaurantId: SimpleSchema.RegEx.Id,
   createdAt: {
     type: Date,

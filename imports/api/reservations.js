@@ -9,8 +9,10 @@ Reservations.attachSchema(ReservationSchema);
 Reservations.allow({
   insert: function(userId, tag) {
     return true;
-  }
-});
+  },
+  remove: function() { return true; }
+  })
+
 
 if (Meteor.isServer) {
   Meteor.publish('reservations', function restaurantsPublication() {

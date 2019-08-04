@@ -6,7 +6,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import styled from 'styled-components';
 import { Container } from 'react-bootstrap';
-
+import Swal from 'sweetalert2';
 
 const Intro = styled.div`
   .dashboard {
@@ -28,6 +28,9 @@ const Intro = styled.div`
     font-size: 1.4 rem;
   }
 
+  .btn-style {
+    border-radius: 15% 
+  }
 `;
 
 let url = "/restaurant=";
@@ -47,6 +50,16 @@ class Customer extends Component {
     return;
   }
 
+  deleteReservation(resId) {
+    event.preventDefault();
+    Reservations.remove({_id: resId})
+    Swal.fire(
+      'Success!',
+      'Your reservation was successfully cancelled.',
+      'success'
+    )
+  }
+
   render() {
     let data = []
     let names = this.props.restaurantNames
@@ -57,7 +70,8 @@ class Customer extends Component {
         timeslot: value.resTimeSlot,
         reservationName: value.resName,
         reservationPhone: value.resPhone,
-        reservationGuest: value.resGuest
+        reservationGuest: value.resGuest,
+        reservationId: value._id
       })
     ));
 
@@ -84,6 +98,16 @@ class Customer extends Component {
     {
       Header: 'Guests', // Custom header components!
       accessor: 'reservationGuest'
+    },
+    {
+    Header: "Manage Reservation",
+    accessor: 'reservationId',
+    Cell: e => (
+      <div>
+          <button className="btn-outline-danger btn-style"
+onClick={() => this.deleteReservation(e.value)}>Cancel</button>
+      </div>
+    )
     }
     ]
 
