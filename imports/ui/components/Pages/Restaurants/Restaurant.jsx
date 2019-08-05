@@ -74,9 +74,9 @@ class Restaurant extends Component {
 
   formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
@@ -86,9 +86,9 @@ class Restaurant extends Component {
 
   getMaxDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 4),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = '' + (d.getMonth() + 4),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
@@ -135,13 +135,10 @@ class Restaurant extends Component {
   }
 
   render() {
-    console.log(this.state.id);
-    console.log(this.state.date);
-
     let restaurant = Restaurants.find(this.state.id).fetch();
     console.log(restaurant);
 
-    let FontAwesome = require('react-fontawesome');
+    // let FontAwesome = require('react-fontawesome');
 
     if (restaurant.length > 0) {
       return (
@@ -192,35 +189,35 @@ class Restaurant extends Component {
                 </Col>
                 <Col sm="3">
                   <div className="container-reservation">
-                  <Form className="margin-top-10" onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="formName" >
-                      <Form.Label>Name of Reservation</Form.Label>
-                      <Form.Control type="input" required></Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formGuest" >
-                      <Form.Label>Guests</Form.Label>
-                      <Form.Control type="number" min="1" max={restaurant[0].reservationInfo.maxParty} required></Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formPhone">
-                      <Form.Label>Phone Number</Form.Label>
-                      <Form.Control type="tel" required></Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formDate">
-                      <Form.Label>Date</Form.Label>
-                      <Form.Control type="date" size="lg" defaultValue={this.formatDate(this.state.date)} min={this.formatDate(this.state.date)} max={this.getMaxDate(this.state.date)} required/>
-                    </Form.Group>
-                    <Form.Group controlId="formTime">
-                      <Form.Label>Time</Form.Label>
-                      <Form.Control as="select" size="lg" >
-                        {restaurant[0].reservationInfo.timeSlots.map((value, index) =>
-                          <option key={index}>{value}</option>
-                        )}
-                      </Form.Control>
-                    </Form.Group>
-                    <Button variant="success" type="submit" className="width100 btn-space">
-                      Book Now
+                    <Form className="margin-top-10" onSubmit={this.handleSubmit}>
+                      <Form.Group controlId="formName" >
+                        <Form.Label>Name of Reservation</Form.Label>
+                        <Form.Control type="input" required></Form.Control>
+                      </Form.Group>
+                      <Form.Group controlId="formGuest" >
+                        <Form.Label>Guests</Form.Label>
+                        <Form.Control type="number" min="1" max={restaurant[0].reservationInfo.maxParty} required></Form.Control>
+                      </Form.Group>
+                      <Form.Group controlId="formPhone">
+                        <Form.Label>Phone Number</Form.Label>
+                        <Form.Control type="tel" required></Form.Control>
+                      </Form.Group>
+                      <Form.Group controlId="formDate">
+                        <Form.Label>Date</Form.Label>
+                        <Form.Control type="date" size="lg" defaultValue={this.formatDate(this.state.date)} min={this.formatDate(this.state.date)} max={this.getMaxDate(this.state.date)} required />
+                      </Form.Group>
+                      <Form.Group controlId="formTime">
+                        <Form.Label>Time</Form.Label>
+                        <Form.Control as="select" size="lg" >
+                          {restaurant[0].reservationInfo.timeSlots.map((value, index) =>
+                            <option key={index}>{value}</option>
+                          )}
+                        </Form.Control>
+                      </Form.Group>
+                      <Button variant="success" type="submit" className="width100 btn-space">
+                        Book Now
                   </Button>
-                  </Form>
+                    </Form>
                   </div>
                 </Col>
               </Row>
