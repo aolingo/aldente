@@ -74,6 +74,25 @@ export default class RestaurantForm extends Component {
   render() {
     return (
       <Intro>
+        <div className="col-md-4 container-preview">
+        <div>
+          <p>Preview: </p>
+        </div>
+          <div className="card mb-4 shadow-sm">
+            <div className="vertical-crop-card">
+              <img className="bd-placeholder-img card-img-top" src="https://lh3.googleusercontent.com/s2NmKhqpCmed2-dACsr3YjMIU59CVNb3vZ79Yqv7svnolnm-z_3LiBaVOeptqjHPRPOFYCHx8GbxTDr4cX0bfEDMeTc=e7-v1-rw-w576-h384-n" />
+            </div>
+            <div className="card-body">
+              <p className="card-text">Chipotle Grill</p>
+              <div className="d-flex justify-content-between align-items-center">
+                <small className="text-muted">Burnaby, BC</small>
+              </div>
+              <div className="btn-group">
+                <button type="button" className="btn btn-sm btn-outline" data-toggle="modal" data-target="#restaurantModal" onClick={() => this.props.handler(this.props.id)}>View</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="form contanier-center">
           <h1>Restaurant Form</h1>
           <Col sm="5">

@@ -6,3 +6,9 @@
     left: 50%;
   }
 
+.container-preview {
+    position: absolute;
+    left: 50%;
+    padding-top: 280px;
+    margin-bottom: 300px;
+}
