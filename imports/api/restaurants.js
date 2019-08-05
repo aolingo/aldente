@@ -6,6 +6,13 @@ export const Restaurants = new Mongo.Collection('restaurants');
 
 Restaurants.attachSchema(RestaurantSchema)
 
+Restaurants.allow({
+  insert: function (userId, tag) {
+    return true;
+  },
+  remove: function () { return true; }
+})
+
 if (Meteor.isServer) {
   Meteor.publish('restaurants', function restaurantsPublication() {
     return Restaurants.find();

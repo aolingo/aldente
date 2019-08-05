@@ -146,7 +146,6 @@ class Restaurant extends Component {
 
   render() {
     let restaurant = Restaurants.find(this.state.id).fetch();
-    console.log(restaurant);
 
     // let FontAwesome = require('react-fontawesome');
 
@@ -166,7 +165,7 @@ class Restaurant extends Component {
                   <p className="margin-top-20 text-left">{restaurant[0].description}</p>
                   <Row className="margin-top-50">
                     <Col>
-                    <Map>
+                      <Map>
                         <LoadScript id="script-loader" googleMapsApiKey="AIzaSyDuRmMGD9IngdlIEe2hcyumhStFLwmYM0Q">
                           <GoogleMap
                             id="circle-example"
@@ -180,10 +179,10 @@ class Restaurant extends Component {
                               lng: restaurant[0].contactInfo.lng
                             }}
                           >
-                            <Marker position={{ lat: restaurant[0].contactInfo.lat, lng: restaurant[0].contactInfo.lng}} />
+                            <Marker position={{ lat: restaurant[0].contactInfo.lat, lng: restaurant[0].contactInfo.lng }} />
                           </GoogleMap>
                         </LoadScript>
-                    </Map>
+                      </Map>
                     </Col>
                     <Col>
                       <Table>
@@ -252,10 +251,11 @@ class Restaurant extends Component {
           </div>
         </Intro>
       )
+    } else {
+      return (
+        <NoMatch />
+      )
     }
-    return (
-      <NoMatch />
-    )
   }
 }
 

@@ -7,6 +7,7 @@ import 'react-table/react-table.css'
 import styled from 'styled-components';
 import { Container, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import NoMatch from '../NoMatch';
 
 const Intro = styled.div`
   .dashboard {
@@ -73,69 +74,73 @@ class Customer extends Component {
   }
 
   render() {
-    let data = []
-    let names = this.props.restaurantNames
-    this.props.custReservations.map((value) => (
-      data.push({
-        nameId: { name: this.getRestaurantName(value.restaurantId, names), link: url + value.restaurantId },
-        date: value.resDate.toISOString().substring(0, 10),
-        timeslot: value.resTimeSlot,
-        reservationName: value.resName,
-        reservationPhone: value.resPhone,
-        reservationGuest: value.resGuest,
-        reservationId: value._id
-      })
-    ));
+    if (Meteor.user()) {
+      let data = []
+      let names = this.props.restaurantNames
+      this.props.custReservations.map((value) => (
+        data.push({
+          nameId: { name: this.getRestaurantName(value.restaurantId, names), link: url + value.restaurantId },
+          date: value.resDate.toISOString().substring(0, 10),
+          timeslot: value.resTimeSlot,
+          reservationName: value.resName,
+          reservationPhone: value.resPhone,
+          reservationGuest: value.resGuest,
+          reservationId: value._id
+        })
+      ));
 
-    const columns = [{
-      id: 'nameId',
-      Header: 'Restaurant',
-      accessor: 'nameId', // String-based value accessors!
-      Cell: e => <a href={e.value.link}>{e.value.name}</a>
-    }, {
-      Header: 'Reservation Under', // Custom header components!
-      accessor: 'reservationName'
-    },
-    {
-      Header: 'Customer Phone', // Custom header components!
-      accessor: 'reservationPhone'
-    }, {
-      id: 'date',
-      Header: 'Reservation Date',
-      accessor: 'date',
-    }, {
-      Header: 'Reservation Time', // Custom header components!
-      accessor: 'timeslot'
-    },
-    {
-      Header: 'Guests', // Custom header components!
-      accessor: 'reservationGuest'
-    },
-    {
-      Header: "Manage Reservation",
-      accessor: 'reservationId',
-      Cell: e => (
-        <div>
-          <Button variant="danger"
-            onClick={() => this.deleteReservation(e.value)}>Cancel</Button>
-        </div>
+      const columns = [{
+        id: 'nameId',
+        Header: 'Restaurant',
+        accessor: 'nameId', // String-based value accessors!
+        Cell: e => <a href={e.value.link}>{e.value.name}</a>
+      }, {
+        Header: 'Reservation Under', // Custom header components!
+        accessor: 'reservationName'
+      },
+      {
+        Header: 'Customer Phone', // Custom header components!
+        accessor: 'reservationPhone'
+      }, {
+        id: 'date',
+        Header: 'Reservation Date',
+        accessor: 'date',
+      }, {
+        Header: 'Reservation Time', // Custom header components!
+        accessor: 'timeslot'
+      },
+      {
+        Header: 'Guests', // Custom header components!
+        accessor: 'reservationGuest'
+      },
+      {
+        Header: "Manage Reservation",
+        accessor: 'reservationId',
+        Cell: e => (
+          <div>
+            <Button variant="danger"
+              onClick={() => this.deleteReservation(e.value)}>Cancel</Button>
+          </div>
+        )
+      }
+      ]
+
+      return (
+        <Intro>
+          <div className="dashboard">
+            <h4>Your Current Reservations</h4>
+            <Container>
+              <ReactTable
+                data={data}
+                columns={columns}
+              />
+            </Container>
+          </div>
+        </Intro>
       )
+    } else {
+      return (<NoMatch />)
     }
-    ]
-
-    return (
-      <Intro>
-        <div className="dashboard">
-          <h4>Your Current Reservations</h4>
-          <Container>
-            <ReactTable
-              data={data}
-              columns={columns}
-            />
-          </Container>
-        </div>
-      </Intro>
-    )
   }
 }
 
