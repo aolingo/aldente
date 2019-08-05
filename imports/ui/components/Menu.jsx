@@ -48,7 +48,6 @@ export class Menu extends Component {
   // If user is logged in, display their appropriate dashboards
   showDashboard() {
     if (userId != null) {
-      console.log("got here" + userId)
       if (userId === '2uqqAQpxi3hdNWxRd') {
         return (
           <div>

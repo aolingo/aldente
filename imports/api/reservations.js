@@ -10,8 +10,8 @@ Reservations.allow({
   insert: function (userId, tag) {
     return true;
   },
-  remove: function() { return true; }
-  })
+  remove: function () { return true; }
+})
 
 
 if (Meteor.isServer) {
@@ -22,9 +22,7 @@ if (Meteor.isServer) {
 
   // TODO: Secure reservations publishing
   // Publish reservations for its associated restaurant only
-  // Meteor.publish('restReservations', () => {
-  //   return Reservations.find({
-  //     restaurantId: _id
-  //   })
-  // })
+  Meteor.publish('reservations', () => {
+    return Reservations.find()
+  })
 }

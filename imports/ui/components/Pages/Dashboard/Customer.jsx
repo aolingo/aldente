@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import styled from 'styled-components';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 const Intro = styled.div`
@@ -37,8 +37,8 @@ let url = "/restaurant=";
 
 class Customer extends Component {
 
+  // Helper to retrieve a restaurant's name given its id from the array of restaurant names
   getRestaurantName(id, nameArray) {
-
     if (nameArray.length > 0) {
       for (let rest of nameArray) {
         if (rest._id === id) {
@@ -49,6 +49,7 @@ class Customer extends Component {
     return;
   }
 
+  // Helper to delete a restaurant from the db given its id
   deleteReservation(resId) {
     event.preventDefault();
     Swal.fire({
@@ -61,7 +62,7 @@ class Customer extends Component {
       confirmButtonText: 'Yes, I cannot make it!'
     }).then((result) => {
       if (result.value) {
-        Reservations.remove({_id: resId})
+        Reservations.remove({ _id: resId })
         Swal.fire(
           'Cancelled!',
           'Your reservation was cancelled.',
@@ -69,11 +70,6 @@ class Customer extends Component {
         )
       }
     })
-    // Swal.fire(
-    //   'Success!',
-    //   'Your reservation was successfully cancelled.',
-    //   'success'
-    // )
   }
 
   render() {
@@ -116,14 +112,14 @@ class Customer extends Component {
       accessor: 'reservationGuest'
     },
     {
-    Header: "Manage Reservation",
-    accessor: 'reservationId',
-    Cell: e => (
-      <div>
-          <button className="btn-outline-danger btn-style"
-onClick={() => this.deleteReservation(e.value)}>Cancel</button>
-      </div>
-    )
+      Header: "Manage Reservation",
+      accessor: 'reservationId',
+      Cell: e => (
+        <div>
+          <Button variant="danger"
+            onClick={() => this.deleteReservation(e.value)}>Cancel</Button>
+        </div>
+      )
     }
     ]
 
