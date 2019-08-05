@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import styled from 'styled-components';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 const Intro = styled.div`
@@ -116,8 +116,8 @@ class Customer extends Component {
       accessor: 'reservationId',
       Cell: e => (
         <div>
-          <button className="btn-outline-danger btn-style"
-            onClick={() => this.deleteReservation(e.value)}>Cancel</button>
+          <Button variant="danger"
+            onClick={() => this.deleteReservation(e.value)}>Cancel</Button>
         </div>
       )
     }

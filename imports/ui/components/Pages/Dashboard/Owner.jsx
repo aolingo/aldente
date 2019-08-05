@@ -42,6 +42,12 @@ class Owner extends Component {
     }
   }
 
+  // Helper that acts like a " Go Back" function
+  resetState() {
+    this.setState(prevState => ({
+      showReserverations: !prevState.showReserverations
+    }))
+  }
   // Helper to view all reservations of a restaurant given its id
   viewReservations(rid, name) {
     event.preventDefault()
@@ -121,8 +127,8 @@ class Owner extends Component {
         accessor: 'nameId',
         Cell: e => (
           <div>
-            <button className="btn-outline-info btn-style"
-              onClick={() => this.viewReservations(e.value.id, e.value.name)}>View</button>
+            <Button variant="light"
+              onClick={() => this.viewReservations(e.value.id, e.value.name)}>View</Button>
           </div>
         )
       },
@@ -131,8 +137,8 @@ class Owner extends Component {
         accessor: 'value',
         Cell: e => (
           <div>
-            <button className="btn-outline-info btn-style"
-              onClick={() => this.editRestaurant(e.value)}>Edit</button>
+            <Button variant="light"
+              onClick={() => this.editRestaurant(e.value)}>Edit</Button>
           </div>
         )
       },
@@ -141,8 +147,8 @@ class Owner extends Component {
         accessor: 'restId',
         Cell: e => (
           <div>
-            <button className="btn-outline-danger btn-style"
-              onClick={() => this.deleteRestaurant(e.value)}>Delete</button>
+            <Button variant="danger"
+              onClick={() => this.deleteRestaurant(e.value)}>Delete</Button>
           </div>
         )
       }
@@ -214,8 +220,8 @@ class Owner extends Component {
         accessor: 'reservationId',
         Cell: e => (
           <div>
-            <button className="btn-outline-danger btn-style"
-              onClick={() => this.deleteReservation(e.value)}>Delete</button>
+            <Button variant="danger"
+              onClick={() => this.deleteReservation(e.value)}>Delete</Button>
           </div>
         )
       }
@@ -227,7 +233,7 @@ class Owner extends Component {
             <h4>List of Reservations</h4>
             <Container>
               <Button variant="light"
-                onClick={() => location.reload()}>Back</Button>
+                onClick={() => this.resetState()}>Back</Button>
               <h1></h1>
               <ReactTable
                 data={reservationData}
