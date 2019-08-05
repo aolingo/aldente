@@ -79,6 +79,7 @@ class Restaurant extends Component {
     this.state = {
       id: this.props.match.params.id,
       date: new Date(),
+      isToday: true,
     }
   }
 
@@ -94,6 +95,16 @@ class Restaurant extends Component {
     return [year, month, day].join('-');
   }
 
+  formatPhone(phone) {
+    var string = phone.toString()
+    if (string.length === 10) {
+      return '(' + string.substr(0, 3) + ') ' + string.substr(3, 3) + '-' + string.substr(6, 4);
+    }
+    else{
+      return string;
+    }
+  }
+
   getMaxDate(date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 4),
@@ -104,6 +115,29 @@ class Restaurant extends Component {
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
+  }
+
+  checkTime(time) {
+    var currentTime = parseInt(this.state.date.getHours() + '' + this.state.date.getMinutes());
+    return this.state.isToday && time < currentTime;
+  }
+
+  handleDateChange(event, timeSlots) {
+    var d = new Date(),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    var date = [year, month, day].join('-');
+
+    if (event.target.value === date) {
+      this.setState({isToday: true});
+    } else {
+      this.setState({isToday: false});
+    }
   }
 
   handleSubmit(event) {
@@ -204,6 +238,9 @@ class Restaurant extends Component {
                             <td>{`${restaurant[0].contactInfo.city}, ${restaurant[0].contactInfo.state}  ${restaurant[0].contactInfo.postalCode}`}</td>
                           </tr>
                           <tr>
+                            <td>{this.formatPhone(restaurant[0].contactInfo.phone)}</td>
+                          </tr>
+                          <tr>
                             <td>
                               <a href={restaurant[0].contactInfo.website} target="_blank">{restaurant[0].contactInfo.website}</a>
                             </td>
@@ -230,13 +267,16 @@ class Restaurant extends Component {
                       </Form.Group>
                       <Form.Group controlId="formDate">
                         <Form.Label>Date</Form.Label>
-                        <Form.Control type="date" size="lg" defaultValue={this.formatDate(this.state.date)} min={this.formatDate(this.state.date)} max={this.getMaxDate(this.state.date)} required />
+                        <Form.Control type="date" size="lg" defaultValue={this.formatDate(this.state.date)} min={this.formatDate(this.state.date)} max={this.getMaxDate(this.state.date)} onChange={(e) => this.handleDateChange(e, restaurant[0].reservationInfo.timeSlots)} required />
                       </Form.Group>
                       <Form.Group controlId="formTime">
                         <Form.Label>Time</Form.Label>
                         <Form.Control as="select" size="lg" >
-                          {restaurant[0].reservationInfo.timeSlots.map((value, index) =>
-                            <option key={index}>{value}</option>
+                          {restaurant[0].reservationInfo.timeSlots.map((value, index) => {
+                              if (!this.checkTime(value)) {
+                                return <option key={index} disabled={this.checkTime(value)}>{value}</option>
+                              }
+                            }
                           )}
                         </Form.Control>
                       </Form.Group>
