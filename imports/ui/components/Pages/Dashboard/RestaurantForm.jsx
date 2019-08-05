@@ -24,6 +24,14 @@ export default class RestaurantForm extends Component {
     event.preventDefault()
 
     if (Meteor.user()) {
+      // Parse Timeslots into array
+      var options = event.target.formTimeSlot.options;
+      var timeslots = [];
+      for (var i = 0, l = options.length; i < l; i++) {
+        if (options[i].selected) {
+          timeslots.push(options[i].value);
+        }
+      }
 
       Restaurants.insert({
         restaurantId: event.target.formRestaurantId.value,
@@ -44,7 +52,7 @@ export default class RestaurantForm extends Component {
         },
         reservationInfo: {
           seats: 30,
-          timeSlots: [0800, 0900, 1000, 1800, 1900, 2000, 2100, 2200],
+          timeSlots: timeslots,
           maxParty: event.target.formParty.value,
           closedDays: [],
         },
