@@ -6,10 +6,12 @@ import NoMatch from '../NoMatch'
 import { Container, Row, Col, Form, Button, Table } from 'react-bootstrap'
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const Intro = styled.div`
   .restaurant {
     padding-top: 50px;
+    padding-bottom: 50px;
     background-image: url(/imgs/bg.jpg);
   }
 
@@ -59,6 +61,14 @@ const Intro = styled.div`
 
   .btn-space {
     margin-top: 12px;
+  }
+`;
+
+const Map = styled.div`
+  .map-container {
+    width: 400px;
+    max-width: 100%;
+    height: 400px;
   }
 `;
 
@@ -156,7 +166,24 @@ class Restaurant extends Component {
                   <p className="margin-top-20 text-left">{restaurant[0].description}</p>
                   <Row className="margin-top-50">
                     <Col>
-                      <img src="https://puu.sh/DV49D/170afac6e6.png" />
+                    <Map>
+                        <LoadScript id="script-loader" googleMapsApiKey="AIzaSyDuRmMGD9IngdlIEe2hcyumhStFLwmYM0Q">
+                          <GoogleMap
+                            id="circle-example"
+                            mapContainerStyle={{
+                              height: "351px",
+                              width: "411px"
+                            }}
+                            zoom={16}
+                            center={{
+                              lat: restaurant[0].contactInfo.lat,
+                              lng: restaurant[0].contactInfo.lng
+                            }}
+                          >
+                            <Marker position={{ lat: restaurant[0].contactInfo.lat, lng: restaurant[0].contactInfo.lng}} />
+                          </GoogleMap>
+                        </LoadScript>
+                    </Map>
                     </Col>
                     <Col>
                       <Table>
