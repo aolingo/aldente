@@ -7,6 +7,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import { Reservations } from '../../../../api/reservations';
 import Swal from 'sweetalert2';
+import RestaurantForm from './RestaurantForm';
 
 const Intro = styled.div`
   .dashboard {
@@ -39,6 +40,7 @@ class Owner extends Component {
       showReserverations: false,
       rid: "",
       restName: "",
+      addFlag: false,
     }
   }
 
@@ -48,6 +50,15 @@ class Owner extends Component {
       showReserverations: !prevState.showReserverations
     }))
   }
+
+  // Helper to redirect to Restaurant Form Page
+  addRestaurant() {
+    event.preventDefault()
+    this.setState(prevState => ({
+      addFlag: !prevState.addFlag
+    }))
+  }
+
   // Helper to view all reservations of a restaurant given its id
   viewReservations(rid, name) {
     event.preventDefault()
@@ -73,7 +84,7 @@ class Owner extends Component {
       cancelButtonText: "No"
     }).then((result) => {
       if (result.value) {
-        Restaurant.remove({ _id: rid })
+        Restaurants.remove({ _id: rid })
         Swal.fire(
           'Restaurant Deleted!',
           'We are sorry to see you go.',
@@ -107,142 +118,154 @@ class Owner extends Component {
   }
 
   render() {
-    if (!this.state.showReserverations) {
-      let data = []
-      this.props.manageRestaurants.map((value) => (
-        data.push({
-          nameId: { name: value.name, id: value._id, link: url + value._id },
-          restaurant: value,
-        })
-      ));
-
-      const columns = [{
-        id: 'nameId',
-        Header: 'Restaurant',
-        accessor: 'nameId', // String-based value accessors!
-        Cell: e => <a href={e.value.link}>{e.value.name}</a>
-      },
-      {
-        Header: "View Reservations",
-        accessor: 'nameId',
-        Cell: e => (
-          <div>
-            <Button variant="light"
-              onClick={() => this.viewReservations(e.value.id, e.value.name)}>View</Button>
-          </div>
-        )
-      },
-      {
-        Header: "Edit Restaurant Info",
-        accessor: 'value',
-        Cell: e => (
-          <div>
-            <Button variant="light"
-              onClick={() => this.editRestaurant(e.value)}>Edit</Button>
-          </div>
-        )
-      },
-      {
-        Header: "Delete Restaurant",
-        accessor: 'restId',
-        Cell: e => (
-          <div>
-            <Button variant="danger"
-              onClick={() => this.deleteRestaurant(e.value)}>Delete</Button>
-          </div>
-        )
-      }
-      ]
-
-      return (
-        <Intro>
-          <div className="dashboard">
-            <Container>
-              <h4>Manage Your Restaurants</h4>
-              <ReactTable
-                data={data}
-                columns={columns}
-              />
-            </Container>
-          </div>
-        </Intro>
-      )
-    }
-    // Render all reservations for the clicked restaurant
-    else {
-      let reservationData = []
-      let matchingReservations = []
-
-      for (let reservation of this.props.reservations) {
-        if (reservation.restaurantId === this.state.rid) {
-          matchingReservations.push(reservation)
-        }
+    if (Meteor.userId() === '2uqqAQpxi3hdNWxRd') {
+      if (this.state.addFlag) {
+        return (
+          <RestaurantForm />)
       }
 
-      matchingReservations.map((value) => (
-        reservationData.push({
-          nameId: { name: this.state.restName, link: url + this.state.rid },
-          date: value.resDate.toISOString().substring(0, 10),
-          timeslot: value.resTimeSlot,
-          reservationName: value.resName,
-          reservationPhone: value.resPhone,
-          reservationGuest: value.resGuest,
-          reservationId: value._id
-        })
-      ))
+      if (!this.state.showReserverations) {
+        let data = []
+        this.props.manageRestaurants.map((value) => (
+          data.push({
+            nameId: { name: value.name, id: value._id, link: url + value._id },
+            restaurant: value,
+          })
+        ));
 
-      const columns = [{
-        id: 'nameId',
-        Header: 'Restaurant',
-        accessor: 'nameId', // String-based value accessors!
-        Cell: e => <a href={e.value.link}>{e.value.name}</a>
-      }, {
-        Header: 'Reservation Under', // Custom header components!
-        accessor: 'reservationName'
-      },
-      {
-        Header: 'Customer Phone', // Custom header components!
-        accessor: 'reservationPhone'
-      }, {
-        id: 'date',
-        Header: 'Reservation Date',
-        accessor: 'date'
-      }, {
-        Header: 'Reservation Time', // Custom header components!
-        accessor: 'timeslot'
-      },
-      {
-        Header: 'Guests', // Custom header components!
-        accessor: 'reservationGuest'
-      },
-      {
-        Header: "Manage Reservation",
-        accessor: 'reservationId',
-        Cell: e => (
-          <div>
-            <Button variant="danger"
-              onClick={() => this.deleteReservation(e.value)}>Delete</Button>
-          </div>
-        )
-      }
-      ]
-
-      return (
-        <Intro>
-          <div className="dashboard">
-            <h4>List of Reservations</h4>
-            <Container>
+        const columns = [{
+          id: 'nameId',
+          Header: 'Restaurant',
+          accessor: 'nameId', // String-based value accessors!
+          Cell: e => <a href={e.value.link}>{e.value.name}</a>
+        },
+        {
+          Header: "View Reservations",
+          accessor: 'nameId',
+          Cell: e => (
+            <div>
               <Button variant="light"
-                onClick={() => this.resetState()}>Back</Button>
-              <h1></h1>
-              <ReactTable
-                data={reservationData}
-                columns={columns}
-              />
-            </Container>
-          </div>
-        </Intro>
-      )
+                onClick={() => this.viewReservations(e.value.id, e.value.name)}>View</Button>
+            </div>
+          )
+        },
+        {
+          Header: "Edit Restaurant Info",
+          accessor: 'value',
+          Cell: e => (
+            <div>
+              <Button variant="light"
+                onClick={() => this.editRestaurant(e.value)}>Edit</Button>
+            </div>
+          )
+        },
+        {
+          Header: "Delete Restaurant",
+          accessor: 'nameId',
+          Cell: e => (
+            <div>
+              <Button variant="danger"
+                onClick={() => this.deleteRestaurant(e.value.id)}>Delete</Button>
+            </div>
+          )
+        }
+        ]
+
+        return (
+          <Intro>
+            <div className="dashboard">
+              <Container>
+                <h4>Manage Your Restaurants</h4>
+                <Button variant="light"
+                  onClick={() => this.addRestaurant()}>Add New Restaurant</Button>
+                <h1></h1>
+                <ReactTable
+                  data={data}
+                  columns={columns}
+                />
+              </Container>
+            </div>
+          </Intro>
+        )
+      }
+      // Render all reservations for the clicked restaurant
+      else {
+        let reservationData = []
+        let matchingReservations = []
+
+        for (let reservation of this.props.reservations) {
+          if (reservation.restaurantId === this.state.rid) {
+            matchingReservations.push(reservation)
+          }
+        }
+
+        matchingReservations.map((value) => (
+          reservationData.push({
+            nameId: { name: this.state.restName, link: url + this.state.rid },
+            date: value.resDate.toISOString().substring(0, 10),
+            timeslot: value.resTimeSlot,
+            reservationName: value.resName,
+            reservationPhone: value.resPhone,
+            reservationGuest: value.resGuest,
+            reservationId: value._id
+          })
+        ))
+
+        const columns = [{
+          id: 'nameId',
+          Header: 'Restaurant',
+          accessor: 'nameId', // String-based value accessors!
+          Cell: e => <a href={e.value.link}>{e.value.name}</a>
+        }, {
+          Header: 'Reservation Under', // Custom header components!
+          accessor: 'reservationName'
+        },
+        {
+          Header: 'Customer Phone', // Custom header components!
+          accessor: 'reservationPhone'
+        }, {
+          id: 'date',
+          Header: 'Reservation Date',
+          accessor: 'date'
+        }, {
+          Header: 'Reservation Time', // Custom header components!
+          accessor: 'timeslot'
+        },
+        {
+          Header: 'Guests', // Custom header components!
+          accessor: 'reservationGuest'
+        },
+        {
+          Header: "Manage Reservation",
+          accessor: 'reservationId',
+          Cell: e => (
+            <div>
+              <Button variant="danger"
+                onClick={() => this.deleteReservation(e.value)}>Delete</Button>
+            </div>
+          )
+        }
+        ]
+
+        return (
+          <Intro>
+            <div className="dashboard">
+              <h4>List of Reservations</h4>
+              <Container>
+                <Button variant="light"
+                  onClick={() => this.resetState()}>Back</Button>
+                <h1></h1>
+                <ReactTable
+                  data={reservationData}
+                  columns={columns}
+                />
+              </Container>
+            </div>
+          </Intro>
+        )
+      }
+    } else {
+      window.location.href = "https://www.youtube.com/channel/UCaJ9EHNW8-LY1idxHKmgFgw"
     }
   }
 }
