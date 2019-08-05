@@ -1,0 +1,14 @@
+p {
+    font-family: arial;
+  }
+
+h4 {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.proj-desc {
+    width: 1100px;
+    text-align: center;
+    padding-left: 200px;
+}
