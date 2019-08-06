@@ -40,7 +40,9 @@ class Owner extends Component {
       showReserverations: false,
       rid: "",
       restName: "",
-      addFlag: false,
+      formFlag: false,
+      editFlag: false,
+      restaurant: {}
     }
   }
 
@@ -55,19 +57,27 @@ class Owner extends Component {
   addRestaurant() {
     event.preventDefault()
     this.setState(prevState => ({
-      addFlag: !prevState.addFlag
+      formFlag: !prevState.formFlag
     }))
   }
 
   // Helper to view all reservations of a restaurant given its id
   viewReservations(rid, name) {
     event.preventDefault()
-    this.setState({ showReserverations: true, rid: rid, restName: name })
+    this.setState(prevState => ({
+      showReserverations: !prevState.showReserverations,
+      rid: rid, restName: name
+    }))
   }
 
   // Helper to edit an restaurant, takes the entire restaurant object as parameter
   editRestaurant(restObj) {
     event.preventDefault()
+    this.setState(prevState => ({
+      formFlag: !prevState.formFlag,
+      editFlag: !prevState.editFlag,
+      restaurant: restObj
+    }))
   }
 
   // Helper to delete a restaurant from the db given its id
@@ -119,9 +129,9 @@ class Owner extends Component {
 
   render() {
     if (Meteor.userId() === '2uqqAQpxi3hdNWxRd') {
-      if (this.state.addFlag) {
+      if (this.state.formFlag) {
         return (
-          <RestaurantForm />)
+          <RestaurantForm {...this.state} />)
       }
 
       if (!this.state.showReserverations) {
@@ -151,7 +161,7 @@ class Owner extends Component {
         },
         {
           Header: "Edit Restaurant Info",
-          accessor: 'value',
+          accessor: 'restaurant',
           Cell: e => (
             <div>
               <Button variant="light"
@@ -265,7 +275,7 @@ class Owner extends Component {
         )
       }
     } else {
-      window.location.href = "https://www.youtube.com/channel/UCaJ9EHNW8-LY1idxHKmgFgw"
+      window.location.href = "https://www.youtube.com/watch?v=z1q4tNOUJ2Q&t=0m27s"
     }
   }
 }
