@@ -23,6 +23,7 @@
     "react-router-dom": "^5.0.1",
     "react-table": "^6.10.0",
     "reactstrap": "^8.0.0",
+    "recharts": "^1.6.2",
     "simpl-schema": "^1.5.5",
     "styled-components": "^4.3.2",
     "sweetalert2": "^8.14.0"
