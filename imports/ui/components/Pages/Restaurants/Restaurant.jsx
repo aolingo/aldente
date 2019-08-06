@@ -145,6 +145,12 @@ class Restaurant extends Component {
 
     if (Meteor.user()) {
       let restaurant = Restaurants.find(this.state.id).fetch();
+      let reservation = Reservations.find({
+        customer: Meteor.userId(),
+        resDate: new Date(event.target.formDate.value),
+        resTimeSlot: parseInt(event.target.formTime.value),
+        restaurantId: this.state.id
+      }).fetch();
       let resAtTimeslot = Reservations.find({restaurantId: this.state.id, resTimeSlot: parseInt(event.target.formTime.value)}).fetch();
 
       let occupency = parseInt(event.target.formGuest.value);
@@ -154,7 +160,22 @@ class Restaurant extends Component {
       console.log(occupency);
       console.log(restaurant[0].reservationInfo.seats);
 
-      if (occupency <= restaurant[0].reservationInfo.seats) {
+      console.log(reservation);
+      if (reservation.length > 0) {
+        Swal.fire(
+          'Reservation already made',
+          'You already have a reservation at this time.',
+          'info'
+        )
+      }
+      else if (occupency > restaurant[0].reservationInfo.seats) {
+        Swal.fire(
+          'Sorry!',
+          'The restaurant is fully booked at the selected time. Please choose a different time.',
+          'error'
+        )
+      }
+      else {
         Reservations.insert({
           customer: Meteor.userId(),
           resDate: event.target.formDate.value,
@@ -179,13 +200,6 @@ class Restaurant extends Component {
             )
           }
         })
-      }
-      else {
-        Swal.fire(
-          'Sorry!',
-          'The restaurant is fully booked at the selected time. Please choose another time.',
-          'error'
-        )
       }
     }
     else {
