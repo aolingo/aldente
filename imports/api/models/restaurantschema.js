@@ -5,6 +5,9 @@ export const ReservationSchema = new SimpleSchema({
   customer: SimpleSchema.RegEx.Id,
   resDate: Date,
   resTimeSlot: Number,
+  resName: String,
+  resPhone: String,
+  resGuest: Number,
   restaurantId: SimpleSchema.RegEx.Id,
   createdAt: {
     type: Date,
@@ -24,10 +27,12 @@ export const ReservationSchema = new SimpleSchema({
 
 //create a Restaurant Schema & model
 export const RestaurantSchema = new SimpleSchema({
+  restaurantId: String,
   name: String,
   owner: SimpleSchema.RegEx.Id,
   description: String,
   photo: String,
+  photo2: String,
   contactInfo: Object,
   'contactInfo.phone': Number,
   'contactInfo.website': String,

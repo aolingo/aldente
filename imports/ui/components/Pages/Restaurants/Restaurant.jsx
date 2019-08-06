@@ -5,11 +5,13 @@ import { Reservations } from '../../../../api/reservations';
 import NoMatch from '../NoMatch'
 import { Container, Row, Col, Form, Button, Table } from 'react-bootstrap'
 import styled from 'styled-components';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const Intro = styled.div`
   .restaurant {
     padding-top: 50px;
+    padding-bottom: 50px;
     background-image: url(/imgs/bg.jpg);
   }
 
@@ -29,6 +31,45 @@ const Intro = styled.div`
     font-size: 1.4 rem;
   }
 
+  .container-reservation {
+    border: 4px solid grey;
+    border-radius: 25px;
+    padding: 10px;
+  }
+
+  input {
+    height: 30px;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-right: 16px;
+    padding-bottom: 5px;
+    padding-left: 16px;
+  }
+
+  select {
+    height: 30px;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-right: 16px;
+    padding-bottom: 5px;
+    padding-left: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 2px;
+  }
+
+  .btn-space {
+    margin-top: 12px;
+  }
+`;
+
+const Map = styled.div`
+  .map-container {
+    width: 400px;
+    max-width: 100%;
+    height: 400px;
+  }
 `;
 
 class Restaurant extends Component {
@@ -37,6 +78,65 @@ class Restaurant extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       id: this.props.match.params.id,
+      date: new Date(),
+      isToday: true,
+    }
+  }
+
+  formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
+  formatPhone(phone) {
+    var string = phone.toString()
+    if (string.length === 10) {
+      return '(' + string.substr(0, 3) + ') ' + string.substr(3, 3) + '-' + string.substr(6, 4);
+    }
+    else{
+      return string;
+    }
+  }
+
+  getMaxDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 4),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
+  checkTime(time) {
+    var currentTime = parseInt(this.state.date.getHours() + '' + this.state.date.getMinutes());
+    return this.state.isToday && time < currentTime;
+  }
+
+  handleDateChange(event, timeSlots) {
+    var d = new Date(),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    var date = [year, month, day].join('-');
+
+    if (event.target.value === date) {
+      this.setState({isToday: true});
+    } else {
+      this.setState({isToday: false});
     }
   }
 
@@ -44,27 +144,49 @@ class Restaurant extends Component {
     event.preventDefault();
 
     if (Meteor.user()) {
+      let restaurant = Restaurants.find(this.state.id).fetch();
+      let resAtTimeslot = Reservations.find({restaurantId: this.state.id, resTimeSlot: parseInt(event.target.formTime.value)}).fetch();
+
+      let occupency = parseInt(event.target.formGuest.value);
+      for (let i = 0; i < resAtTimeslot.length; i++) {
+        occupency = occupency + resAtTimeslot[i].resGuest;
+      }
+      console.log(occupency);
+      console.log(restaurant[0].reservationInfo.seats);
+
+      if (occupency <= restaurant[0].reservationInfo.seats) {
         Reservations.insert({
           customer: Meteor.userId(),
           resDate: event.target.formDate.value,
           resTimeSlot: event.target.formTime.value,
+          resName: event.target.formName.value,
+          resGuest: event.target.formGuest.value,
+          resPhone: event.target.formPhone.value,
           restaurantId: this.state.id
-        }, function(err, res) {
+        }, function (err, res) {
           if (err) {
             Swal.fire(
-              'Opps!',
+              'Oops!',
               'Something went wrong with your booking. Please try again.',
               'error'
             )
             throw err;
           } else {
             Swal.fire(
-              'Good job!',
+              'Success!',
               'Your reservation was successfully booked.',
               'success'
             )
           }
         })
+      }
+      else {
+        Swal.fire(
+          'Sorry!',
+          'The restaurant is fully booked at the selected time. Please choose another time.',
+          'error'
+        )
+      }
     }
     else {
       Swal.fire(
@@ -76,12 +198,9 @@ class Restaurant extends Component {
   }
 
   render() {
-    console.log(this.state.id);
-
     let restaurant = Restaurants.find(this.state.id).fetch();
-    console.log(restaurant);
 
-    let FontAwesome = require('react-fontawesome');
+    // let FontAwesome = require('react-fontawesome');
 
     if (restaurant.length > 0) {
       return (
@@ -99,7 +218,24 @@ class Restaurant extends Component {
                   <p className="margin-top-20 text-left">{restaurant[0].description}</p>
                   <Row className="margin-top-50">
                     <Col>
-                      <img src="https://puu.sh/DV49D/170afac6e6.png" />
+                      <Map>
+                        <LoadScript id="script-loader" googleMapsApiKey="AIzaSyDuRmMGD9IngdlIEe2hcyumhStFLwmYM0Q">
+                          <GoogleMap
+                            id="circle-example"
+                            mapContainerStyle={{
+                              height: "351px",
+                              width: "411px"
+                            }}
+                            zoom={16}
+                            center={{
+                              lat: restaurant[0].contactInfo.lat,
+                              lng: restaurant[0].contactInfo.lng
+                            }}
+                          >
+                            <Marker position={{ lat: restaurant[0].contactInfo.lat, lng: restaurant[0].contactInfo.lng }} />
+                          </GoogleMap>
+                        </LoadScript>
+                      </Map>
                     </Col>
                     <Col>
                       <Table>
@@ -118,11 +254,14 @@ class Restaurant extends Component {
                             <td>{restaurant[0].contactInfo.address}</td>
                           </tr>
                           <tr>
-                            <td>{`${restaurant[0].contactInfo.city}, ${restaurant[0].contactInfo.state}`}</td>
+                            <td>{`${restaurant[0].contactInfo.city}, ${restaurant[0].contactInfo.state}  ${restaurant[0].contactInfo.postalCode}`}</td>
+                          </tr>
+                          <tr>
+                            <td>{this.formatPhone(restaurant[0].contactInfo.phone)}</td>
                           </tr>
                           <tr>
                             <td>
-                              <a href={restaurant[0].contactInfo.website}>Website</a>
+                              <a href={restaurant[0].contactInfo.website} target="_blank">{restaurant[0].contactInfo.website}</a>
                             </td>
                           </tr>
                         </tbody>
@@ -131,40 +270,60 @@ class Restaurant extends Component {
                   </Row>
                 </Col>
                 <Col sm="3">
-                  <Form className="margin-top-20" onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="formDate">
-                      <Form.Label>Date</Form.Label>
-                      <Form.Control type="date" size="lg" required/>
-                    </Form.Group>
-                    <Form.Group controlId="formTime">
-                      <Form.Label>Time</Form.Label>
-                      <Form.Control as="select" size="lg" >
-                        {restaurant[0].reservationInfo.timeSlots.map((value, index) =>
-                          <option key={index}>{value}</option>
-                        )}
-                      </Form.Control>
-                    </Form.Group>
-                    <Button variant="success" type="submit" className="width100">
-                      Book Now
+                  <div className="container-reservation">
+                    <Form className="margin-top-10" onSubmit={this.handleSubmit}>
+                      <Form.Group controlId="formName" >
+                        <Form.Label>Name of Reservation</Form.Label>
+                        <Form.Control type="input" required></Form.Control>
+                      </Form.Group>
+                      <Form.Group controlId="formGuest" >
+                        <Form.Label>Guests</Form.Label>
+                        <Form.Control type="number" min="1" max={restaurant[0].reservationInfo.maxParty} required></Form.Control>
+                      </Form.Group>
+                      <Form.Group controlId="formPhone">
+                        <Form.Label>Phone Number</Form.Label>
+                        <Form.Control type="tel" required></Form.Control>
+                      </Form.Group>
+                      <Form.Group controlId="formDate">
+                        <Form.Label>Date</Form.Label>
+                        <Form.Control type="date" size="lg" defaultValue={this.formatDate(this.state.date)} min={this.formatDate(this.state.date)} max={this.getMaxDate(this.state.date)} onChange={(e) => this.handleDateChange(e, restaurant[0].reservationInfo.timeSlots)} required />
+                      </Form.Group>
+                      <Form.Group controlId="formTime">
+                        <Form.Label>Time</Form.Label>
+                        <Form.Control as="select" size="lg" >
+                          {restaurant[0].reservationInfo.timeSlots.map((value, index) => {
+                              if (!this.checkTime(value)) {
+                                return <option key={index} disabled={this.checkTime(value)}>{value}</option>
+                              }
+                            }
+                          )}
+                        </Form.Control>
+                      </Form.Group>
+                      <Button variant="success" type="submit" className="width100 btn-space">
+                        Book Now
                   </Button>
-                  </Form>
+                    </Form>
+                  </div>
                 </Col>
               </Row>
             </Container>
           </div>
         </Intro>
       )
+    } else {
+      return (
+        <NoMatch />
+      )
     }
-    return (
-      <NoMatch />
-    )
   }
 }
 
 export default withTracker(() => {
   Meteor.subscribe('restaurants');
+  Meteor.subscribe('reservations');
   return {
     restaurants: Restaurants.find().fetch(),
+    reservations: Reservations.find().fetch(),
   };
 
 })(Restaurant);

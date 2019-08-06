@@ -1,29 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import { Restaurants } from '../imports/api/restaurants';
-import { Random } from 'meteor/random'
 import { Reservations } from '../imports/api/reservations';
 
 // Assign newly created user to default role of customer
 Accounts.onCreateUser(function (options, user) {
   // Semantics for adding things to users after the user document has been inserted
-  var userId = user._id = Random.id();
-  console.log(userId);
-  console.log(user._id);
-  var handle = Meteor.users.find({ _id: userId }, { fields: { _id: 1 } }).observe({
-    added: function () {
-      console.log(userId);
-      Roles.addUsersToRoles(userId, ['customer']);
-      handle.stop();
-      handle = null;
-    }
-  });
+  if (typeof (user.services.google) != "undefined") {
+    user.username = user.services.google.name;
+  }
 
-  // In case the document is never inserted
-  Meteor.setTimeout(function () {
-    if (handle) {
-      handle.stop();
-    }
-  }, 30000);
+  if (typeof (user.services.facebook) != "undefined") {
+    user.username = user.services.facebook.name;
+  }
+
+  user.role = "customer";
 
   return user;
 });
@@ -34,10 +24,12 @@ Meteor.startup(() => {
   if (Restaurants.find().count() === 0) {
     const data = [
       {
+        restaurantId: "sushibarshu",
         name: 'Sushi Bar Shu',
-        owner: "vfgoNjT4ZxJrwr6Rk",
+        owner: "2uqqAQpxi3hdNWxRd",
         description: "Providing an omakase sushi experience while using fresh, seasonal seafood from Japan.",
         photo: 'http://www.makotojapanesebuffet.com/index_sushi_1_files/vlb_images5/23.jpg',
+        photo2: "https://images1.houstonpress.com/imager/u/original/7423511/9683304.0.jpg",
         contactInfo: {
           phone: 6044281868,
           website: 'https://www.instagram.com/sushibarshu',
@@ -56,10 +48,12 @@ Meteor.startup(() => {
         }
       },
       {
+        restaurantId: "bauhaus",
         name: 'Bauhaus Restaurant',
-        owner: "vfgoNjT4ZxJrwr6Rk",
+        owner: "2uqqAQpxi3hdNWxRd",
         description: "Bauhaus sets a new standard for refined dining in Vancouver. Owned by German film director Uwe Boll, the award-winning restaurant is known for its modern take on German cuisine and attention to detail. The menu delicately balances European cuisine with west coast influences. The chef’s creativity can be seen, tasted and felt in each of their creations.",
-        photo: 'https://https://resizer.otstatic.com/v2/photos/large/24929017.jpg-restaurant.com/',
+        photo: 'https://www.theworlds50best.com/discovery/filestore/jpg/Bauhaus-DCI2017-interior.jpg',
+        photo2: "http://www.snowchimp.com/wp-content/uploads/2017/03/Andrea-Greenway-Bauhaus-Restaurant-Web-05.jpg",
         contactInfo: {
           phone: 6049741147,
           website: 'https://bauhaus-restaurant.com',
@@ -78,10 +72,12 @@ Meteor.startup(() => {
         }
       },
       {
+        restaurantId: "farmersapprentice",
         name: "Farmer's Apprentice",
-        owner: "vfgoNjT4ZxJrwr6Rk",
+        owner: "2uqqAQpxi3hdNWxRd",
         description: "Located in Vancouver's South Granville - Kitsalino neighbourhood, Farmer's Apprentice is a reflection of BC's organic farmers, fishermen, and purveyors. The Pacific Northwest, vegetable forward menu seeks to support sustainable food systems, and is complimented by natural wine offerings, knowledgable staff and an approachable setting.",
         photo: 'https://farm3.staticflickr.com/2882/11302596064_7aac176bf6_b.jpg',
+        photo2: "https://i2.wp.com/early-volcano.flywheelsites.com/wp-content/uploads/2013/11/2013-11-02-11-26-14.jpg",
         contactInfo: {
           phone: 6046202070,
           website: 'https://farmersapprentice.ca',
@@ -100,10 +96,12 @@ Meteor.startup(() => {
         }
       },
       {
+        restaurantId: "cacao",
         name: "Cacao",
-        owner: "vfgoNjT4ZxJrwr6Rk",
+        owner: "2uqqAQpxi3hdNWxRd",
         description: "Our kitchen represents a progressive and fresh Latin American menu, created with a sinuous, steady hand and a focus on high quality, regional ingredients. Located within the charming and friendly neighbourhood of Kitsilano, Cacao is the very kind of neighbourhood corner post that becomes a favourite refuge after a long day, a place to gather and celebrate old friendships, new beginnings. A place to discover, or re-discover Latin American cuisine at its finest. Unpretentious. Surprising. Delightful. Lingering.",
         photo: 'http://www.nomss.com/wp-content/uploads/2016/11/Cacao-Restaurant-Vancouver-Chef-Jefferson-Alvarez-Instanomss-Nomss-Delicious-Food-Photography-Healthy-Travel-Lifestyle1195.jpg',
+        photo2: "http://www.cacaodeli.com/images/gallery/gallery-9.jpg",
         contactInfo: {
           phone: 6047315370,
           website: 'https://cacao-vancouver.squarespace.com/',
@@ -122,10 +120,12 @@ Meteor.startup(() => {
         }
       },
       {
+        restaurantId: "poplargrovewinery",
         name: "Poplar Grove Winery",
-        owner: "vfgoNjT4ZxJrwr6Rk",
+        owner: "2uqqAQpxi3hdNWxRd",
         description: "At Poplar Grove, great wines are born from the courage to see what's possible and a passionate desire to work with our estate fruit to bring the Okanagan's full potential into each bottle. This is what we strive for each day.",
         photo: "http://naramatabench.com/wp-content/uploads/2011/09/poplar-grove-winery-naramata.jpg",
+        photo2: "https://www.straight.com/files/v3/images/15/04/poplar_grove_winery.png",
         contactInfo: {
           phone: 2504939463,
           website: "https://www.poplargrove.ca/",
@@ -144,10 +144,12 @@ Meteor.startup(() => {
         }
       },
       {
+        restaurantId: "wildebeest",
         name: "Wildebeest",
-        owner: "vfgoNjT4ZxJrwr6Rk",
+        owner: "2uqqAQpxi3hdNWxRd",
         description: "Wildebeest invites you to experience deliciously decadent yet simple country cooking. Explore a farm-to-table menu paired with a diverse selection of Old and New World wines and a carefully crafted cocktail list. Set in a refurbished 19th century building, the multi-level space offers a front house cocktail bar & lounge, open-concept kitchen, an inviting dining room with banquette seating, and an intimately-set private dining room.",
         photo: "https://www.straight.com/files/gallery/adhoc/Wildebeast2_sm_0.jpg",
+        photo2: "https://www.vancouvermom.ca/wp-content/uploads/2013/09/credit-Andrew-Morrison.jpg",
         contactInfo: {
           phone: 2507640078,
           website: "https://tantalus.ca/",
