@@ -48,6 +48,10 @@ border-color:black;
   overflow: hidden;
 }
 
+.maxheight180 {
+  max-height: 180px;
+}
+
 .slideshow-height {
   max-height: 380px;
 }
@@ -57,7 +61,7 @@ border-color:black;
   overflow: hidden;
 }
 
-.vertical-crop-car img {
+.vertical-crop-card img {
   max-height: initial;
 }
 
@@ -121,6 +125,10 @@ border-color:black;
 
 .margin-top-50 {
   margin-top: 50px;
+}
+
+.margin-bottom-50 {
+  margin-bottom: 50px;
 }
 
 .text-center {
