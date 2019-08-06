@@ -183,7 +183,7 @@ class Restaurant extends Component {
       else {
         Swal.fire(
           'Sorry!',
-          'The restaurant is fully booked at the selected time.\n Please select a different time.',
+          'The restaurant is fully booked at the selected time. Please choose another time.',
           'error'
         )
       }
