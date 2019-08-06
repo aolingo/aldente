@@ -144,30 +144,49 @@ class Restaurant extends Component {
     event.preventDefault();
 
     if (Meteor.user()) {
-      Reservations.insert({
-        customer: Meteor.userId(),
-        resDate: event.target.formDate.value,
-        resTimeSlot: event.target.formTime.value,
-        resName: event.target.formName.value,
-        resGuest: event.target.formGuest.value,
-        resPhone: event.target.formPhone.value,
-        restaurantId: this.state.id
-      }, function (err, res) {
-        if (err) {
-          Swal.fire(
-            'Opps!',
-            'Something went wrong with your booking. Please try again.',
-            'error'
-          )
-          throw err;
-        } else {
-          Swal.fire(
-            'Success!',
-            'Your reservation was successfully booked.',
-            'success'
-          )
-        }
-      })
+      let restaurant = Restaurants.find(this.state.id).fetch();
+      let resAtTimeslot = Reservations.find({restaurantId: this.state.id, resTimeSlot: parseInt(event.target.formTime.value)}).fetch();
+
+      let occupency = parseInt(event.target.formGuest.value);
+      for (let i = 0; i < resAtTimeslot.length; i++) {
+        occupency = occupency + resAtTimeslot[i].resGuest;
+      }
+      console.log(occupency);
+      console.log(restaurant[0].reservationInfo.seats);
+
+      if (occupency <= restaurant[0].reservationInfo.seats) {
+        Reservations.insert({
+          customer: Meteor.userId(),
+          resDate: event.target.formDate.value,
+          resTimeSlot: event.target.formTime.value,
+          resName: event.target.formName.value,
+          resGuest: event.target.formGuest.value,
+          resPhone: event.target.formPhone.value,
+          restaurantId: this.state.id
+        }, function (err, res) {
+          if (err) {
+            Swal.fire(
+              'Oops!',
+              'Something went wrong with your booking. Please try again.',
+              'error'
+            )
+            throw err;
+          } else {
+            Swal.fire(
+              'Success!',
+              'Your reservation was successfully booked.',
+              'success'
+            )
+          }
+        })
+      }
+      else {
+        Swal.fire(
+          'Sorry!',
+          'The restaurant is fully booked at the selected time.\n Please select a different time.',
+          'error'
+        )
+      }
     }
     else {
       Swal.fire(
@@ -301,8 +320,10 @@ class Restaurant extends Component {
 
 export default withTracker(() => {
   Meteor.subscribe('restaurants');
+  Meteor.subscribe('reservations');
   return {
     restaurants: Restaurants.find().fetch(),
+    reservations: Reservations.find().fetch(),
   };
 
 })(Restaurant);
