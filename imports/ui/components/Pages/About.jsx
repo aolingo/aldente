@@ -19,9 +19,9 @@ export default class About extends Component {
           <div className="">
             <h6>The project is a reservation platform for restaurants. There will be two type of users, customers and restaurant/business owners. Both of which will have their own separate account portal once they signed up for an account on the website. For customers, they will be able to browse through restaurants displayed on the platform (basic restaurant information) and make a reservation through the website's system. Customers will then be able to see their list of made reservations (including past reservations) on their account page. For restaurant owners, once they log in to the system, they will be able to see and manage reservations made at their diners.</h6>
           </div>
-          <Row className="margin-top-50 margin-bottom-50">
-            <Col>
-              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '372px' }}>
+          <Row className="margin-bottom-50">
+            <Col className="margin-top-50" lg="4">
+              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px' }}>
                 <div className="vertical-crop maxheight180">
                   <Card.Img variant="top" src="https://www.parisperfect.com/g/photos/upload/914281088-1500962405-Restaurant-reservation-service-paris.jpg" />
                 </div>
@@ -33,8 +33,8 @@ export default class About extends Component {
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
-              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '372px' }}>
+            <Col className="margin-top-50" lg="4">
+              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px' }}>
                 <div className="vertical-crop maxheight180">
                   <Card.Img variant="top" src="https://www.scandichotels.com/imagevault/publishedmedia/qn6infvg30381stkubky/scandic-sundsvall-city-restaurant-verket-10.jpg" />
                 </div>
@@ -46,8 +46,8 @@ export default class About extends Component {
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
-              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '372px' }}>
+            <Col className="margin-top-50" lg="4">
+              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px' }}>
                 <div className="vertical-crop maxheight180">
                   <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" />
                 </div>
@@ -56,6 +56,7 @@ export default class About extends Component {
                   <Card.Text>
                     <ul>
                       <li>Meteor</li>
+                      <li>MongoDB</li>
                       <li>React JS</li>
                       <li>Bootstrap</li>
                       <li>datatables.net</li>
