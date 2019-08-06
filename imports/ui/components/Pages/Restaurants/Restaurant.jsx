@@ -100,7 +100,7 @@ class Restaurant extends Component {
     if (string.length === 10) {
       return '(' + string.substr(0, 3) + ') ' + string.substr(3, 3) + '-' + string.substr(6, 4);
     }
-    else{
+    else {
       return string;
     }
   }
@@ -134,9 +134,9 @@ class Restaurant extends Component {
     var date = [year, month, day].join('-');
 
     if (event.target.value === date) {
-      this.setState({isToday: true});
+      this.setState({ isToday: true });
     } else {
-      this.setState({isToday: false});
+      this.setState({ isToday: false });
     }
   }
 
@@ -145,14 +145,12 @@ class Restaurant extends Component {
 
     if (Meteor.user()) {
       let restaurant = Restaurants.find(this.state.id).fetch();
-      let resAtTimeslot = Reservations.find({restaurantId: this.state.id, resTimeSlot: parseInt(event.target.formTime.value)}).fetch();
+      let resAtTimeslot = Reservations.find({ restaurantId: this.state.id, resTimeSlot: parseInt(event.target.formTime.value) }).fetch();
 
       let occupency = parseInt(event.target.formGuest.value);
       for (let i = 0; i < resAtTimeslot.length; i++) {
         occupency = occupency + resAtTimeslot[i].resGuest;
       }
-      console.log(occupency);
-      console.log(restaurant[0].reservationInfo.seats);
 
       if (occupency <= restaurant[0].reservationInfo.seats) {
         Reservations.insert({
@@ -292,10 +290,10 @@ class Restaurant extends Component {
                         <Form.Label>Time</Form.Label>
                         <Form.Control as="select" size="lg" >
                           {restaurant[0].reservationInfo.timeSlots.map((value, index) => {
-                              if (!this.checkTime(value)) {
-                                return <option key={index} disabled={this.checkTime(value)}>{value}</option>
-                              }
+                            if (!this.checkTime(value)) {
+                              return <option key={index} disabled={this.checkTime(value)}>{value}</option>
                             }
+                          }
                           )}
                         </Form.Control>
                       </Form.Group>

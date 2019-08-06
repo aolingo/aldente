@@ -77,7 +77,12 @@ class Customer extends Component {
     if (Meteor.user()) {
       let data = []
       let names = this.props.restaurantNames
-      this.props.custReservations.map((value) => (
+      let currDate = new Date()
+      currDate.setHours(currDate.getHours() - 7);
+
+      let sortedRes = this.props.custReservations.filter(val => val.resDate >= currDate)
+
+      sortedRes.map((value) => (
         data.push({
           nameId: { name: this.getRestaurantName(value.restaurantId, names), link: url + value.restaurantId },
           date: value.resDate.toISOString().substring(0, 10),
@@ -148,7 +153,7 @@ export default withTracker(() => {
   Meteor.subscribe('custReservations');
   Meteor.subscribe('restaurants');
   return {
-    custReservations: Reservations.find().fetch(),
+    custReservations: Reservations.find({}, { sort: { resDate: 1, resTimeSlot: 1 } }).fetch(),
     restaurantNames: Restaurants.find({}, { fields: { name: 1 } }).fetch(),
   };
 })(Customer);

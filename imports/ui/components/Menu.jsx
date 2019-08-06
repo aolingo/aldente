@@ -60,7 +60,6 @@ export class Menu extends Component {
           </div>
         );
       } else {
-        console.log("else")
         return (
           <Nav className="nav navbar-nav pull-right">
             <Nav.Item><Nav.Link href="/dashboard/customer">Customer</Nav.Link></Nav.Item>
