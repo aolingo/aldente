@@ -130,12 +130,12 @@ export default class RestaurantForm extends Component {
                   <Form.Row>
                     <Form.Group as={Col} controlId="formPhoto">
                       <Form.Label>Restaurant Card Picture URL</Form.Label>
-                      <Form.Control type="input" placeholder="Recommend at least 800x600" required />
+                      <Form.Control type="input" placeholder="Suggested Size: 800x600" required />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formPhoto2">
                       <Form.Label>Restaurant Header Picture URL</Form.Label>
-                      <Form.Control type="input" placeholder="Recommend at least 800x600" required />
+                      <Form.Control type="input" placeholder="Suggested Size: 800x600" required />
                     </Form.Group>
                   </Form.Row>
 
