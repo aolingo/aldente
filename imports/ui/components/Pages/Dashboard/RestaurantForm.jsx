@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Restaurants } from '../../../../api/restaurants';
 import { Container, Row, Col, Form, Button, Table } from 'react-bootstrap';
-import '../../../css/restaurantForm.css'
+import '../../../css/restaurantForm.css';
+import Swal from 'sweetalert2';
+import Owner from './Owner';
 
 const Intro = styled.div`
   .form {
@@ -26,14 +28,21 @@ export default class RestaurantForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      editFlag: false,
+      showDashboard: false,
       restaurant: {},
     }
   }
 
+  // Helper to go back to owner dashboard from restaurant form page
+  goBack() {
+    event.preventDefault()
+    this.setState(prevState => ({
+      showDashboard: !prevState.showDashboard
+    }))
+  }
+
   handleSubmit() {
     event.preventDefault()
-
     if (Meteor.user()) {
       // Parse Timeslots into array
       var options = event.target.formTimeSlot.options;
@@ -67,119 +76,134 @@ export default class RestaurantForm extends Component {
           maxParty: event.target.formParty.value,
           closedDays: [],
         },
+      }, function (err, res) {
+        if (err) {
+          Swal.fire(
+            'Oops!',
+            err.toString(),
+            'error'
+          )
+          throw err;
+        } else {
+          Swal.fire(
+            'Success!',
+            'Your new restaurant was successfully created.',
+            'success'
+          ).then((result) => {
+            if (result.value) {
+              window.location.href = '/dashboard/owner'
+            }
+          })
+        }
       })
     }
   }
 
   render() {
-    return (
-      <Intro>
-        <div className="col-md-4 container-preview">
-        <div>
-          <p>Preview: </p>
-        </div>
-          <div className="card mb-4 shadow-sm">
-            <div className="vertical-crop-card">
-              <img className="bd-placeholder-img card-img-top" src="https://lh3.googleusercontent.com/s2NmKhqpCmed2-dACsr3YjMIU59CVNb3vZ79Yqv7svnolnm-z_3LiBaVOeptqjHPRPOFYCHx8GbxTDr4cX0bfEDMeTc=e7-v1-rw-w576-h384-n" />
-            </div>
-            <div className="card-body">
-              <p className="card-text">Chipotle Grill</p>
-              <div className="d-flex justify-content-between align-items-center">
-                <small className="text-muted">Burnaby, BC</small>
-              </div>
-              <div className="btn-group">
-                <button type="button" className="btn btn-sm btn-outline" data-toggle="modal" data-target="#restaurantModal" onClick={() => this.props.handler(this.props.id)}>View</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="form contanier-center">
-          <h1>Restaurant Form</h1>
-          <Col sm="5">
-            <div className="container-form">
-              <Form onSubmit={this.handleSubmit}>
-                <Form.Group className="" controlId="formRestaurantId">
-                  <Form.Label>Restaurant ID</Form.Label>
-                  <Form.Control type="input" placeholder="eg. poplargrovewinery" required />
-                </Form.Group>
+    if (!this.state.showDashboard) {
+      if (!this.props.editFlag) {
+        // Show the empty restaurant form for creating a new restaurant
+        return (
+          <Intro>
+            <div className="form">
+              <Container>
+                <h1>Create/Edit Your Restaurant</h1>
+                <Form onSubmit={this.handleSubmit}>
 
-                <Form.Group controlId="formName">
-                  <Form.Label>Restaurant Name</Form.Label>
-                  <Form.Control type="input" placeholder="Enter restaurant name" required />
-                </Form.Group>
+                  <Form.Row>
+                    <Form.Group as={Col} className="" controlId="formRestaurantId">
+                      <Form.Label>Restaurant ID</Form.Label>
+                      <Form.Control type="input" placeholder="poplargrovewinery" required />
+                    </Form.Group>
 
-                <Form.Group controlId="formDescription">
-                  <Form.Label>Restaurant Description</Form.Label>
-                  <Form.Control as="textarea" rows="3" required />
-                </Form.Group>
+                    <Form.Group as={Col} controlId="formName">
+                      <Form.Label>Restaurant Name</Form.Label>
+                      <Form.Control type="input" placeholder="Poplar Grove Winery" required />
+                    </Form.Group>
+                  </Form.Row>
 
-                <Form.Group controlId="formPhoto">
-                  <Form.Label>Restaurant Card Picture</Form.Label>
-                  <Form.Control type="input" placeholder="Enter card picture url" required />
-                </Form.Group>
-
-                <Form.Group controlId="formPhoto2">
-                  <Form.Label>Restaurant Header Picture</Form.Label>
-                  <Form.Control type="input" placeholder="Enter header picture url" required />
-                </Form.Group>
-
-                <Form.Group controlId="formPhone">
-                  <Form.Label>Restaurant Phone</Form.Label>
-                  <Form.Control type="tel" placeholder="Enter phone number" required />
-                </Form.Group>
-
-                <Form.Group controlId="formWebsite">
-                  <Form.Label>Restaurant Website</Form.Label>
-                  <Form.Control type="input" placeholder="Enter website link" required />
-                </Form.Group>
-
-                <Form.Group controlId="formPCode">
-                  <Form.Label>Postal Code</Form.Label>
-                  <Form.Control type="input" placeholder="Enter postal code of restaurant" required />
-                </Form.Group>
-
-                <Form.Group controlId="formState">
-                  <Form.Label>Province</Form.Label>
-                  <Form.Control as="select" required>
-                    <option>AB</option>
-                    <option>BC</option>
-                    <option>MB</option>
-                    <option>NB</option>
-                    <option>NL</option>
-                    <option>NS</option>
-                    <option>NT</option>
-                    <option>NU</option>
-                    <option>ON</option>
-                    <option>PE</option>
-                    <option>QC</option>
-                    <option>SK</option>
-                    <option>YT</option>
-                  </Form.Control>
-                </Form.Group>
-
-                <Form.Group controlId="formCity">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control placeholder="Saint-Louis-du-Ha! Ha!" required />
-                </Form.Group>
-
-                <Form.Group controlId="formAddress">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control placeholder="1234 Main St" required />
-                </Form.Group>
-
-                <Form.Row>
-                  <Form.Group as={Col} controlId="formLat">
-                    <Form.Label>Latitude</Form.Label>
-                    <Form.Control placeholder="49.5123363" required />
+                  <Form.Group controlId="formDescription">
+                    <Form.Label>Restaurant Description</Form.Label>
+                    <Form.Control as="textarea" rows="3" placeholder="Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion. Trust the natural recursion." required />
                   </Form.Group>
 
-                  <Form.Group as={Col} controlId="formLng">
-                    <Form.Label>Longitude</Form.Label>
-                    <Form.Control placeholder="-119.5760359" required />
-                  </Form.Group>
-                </Form.Row>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formPhoto">
+                      <Form.Label>Restaurant Card Picture URL</Form.Label>
+                      <Form.Control type="input" placeholder="Suggested Size: 800x600" required />
+                    </Form.Group>
 
-                <Form.Row>
+                    <Form.Group as={Col} controlId="formPhoto2">
+                      <Form.Label>Restaurant Header Picture URL</Form.Label>
+                      <Form.Control type="input" placeholder="Suggested Size: 800x600" required />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formWebsite">
+                      <Form.Label>Restaurant Website</Form.Label>
+                      <Form.Control type="input" placeholder="a1dente.herokuapp.com" required />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formPhone">
+                      <Form.Label>Restaurant Phone</Form.Label>
+                      <Form.Control type="tel" placeholder="6042241322 no dashes" required />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Group controlId="formAddress">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control placeholder="1234 Main St" required />
+                  </Form.Group>
+
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formCity">
+                      <Form.Label>City</Form.Label>
+                      <Form.Control placeholder="Saint-Louis-du-Ha! Ha!" required />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formState">
+                      <Form.Label>Province</Form.Label>
+                      <Form.Control as="select" required>
+                        <option>AB</option>
+                        <option>BC</option>
+                        <option>MB</option>
+                        <option>NB</option>
+                        <option>NL</option>
+                        <option>NS</option>
+                        <option>NT</option>
+                        <option>NU</option>
+                        <option>ON</option>
+                        <option>PE</option>
+                        <option>QC</option>
+                        <option>SK</option>
+                        <option>YT</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formPCode">
+                      <Form.Label>Postal Code</Form.Label>
+                      <Form.Control type="input" placeholder="V7L 2N4" required />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formLat">
+                      <Form.Label>Latitude</Form.Label>
+                      <Form.Control placeholder="49.5123363" required />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formLng">
+                      <Form.Label>Longitude</Form.Label>
+                      <Form.Control placeholder="-119.5760359" required />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formParty">
+                      <Form.Label>Maximum Party Allowed</Form.Label>
+                      <Form.Control type="number" min="1" placeholder="1" required />
+                    </Form.Group>
+
+                  </Form.Row>
+
                   <Form.Group controlId="formTimeSlot">
                     <Form.Label>Select All Appropriate Time Slots</Form.Label>
                     <Form.Control as="select" multiple required>
@@ -201,21 +225,154 @@ export default class RestaurantForm extends Component {
                     </Form.Control>
                   </Form.Group>
 
-                  <Form.Group as={Col} controlId="formParty">
-                    <Form.Label>Maximum Party</Form.Label>
-                    <Form.Control type="number" min="1" required />
-                  </Form.Group>
-                </Form.Row>
-
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-              </Form>
+                  <Button variant="primary" type="submit">
+                    Submit
+                    </Button>
+                  <Button variant="light"
+                    onClick={() => this.goBack()}>Back</Button>
+                </Form>
+              </Container>
             </div>
-          </Col>
-        </div>
+          </Intro>
+        )
+      }
+      // Show the Edit Restaurant Form with prepopulated information 
+      else {
+        return (
+          <Intro>
+            <div className="form">
+              <Container>
+                <h1>Create/Edit Your Restaurant</h1>
+                <Form onSubmit={this.handleSubmit}>
 
-      </Intro>
-    )
+                  <Form.Row>
+                    <Form.Group as={Col} className="" controlId="formRestaurantId">
+                      <Form.Label>Restaurant ID</Form.Label>
+                      <Form.Control type="input" defaultValue={this.props.restaurant.restaurantId} required />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formName">
+                      <Form.Label>Restaurant Name</Form.Label>
+                      <Form.Control type="input" defaultValue={this.props.restaurant.name} required />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Group controlId="formDescription">
+                    <Form.Label>Restaurant Description</Form.Label>
+                    <Form.Control as="textarea" rows="3" defaultValue={this.props.restaurant.description} required />
+                  </Form.Group>
+
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formPhoto">
+                      <Form.Label>Restaurant Card Picture URL</Form.Label>
+                      <Form.Control type="input" defaultValue={this.props.restaurant.photo} required />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formPhoto2">
+                      <Form.Label>Restaurant Header Picture URL</Form.Label>
+                      <Form.Control type="input" defaultValue={this.props.restaurant.photo2} required />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formWebsite">
+                      <Form.Label>Restaurant Website</Form.Label>
+                      <Form.Control type="input" defaultValue={this.props.restaurant.contactInfo.website} required />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formPhone">
+                      <Form.Label>Restaurant Phone</Form.Label>
+                      <Form.Control type="tel" defaultValue={this.props.restaurant.contactInfo.phone} required />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Group controlId="formAddress">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control defaultValue={this.props.restaurant.contactInfo.address} required />
+                  </Form.Group>
+
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formCity">
+                      <Form.Label>City</Form.Label>
+                      <Form.Control defaultValue={this.props.restaurant.contactInfo.city} required />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formState">
+                      <Form.Label>Province</Form.Label>
+                      <Form.Control as="select" defaultValue={this.props.restaurant.contactInfo.state} required>
+                        <option>AB</option>
+                        <option>BC</option>
+                        <option>MB</option>
+                        <option>NB</option>
+                        <option>NL</option>
+                        <option>NS</option>
+                        <option>NT</option>
+                        <option>NU</option>
+                        <option>ON</option>
+                        <option>PE</option>
+                        <option>QC</option>
+                        <option>SK</option>
+                        <option>YT</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formPCode">
+                      <Form.Label>Postal Code</Form.Label>
+                      <Form.Control type="input" defaultValue={this.props.restaurant.contactInfo.postalCode} required />
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formLat">
+                      <Form.Label>Latitude</Form.Label>
+                      <Form.Control defaultValue={this.props.restaurant.contactInfo.lat} required />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formLng">
+                      <Form.Label>Longitude</Form.Label>
+                      <Form.Control defaultValue={this.props.restaurant.contactInfo.lng} required />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formParty">
+                      <Form.Label>Maximum Party Allowed</Form.Label>
+                      <Form.Control type="number" min="1" defaultValue={this.props.restaurant.reservationInfo.maxParty} required />
+                    </Form.Group>
+
+                  </Form.Row>
+
+                  <Form.Group controlId="formTimeSlot">
+                    <Form.Label>Select All Appropriate Time Slots</Form.Label>
+                    <Form.Control as="select" defaultValue={this.props.restaurant.reservationInfo.timeSlots} multiple required>
+                      <option>0800</option>
+                      <option>0900</option>
+                      <option>1000</option>
+                      <option>1100</option>
+                      <option>1200</option>
+                      <option>1300</option>
+                      <option>1400</option>
+                      <option>1500</option>
+                      <option>1600</option>
+                      <option>1700</option>
+                      <option>1800</option>
+                      <option>1900</option>
+                      <option>2000</option>
+                      <option>2100</option>
+                      <option>2200</option>
+                    </Form.Control>
+                  </Form.Group>
+
+                  <Button variant="primary" type="submit">
+                    Submit
+                    </Button>
+                  <Button variant="light"
+                    onClick={() => this.goBack()}>Back</Button>
+                </Form>
+              </Container>
+            </div>
+          </Intro>
+        )
+      }
+    } else {
+      return (<Owner />)
+    }
   }
 }
