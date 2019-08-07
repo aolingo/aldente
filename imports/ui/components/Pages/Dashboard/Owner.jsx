@@ -131,8 +131,10 @@ class Owner extends Component {
   }
 
   render() {
-    if (Meteor.userId() === '2uqqAQpxi3hdNWxRd') {
-
+    // List of pre-approved owner accounts: owner, owner2, ownerdemo, xiao_ao
+    let owners = ['SfmiiJS96tdSJvMzn', '2uqqAQpxi3hdNWxRd', 'JsQjRDFuaX4tHhr2f', 'njkyhLuQr7YLY2Bt6']
+    // check if current user is an owner
+    if (owners.indexOf(Meteor.userId()) > -1) {
       if (this.state.formFlag) {
         // Show the restaurant form (after clicking add or edit restaurant)
         return (
