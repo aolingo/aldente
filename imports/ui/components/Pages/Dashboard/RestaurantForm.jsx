@@ -27,6 +27,7 @@ const Intro = styled.div`
 export default class RestaurantForm extends Component {
   constructor(props) {
     super(props)
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       showDashboard: false,
       restaurant: {},
@@ -41,7 +42,7 @@ export default class RestaurantForm extends Component {
     }))
   }
 
-  handleSubmit(editFlag, id) {
+  handleSubmit() {
     event.preventDefault()
     if (Meteor.user()) {
       // Parse Timeslots into array
@@ -52,7 +53,7 @@ export default class RestaurantForm extends Component {
           timeslots.push(options[i].value);
         }
       }
-      if(!editFlag) {
+      if(!this.props.editFlag) {
         Restaurants.insert({
           restaurantId: event.target.formRestaurantId.value,
           name: event.target.formName.value,
@@ -97,7 +98,8 @@ export default class RestaurantForm extends Component {
           }
         })
       } else {
-        Restaurants.update({_id: id}, {$set:{
+        console.log(this.props.restaurant._id);
+        Restaurants.update({_id: this.props.restaurant._id}, {$set:{
           restaurantId: event.target.formRestaurantId.value,
           name: event.target.formName.value,
           owner: Meteor.userId(),
@@ -120,7 +122,7 @@ export default class RestaurantForm extends Component {
             maxParty: event.target.formParty.value,
             closedDays: [],
           },
-        }}), function (err, res) {
+        }}, function (err, res) {
           if (err) {
             Swal.fire(
               'Oops!',
@@ -139,7 +141,7 @@ export default class RestaurantForm extends Component {
               }
             })
           }
-        }
+        })
       }
     }
   }
