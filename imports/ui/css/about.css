@@ -7,6 +7,11 @@ h4 {
     padding-top: 20px;
 }
 
+h6 {
+    text-align: center;
+    padding-top: 20px;
+}
+
 .proj-desc {
     width: 1100px;
     text-align: center;

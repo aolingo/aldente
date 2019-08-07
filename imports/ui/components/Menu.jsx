@@ -47,8 +47,11 @@ export class Menu extends Component {
 
   // If user is logged in, display their appropriate dashboards
   showDashboard() {
+    // List of pre-approved owner accounts: owner, owner2, ownerdemo, xiao_ao
+    let owners = ['SfmiiJS96tdSJvMzn', '2uqqAQpxi3hdNWxRd', 'JsQjRDFuaX4tHhr2f', 'njkyhLuQr7YLY2Bt6']
     if (userId != null) {
-      if (userId === '2uqqAQpxi3hdNWxRd') {
+      // check if current user is an owner
+      if (owners.indexOf(userId) > -1) {
         return (
           <div>
             <Nav className="nav navbar-nav pull-right">
