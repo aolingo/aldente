@@ -53,7 +53,7 @@ export default class RestaurantForm extends Component {
           timeslots.push(options[i].value);
         }
       }
-      if(!this.props.editFlag) {
+      if (!this.props.editFlag) {
         Restaurants.insert({
           restaurantId: event.target.formRestaurantId.value,
           name: event.target.formName.value,
@@ -98,31 +98,32 @@ export default class RestaurantForm extends Component {
           }
         })
       } else {
-        console.log(this.props.restaurant._id);
-        Restaurants.update({_id: this.props.restaurant._id}, {$set:{
-          restaurantId: event.target.formRestaurantId.value,
-          name: event.target.formName.value,
-          owner: Meteor.userId(),
-          description: event.target.formDescription.value,
-          photo: event.target.formPhoto.value,
-          photo2: event.target.formPhoto2.value,
-          contactInfo: {
-            phone: event.target.formPhone.value,
-            website: event.target.formWebsite.value,
-            postalCode: event.target.formPCode.value,
-            state: event.target.formState.value,
-            city: event.target.formCity.value,
-            address: event.target.formAddress.value,
-            lat: event.target.formLat.value,
-            lng: event.target.formLng.value,
-          },
-          reservationInfo: {
-            seats: 30,
-            timeSlots: timeslots,
-            maxParty: event.target.formParty.value,
-            closedDays: [],
-          },
-        }}, function (err, res) {
+        Restaurants.update({ _id: this.props.restaurant._id }, {
+          $set: {
+            restaurantId: event.target.formRestaurantId.value,
+            name: event.target.formName.value,
+            owner: Meteor.userId(),
+            description: event.target.formDescription.value,
+            photo: event.target.formPhoto.value,
+            photo2: event.target.formPhoto2.value,
+            contactInfo: {
+              phone: event.target.formPhone.value,
+              website: event.target.formWebsite.value,
+              postalCode: event.target.formPCode.value,
+              state: event.target.formState.value,
+              city: event.target.formCity.value,
+              address: event.target.formAddress.value,
+              lat: event.target.formLat.value,
+              lng: event.target.formLng.value,
+            },
+            reservationInfo: {
+              seats: 30,
+              timeSlots: timeslots,
+              maxParty: event.target.formParty.value,
+              closedDays: [],
+            },
+          }
+        }, function (err, res) {
           if (err) {
             Swal.fire(
               'Oops!',
