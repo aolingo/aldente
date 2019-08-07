@@ -10,7 +10,8 @@ Restaurants.allow({
   insert: function (userId, tag) {
     return true;
   },
-  remove: function () { return true; }
+  remove: function () { return true; },
+  update: function () { return true; }
 })
 
 if (Meteor.isServer) {

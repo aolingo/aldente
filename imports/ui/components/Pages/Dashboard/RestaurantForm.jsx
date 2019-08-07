@@ -27,6 +27,7 @@ const Intro = styled.div`
 export default class RestaurantForm extends Component {
   constructor(props) {
     super(props)
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       showDashboard: false,
       restaurant: {},
@@ -52,50 +53,96 @@ export default class RestaurantForm extends Component {
           timeslots.push(options[i].value);
         }
       }
-
-      Restaurants.insert({
-        restaurantId: event.target.formRestaurantId.value,
-        name: event.target.formName.value,
-        owner: Meteor.userId(),
-        description: event.target.formDescription.value,
-        photo: event.target.formPhoto.value,
-        photo2: event.target.formPhoto2.value,
-        contactInfo: {
-          phone: event.target.formPhone.value,
-          website: event.target.formWebsite.value,
-          postalCode: event.target.formPCode.value,
-          state: event.target.formState.value,
-          city: event.target.formCity.value,
-          address: event.target.formAddress.value,
-          lat: event.target.formLat.value,
-          lng: event.target.formLng.value,
-        },
-        reservationInfo: {
-          seats: 30,
-          timeSlots: timeslots,
-          maxParty: event.target.formParty.value,
-          closedDays: [],
-        },
-      }, function (err, res) {
-        if (err) {
-          Swal.fire(
-            'Oops!',
-            err.toString(),
-            'error'
-          )
-          throw err;
-        } else {
-          Swal.fire(
-            'Success!',
-            'Your new restaurant was successfully created.',
-            'success'
-          ).then((result) => {
-            if (result.value) {
-              window.location.href = '/dashboard/owner'
-            }
-          })
-        }
-      })
+      if(!this.props.editFlag) {
+        Restaurants.insert({
+          restaurantId: event.target.formRestaurantId.value,
+          name: event.target.formName.value,
+          owner: Meteor.userId(),
+          description: event.target.formDescription.value,
+          photo: event.target.formPhoto.value,
+          photo2: event.target.formPhoto2.value,
+          contactInfo: {
+            phone: event.target.formPhone.value,
+            website: event.target.formWebsite.value,
+            postalCode: event.target.formPCode.value,
+            state: event.target.formState.value,
+            city: event.target.formCity.value,
+            address: event.target.formAddress.value,
+            lat: event.target.formLat.value,
+            lng: event.target.formLng.value,
+          },
+          reservationInfo: {
+            seats: 30,
+            timeSlots: timeslots,
+            maxParty: event.target.formParty.value,
+            closedDays: [],
+          },
+        }, function (err, res) {
+          if (err) {
+            Swal.fire(
+              'Oops!',
+              err.toString(),
+              'error'
+            )
+            throw err;
+          } else {
+            Swal.fire(
+              'Success!',
+              'Your new restaurant was successfully created.',
+              'success'
+            ).then((result) => {
+              if (result.value) {
+                window.location.href = '/dashboard/owner'
+              }
+            })
+          }
+        })
+      } else {
+        console.log(this.props.restaurant._id);
+        Restaurants.update({_id: this.props.restaurant._id}, {$set:{
+          restaurantId: event.target.formRestaurantId.value,
+          name: event.target.formName.value,
+          owner: Meteor.userId(),
+          description: event.target.formDescription.value,
+          photo: event.target.formPhoto.value,
+          photo2: event.target.formPhoto2.value,
+          contactInfo: {
+            phone: event.target.formPhone.value,
+            website: event.target.formWebsite.value,
+            postalCode: event.target.formPCode.value,
+            state: event.target.formState.value,
+            city: event.target.formCity.value,
+            address: event.target.formAddress.value,
+            lat: event.target.formLat.value,
+            lng: event.target.formLng.value,
+          },
+          reservationInfo: {
+            seats: 30,
+            timeSlots: timeslots,
+            maxParty: event.target.formParty.value,
+            closedDays: [],
+          },
+        }}, function (err, res) {
+          if (err) {
+            Swal.fire(
+              'Oops!',
+              err.toString(),
+              'error'
+            )
+            throw err;
+          } else {
+            Swal.fire(
+              'Success!',
+              'Your restaurant was successfully updated.',
+              'success'
+            ).then((result) => {
+              if (result.value) {
+                window.location.href = '/dashboard/owner'
+              }
+            })
+          }
+        })
+      }
     }
   }
 
@@ -108,7 +155,7 @@ export default class RestaurantForm extends Component {
             <div className="form">
               <Container>
                 <h1>Create/Edit Your Restaurant</h1>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit(this.props.editFlag, this.props.restaurant._id)}>
 
                   <Form.Row>
                     <Form.Group as={Col} className="" controlId="formRestaurantId">
@@ -236,7 +283,7 @@ export default class RestaurantForm extends Component {
           </Intro>
         )
       }
-      // Show the Edit Restaurant Form with prepopulated information 
+      // Show the Edit Restaurant Form with prepopulated information
       else {
         return (
           <Intro>
