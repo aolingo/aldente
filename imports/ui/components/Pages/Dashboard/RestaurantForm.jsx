@@ -155,7 +155,7 @@ export default class RestaurantForm extends Component {
             <div className="form">
               <Container>
                 <h1>Create/Edit Your Restaurant</h1>
-                <Form onSubmit={this.handleSubmit(this.props.editFlag, this.props.restaurant._id)}>
+                <Form onSubmit={this.handleSubmit}>
 
                   <Form.Row>
                     <Form.Group as={Col} className="" controlId="formRestaurantId">
