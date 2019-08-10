@@ -300,7 +300,7 @@ class Owner extends Component {
         )
       }
     } else {
-      window.location.href = "https://www.youtube.com/watch?v=z1q4tNOUJ2Q&t=0m27s"
+      window.location.href = "https://www.youtube.com/watch?v=9Deg7VrpHbM"
     }
   }
 }

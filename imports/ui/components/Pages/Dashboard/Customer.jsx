@@ -78,7 +78,7 @@ class Customer extends Component {
       let data = []
       let names = this.props.restaurantNames
       let currDate = new Date()
-      currDate.setHours(currDate.getHours() - 7);
+      currDate.setHours(currDate.getHours() - 31);
 
       let sortedRes = this.props.custReservations.filter(val => val.resDate >= currDate)
 
