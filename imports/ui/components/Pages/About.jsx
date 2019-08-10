@@ -50,78 +50,86 @@ export default class About extends Component {
               </Card>
             </Col>
             <Col className="margin-top-50" lg="4">
-              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px', textAlign: 'center' }}>
-                <div className="vertical-crop maxheight180">
-                  <Card.Img variant="top" src="/imgs/dash2.JPG" />
-                </div>
-                <Card.Body>
-                  <Card.Title>Track all your reservations</Card.Title>
-                  <Card.Text>
-                    Easily view and sort all the reservations customers made at your restaurant.
+              <a style={{ cursor: 'pointer' }} onClick={() => window.open("/imgs/dash2.JPG")}>
+                <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px', textAlign: 'center' }}>
+                  <div className="vertical-crop maxheight180">
+                    <Card.Img variant="top" src="/imgs/dash2.JPG" />
+                  </div>
+                  <Card.Body>
+                    <Card.Title>Track all your reservations</Card.Title>
+                    <Card.Text>
+                      Easily view and sort all the reservations customers made at your restaurant.
                   </Card.Text>
-                </Card.Body>
-              </Card>
+                  </Card.Body>
+                </Card>
+              </a>
             </Col>
           </Row>
 
           <Row className="margin-bottom-50">
             <Col className="margin-top-50" lg="4">
-              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px', textAlign: 'center' }}>
-                <div className="vertical-crop maxheight180">
-                  <Card.Img variant="top" src="/imgs/dash1.JPG" />
-                </div>
-                <Card.Body>
-                  <Card.Title>A centralized dashboard</Card.Title>
-                  <Card.Text>
-                    You can easily manage all your restaurants personally from the owner dashboard. No more having to contact a third party to make any changes.
+              <a style={{ cursor: 'pointer' }} onClick={() => window.open("/imgs/dash1.JPG")}>
+                <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px', textAlign: 'center' }}>
+                  <div className="vertical-crop maxheight180">
+                    <Card.Img variant="top" src="/imgs/dash1.JPG" />
+                  </div>
+                  <Card.Body>
+                    <Card.Title>A centralized dashboard</Card.Title>
+                    <Card.Text>
+                      You can easily manage all your restaurants personally from the owner dashboard. No more having to contact a third party to make any changes.
                   </Card.Text>
-                </Card.Body>
-              </Card>
+                  </Card.Body>
+                </Card>
+              </a>
             </Col>
             <Col className="margin-top-50" lg="4">
-              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px', textAlign: 'center' }}>
-                <div className="vertical-crop maxheight180">
-                  <Card.Img variant="top" src="/imgs/dash3.JPG" />
-                </div>
-                <Card.Body>
-                  <Card.Title>Changes are welcomed here</Card.Title>
-                  <Card.Text>
-                    Need to make a quick update or even create a new restaurant altogether? Don't worry, Al Dente got you covered.
+              <a style={{ cursor: 'pointer' }} onClick={() => window.open("/imgs/dash3.JPG")}>
+                <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px', textAlign: 'center' }}>
+                  <div className="vertical-crop maxheight180">
+                    <Card.Img variant="top" src="/imgs/dash3.JPG" />
+                  </div>
+                  <Card.Body>
+                    <Card.Title>Changes are welcomed here</Card.Title>
+                    <Card.Text>
+                      Need to make a quick update or even create a new restaurant altogether? Don't worry, Al Dente got you covered.
                   </Card.Text>
-                </Card.Body>
-              </Card>
+                  </Card.Body>
+                </Card>
+              </a>
             </Col>
             <Col className="margin-top-50" lg="4">
-              <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px', textAlign: 'center' }}>
-                <div className="vertical-crop maxheight180">
-                  <Card.Img variant="top" src="/imgs/dash4.JPG" />
-                </div>
-                <Card.Body>
-                  <Card.Title>Visualize your data</Card.Title>
-                  <Card.Text>
-                    Al Dente helps you track the busiest hours of your restaurant so you are better prepared in the future.
+              <a style={{ cursor: 'pointer' }} onClick={() => window.open("/imgs/dash4.JPG")}>
+                <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px', textAlign: 'center' }}>
+                  <div className="vertical-crop maxheight180">
+                    <Card.Img variant="top" src="/imgs/dash4.JPG" />
+                  </div>
+                  <Card.Body>
+                    <Card.Title>Visualize your data</Card.Title>
+                    <Card.Text>
+                      Al Dente helps you track the busiest hours of your restaurant so you are better prepared in the future.
                   </Card.Text>
-                </Card.Body>
-              </Card>
+                  </Card.Body>
+                </Card>
+              </a>
             </Col>
           </Row>
-
-          <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px' }}>
-            <div className="vertical-crop maxheight180">
-              <Card.Img variant="top" src="https://images.ctfassets.net/2y9b3o528xhq/1YvMlkplkBP1hJrErUQ5hx/ba5dabd879a46f5972e52fcf6ba26b80/nd004_open_graph.jpg" />
-            </div>
-            <Card.Body>
-              <Card.Title style={{ textAlign: 'center' }}>Built with</Card.Title>
-              <Card.Text>
-                Meteor <br />
-                MongoDB<br />
-                HTML<br />
-                React, JavaScript<br />
-                CSS, Bootstrap<br />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-
+          <a style={{ cursor: 'pointer' }} onClick={() => window.open("https://github.com/aolingo/cpsc436project")}>
+            <Card style={{ width: '18rem', marginLeft: 'auto', marginRight: 'auto', height: '390px' }}>
+              <div className="vertical-crop maxheight180">
+                <Card.Img variant="top" src="https://images.ctfassets.net/2y9b3o528xhq/1YvMlkplkBP1hJrErUQ5hx/ba5dabd879a46f5972e52fcf6ba26b80/nd004_open_graph.jpg" />
+              </div>
+              <Card.Body>
+                <Card.Title style={{ textAlign: 'center' }}>Built with</Card.Title>
+                <Card.Text>
+                  Meteor <br />
+                  MongoDB<br />
+                  HTML<br />
+                  React, JavaScript<br />
+                  CSS, Bootstrap<br />
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </a>
         </Container>
       </div >
     )
