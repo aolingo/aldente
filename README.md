@@ -41,3 +41,31 @@ Customize menu item
 
 Sign In / Sign Up
 ![signin](https://user-images.githubusercontent.com/22069313/58152497-8e057c80-7c21-11e9-8fef-a73e09392b5c.png)
+
+## Final Project Submission
+
+### Technology
+
+#### HTML/CSS/JavaScript
+#### React
+#### Meteor
+#### MongoDB
+#### Heroku
+
+### Contribution
+
+#### Daniel
+
+#### George
+
+#### Stefan
+
+#### Austin
+
+### Functionality
+- Brief summary of all the functionalities implemented can be found at [https://a1dente.herokuapp.com/about]
+- To access the Owner Dashboard, you can use the demo account -> Username: ownerdemo Password: ownerdemo
+
+### Challenges, Learning and Future Directions
+
+### Initiative and Additional Contributions
