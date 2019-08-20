@@ -50,12 +50,17 @@ Sign In / Sign Up
 #### React
 #### Meteor
 #### MongoDB
+- Used the simpl-schema Meteor package to design and implement the schema for Restaurants and Reservations
 #### Heroku
 
 ### Contribution
 
 #### Daniel
-
+- Set up the scaffolding of the application including creating all the skeleton components used in the project and organize and reorganizing the Meteor project structure throughout development (making appropriate changes after removing `insecure` and `autopublish`)
+- Set up remote database on Atlas, designed and implemented the schema and relations for Restaurants and Reservations collections and populated the database with mock data.
+- Implemented front-end and back-end for Homepage, Account system with Google social login, Menu, Owner Dashboard (Add/Edit/Delete Restaurants, View Reservations, Analyze Graphs), Customer Dashboard, and set up Google Map component in Restaurant page (set up and configure API key and settings via Google Developer Console)
+- Deployed final project using Heroku
+- **Initiative/Added Contribution**: Through designing schema for the MongoDB collections (which isn't necessary for NoSQL dbs), gained more understanding of the similarities and differences between NoSQL and SQL databases and how to effectively "join" the Reservation and Restaurant collections in later queries. Evaluating and choosing to implement the different functionalites in Owner Dashboard as child components helped me gain more insight on using React and its benefits and drawbacks compared to implementing through routing to an another component.
 #### George
 
 #### Stefan
