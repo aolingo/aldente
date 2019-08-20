@@ -91,7 +91,8 @@ Sign In / Sign Up
 
 ### Challenges, Learning and Future Directions
 
-**Challenge #1: Validating reservations** Reservations require a lot of validation such as making sure the user entered the correct date into each field. To address this we used our collection schemas to do a lot of the verifications.  
+**Challenge #1: Validating reservations** Reservations require a lot of validation such as making sure the user entered the correct date into each field. To address this we used our collection schemas to do a lot of the verifications.
+
 **Challenge #2: Securing accounts** We were having trouble coming up with a way to secure our user accounts. To address this we decided to implement social media login and Meteor accounts. 
 
 **Learning:** What we learned from these challenges is that many challenges you might encounter have already been solved and resources that can help you fix these issues are available if you research properly.
