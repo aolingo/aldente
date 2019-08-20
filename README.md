@@ -46,12 +46,21 @@ Sign In / Sign Up
 
 ### Technology
 
-#### HTML/CSS/JavaScript
-#### React
+#### HTML/CSS
+- Bootstrap and styled-components for our web app's UI (home page, restaurant page, Reservation and Restaurant forms)
+- Sweetalert2 to style our alerts and pop ups when submitting form
+#### React JavaScript
+- react-router for routing
+- react-table for our Owner and Customer Dashboard functionalities (conditional rendering)
+- recharts for graph visualization
 #### Meteor
+- accounts-ui, accounts-facebook, accounts-password and accounts-google package for our login system
+- aldeed:collections for use along simpl-schema to attach schema to collection and allows data validation against it
+- withTracker for connection to the backend MongoDB (through subscribing to published data in the Meteor server file)
 #### MongoDB
-- Used the simpl-schema Meteor package to design and implement the schema for Restaurants and Reservations
+- Used the simpl-schema package to design and implement the schema for Restaurants and Reservations
 #### Heroku
+- Automatically deployed from the master branch through setting up connection between Github and Heroku using the Meteor Buildpack Horse and URL for remote Atlas db
 
 ### Contribution
 
@@ -61,6 +70,7 @@ Sign In / Sign Up
 - Implemented front-end and back-end for Homepage, Account system with Google social login, Menu, Owner Dashboard (Add/Edit/Delete Restaurants, View Reservations, Analyze Graphs), Customer Dashboard, and set up Google Map component in Restaurant page (set up and configure API key and settings via Google Developer Console)
 - Deployed final project using Heroku
 - **Initiative/Added Contribution**: Through designing schema for the MongoDB collections (which isn't necessary for NoSQL dbs), gained more understanding of the similarities and differences between NoSQL and SQL databases and how to effectively "join" the Reservation and Restaurant collections in later queries. Evaluating and choosing to implement the different functionalites in Owner Dashboard as child components helped me gain more insight on using React and its benefits and drawbacks compared to implementing through routing to an another component.
+
 #### George
 
 #### Stefan
@@ -68,9 +78,8 @@ Sign In / Sign Up
 #### Austin
 
 ### Functionality
-- Brief summary of all the functionalities implemented can be found at [https://a1dente.herokuapp.com/about]
+- Brief summary of all the functionalities implemented can be found at https://a1dente.herokuapp.com/about
 - To access the Owner Dashboard, you can use the demo account -> Username: ownerdemo Password: ownerdemo
+- Implemented all Minimum Requirements, all Standard Requirements and #1 of Stretch Requirements as listed above
 
 ### Challenges, Learning and Future Directions
-
-### Initiative and Additional Contributions
