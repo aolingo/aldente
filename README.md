@@ -72,6 +72,10 @@ Sign In / Sign Up
 - **Initiative/Added Contribution**: Through designing schema for the MongoDB collections (which isn't necessary for NoSQL dbs), gained more understanding of the similarities and differences between NoSQL and SQL databases and how to effectively "join" the Reservation and Restaurant collections in later queries. Evaluating and choosing to implement the different functionalites in Owner Dashboard as child components helped me gain more insight on using React and its benefits and drawbacks compared to implementing through routing to an another component.
 
 #### George
+- Implemented the reservation system used by the application, including back-end work flow and front-end validation.
+- Set up page routing for application and implementing dynamic routing for each restaurant page.
+- Implemented several Redux actions such as View Restaurant and Reserve (later removed when no longer a requirement).
+- **Initiative/Added Contribution**: Instead of setting up basic page routing for restaurants, I decided to implement a dynamic routing where each restaurant has its own unique page URL. That way a user can access a restaurant's page through a link instead of only being able to access it by clicking the View button in the home page.
 
 #### Stefan
 
