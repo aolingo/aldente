@@ -76,6 +76,8 @@ Sign In / Sign Up
 #### Stefan
 
 #### Austin
+- Designed the layout of homepage and restaurant pages and created many of the compenents involved.
+- **Initiative/Added Contribution**: Helped implement social media login which allowed users to login to our app with a Google or Facebook account
 
 ### Functionality
 - Brief summary of all the functionalities implemented can be found at https://a1dente.herokuapp.com/about
