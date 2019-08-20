@@ -59,6 +59,7 @@ Sign In / Sign Up
 - withTracker for connection to the backend MongoDB (through subscribing to published data in the Meteor server file)
 #### MongoDB
 - Used the simpl-schema package to design and implement the schema for Restaurants and Reservations
+- Used to process reservation work flow
 #### Heroku
 - Automatically deployed from the master branch through setting up connection between Github and Heroku using the Meteor Buildpack Horse and URL for remote Atlas db
 
@@ -89,3 +90,9 @@ Sign In / Sign Up
 - Implemented all Minimum Requirements, all Standard Requirements and #1 of Stretch Requirements as listed above
 
 ### Challenges, Learning and Future Directions
+- **Challenge #1: Validating reservations** Reservations require a lot of validation such as making sure the user entered the correct date into each field. To address this we used our collection schemas to do a lot of the verifications.
+- **Challenge #2: Securing accounts** We were having trouble coming up with a way to secure our user accounts. To address this we decided to implement social media login and Meteor accounts. 
+
+- **Learning:** What we learned from these challenges is that many challenges you might encountered have already been solved and resources that can help you fix these issues easily are available if you research properly.
+
+- **Future Directions:** Possible improvements for the future include: adding more graphs to our Analyze page in the Owner Dashboard, adding an image uploader during Add Restaurant and allowing Owners to choose which dates the restaurant is closed.
