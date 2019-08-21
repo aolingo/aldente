@@ -79,6 +79,9 @@ Sign In / Sign Up
 - **Initiative/Added Contribution**: Instead of setting up basic page routing for restaurants, I decided to implement a dynamic routing where each restaurant has its own unique page URL. That way a user can access a restaurant's page through a link instead of only being able to access it by clicking the View button in the home page.
 
 #### Stefan
+- Helped with the database design for our collections and how to render/modify data through our features (add/delete reservation add/delete restaurant).
+- Implemented some features that include deleting reservations/restaurnts and some fields/logic in the reservation system.
+- **Initiative/Added Contribution**: My contribution included clearly defining the possible work flows of users. With this in mind, we came up with a design that was implementable for the term. Not only did we include the key functionalites of a reservation system, we went beyond including a portal for owners to instantaneously manage their resturaunts. One of our main goals were to make the user flows as intiuitive as possible and our demo was a great example of that.
 
 #### Austin
 - Designed the layout of homepage and restaurant pages and created many of the compenents involved.
