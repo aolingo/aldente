@@ -110,8 +110,6 @@ Our group ran into some difficulties in how we should approach implementing the 
 What we learned from these challenges is that many challenges you might encounter have already been solved and resources that can help you fix these issues are available if you research properly. In addition, for some of the challenges like #2 and #3, there are different solutions to the problem, some of which takes way more time to implement than others but it's more scalable as well. So given the time constraint of this project, you are forced to choose either solutions that are easier to implement and performs faster but doesn't offer good scalability and security wise or the opposite. For most of the features in our project, we chose easier implementation and fast performance over scalability and security. Thus, scalability and security will be our main focus for future improvements.
 
 #### Future Directions: 
-
-#### Future Directions: 
 Possible improvements for the future include: 
 - Adding more graphs to our Analyze page in the Owner Dashboard 
 - Adding an image uploader and storing actual images in our database
