@@ -90,21 +90,33 @@ Sign In / Sign Up
 ### Functionality
 - Brief summary of all the functionalities implemented can be found at https://a1dente.herokuapp.com/about
 - To access the Owner Dashboard, you can use the demo account -> Username: ownerdemo Password: ownerdemo
-- Implemented all Minimum Requirements, all Standard Requirements and #1 of Stretch Requirements as listed above
+- Implemented all Minimum Requirements, all Standard Requirements and #1 of Stretch Requirements as listed before
 
 ### Challenges, Learning and Future Directions
 
 #### Challenge #1: Validating reservations 
-Reservations require a lot of validation such as making sure the user entered the correct date into each field. To address this we used our collection schemas to do a lot of the verifications.
+Reservations require a lot of validation such as making sure the user entered the correct date into each field. We were faced with the decision to do this on the front-end (verify the form input before it submits to the backend db) or backend. We didn't figure out the pros and cons of the two choices in terms of performance in the end so we decided to just do it in the backend by taking the information submitted by the form and verifying it against the collections schema we created before as the schema provides the validation functionality already.
 
 #### Challenge #2: Securing accounts
-We were having trouble coming up with a way to secure our user accounts. To address this we decided to implement social media login and Meteor accounts. 
+We were having trouble coming up with a way to secure our user accounts, which is our Standard Requirement #2. Initially, we wanted to implement two factor authentication on top of our existing login system (Meteor Accounts) but we later found out that the Meteor package we are using for login is accounts-ui, which doesn't allow for much customization. This means that we would have to re-implement our Login system from scratch (without using that package) in the last few weeks of the project. Taking our time constraint into mind, we decided that it'd be best to spend the time and resources we have left to avoid this and find a workaround to accomplish this. We ended up choosing to add social media logins (Google and Facebook) onto our Login system as they are compatible with Meteor's account-ui package and Google and Facebook itself has 2FA functionality.
+
+### Challenge #3: Routing Menu Items
+Brief summary of [issue](https://github.com/aolingo/cpsc436project/issues/43#issuecomment-513523628): When trying to add the Owner and Customer Dashboard onto the website's navigation bar, we ran into bunch of bugs. Our intended workflow for the menu is when an user log in, depending on their role (customer or owner) the menu will show their respective dashboard. For example, when an user login, the Menu will check the Meteor userId and if it doesn't belong to that of an owner account (all Owner account Ids are premade, hardcoded), the Menu component will only render the Customer Dashboard, if it's an owner account, it will render both the Customer and Owner dashboard. However, after our initial implementation, you have to manually refresh the page after logging in for the Menu to render the Dashboard items. After bunch of debugging, we found out this is because we are implementing this through conditional rendering and logging in doesn't trigger another call to the Menu component (which is needed to render the two new Dashboards). We found a bunch of proposed solutions online which all involve rewriting our Router. In the end, we decided a 'quick and dirty' fix where we included a check if the current Login state in the Menu component is not undefined (meaning an user just logged in), we trigger a window refresh on the client side.
+
+### Challenge #4: Design Choice for Owner Role Implementation
+Our group ran into some difficulties in how we should approach implementing the "owner" role for accounts. For example, our initial idea was to when a visitor of our website register for an account, they are allowed to choose the type of account they want to create: Customer or Restaurant Owner. However, we felt that this isn't secure as anyone could register as an owner and add/modify unlimited Restaurants onto our home page (there's also the concern that they may add fake or random restaurants on our home page). To address this, we thought it was best to create a third role: "admin", which is controlled by us (the developers), and any requests to create a type owner account and add/modify/delete restaurants will send a request to the admin portal to be approved. But by doing it this way, legitimate restaurant owners wouldn't have as much flexibility to manage their restaurants as any changes they make would have to be approved by the admins first. So in the end as a compromise between security and flexibility, we decided to scrap the "admin" role and set that owner type accounts can only be created by us (basically hardcoded user accounts). So any new restaurant owners that want to use our website will have to contact us first and once we verify them, they have full access to the tools available in the Owner dashboard. 
 
 #### Learning: 
-What we learned from these challenges is that many challenges you might encounter have already been solved and resources that can help you fix these issues are available if you research properly.
+What we learned from these challenges is that many challenges you might encounter have already been solved and resources that can help you fix these issues are available if you research properly. In addition, for some of the challenges like #2 and #3, there are different solutions to the problem, some of which takes way more time to implement than others but it's more scalable as well. So given the time constraint of this project, you are forced to choose either solutions that are easier to implement and performs faster but doesn't offer good scalability and security wise or the opposite. For most of the features in our project, we chose easier implementation and fast performance over scalability and security. Thus, scalability and security will be our main focus for future improvements.
+
+#### Future Directions: 
 
 #### Future Directions: 
 Possible improvements for the future include: 
 - Adding more graphs to our Analyze page in the Owner Dashboard 
 - Adding an image uploader and storing actual images in our database
 - Allowing owners to choose which days the restaurant is closed
+- Re-implement all the child components in the Customer and Owner Dashboard components (Add/Edit Restaurant forms, View Reservations, Analyze) as its own separate components with its own route instead of as child components under the Owner Dashboard component for better scalability. 
+
+#### So You Think You Can Hack?
+You may have noticed that even though the Owner and Customer Dashboard doesn't appear on the Menu when you aren't logged in, you can still access them if you know the URL to them, especially the Owner Dashboard. Try accessing https://a1dente.herokuapp.com/dashboard/owner logging in or if you're logged in as a type customer account :)
