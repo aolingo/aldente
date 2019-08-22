@@ -91,6 +91,7 @@ Sign In / Sign Up
 - Brief summary of all the functionalities implemented can be found at https://a1dente.herokuapp.com/about
 - To access the Owner Dashboard, you can use the demo account -> Username: ownerdemo Password: ownerdemo
 - Implemented all Minimum Requirements, all Standard Requirements and #1 of Stretch Requirements as listed before
+- For more details on method of implementation and design choice regarding some of the Minimum and Standard Requirements, refer to the Challenge section.
 
 ### Challenges, Learning and Future Directions
 
