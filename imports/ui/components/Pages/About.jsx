@@ -15,7 +15,7 @@ export default class About extends Component {
           </div>
           <h4 className="text-align: center">The Al Dente Team</h4>
           <div className="">
-            <h6><a href="https://github.com/aolingo/cpsc436project">Austin, Daniel, George, Stefan</a></h6>
+            <h6><a href="https://github.com/aolingo/aldente">Austin, Daniel, George, Stefan</a></h6>
           </div>
           <h4 className="text-align: center">Al Dente Features</h4>
           <div className="">
