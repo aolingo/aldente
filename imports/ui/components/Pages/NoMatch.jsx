@@ -14,6 +14,14 @@ export default class NoMatch extends Component {
       <Intro>
         <div className="homepage">
           <p>No Match</p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <h1>¯\_(ツ)_/¯</h1>
+          <h2>Nothing here</h2>
         </div>
       </Intro>
     )

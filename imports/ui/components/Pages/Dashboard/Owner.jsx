@@ -300,7 +300,8 @@ class Owner extends Component {
         )
       }
     } else {
-      window.location.href = "https://www.youtube.com/watch?v=9Deg7VrpHbM"
+      // window.location.href = "https://www.youtube.com/watch?v=9Deg7VrpHbM"
+      window.location.href = "https://a1dente.herokuapp.com/"
     }
   }
 }
