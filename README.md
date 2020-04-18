@@ -4,7 +4,7 @@ An Online Restaurant Reservation Platform
 
 ## Project Description
 
-The project is a reservation platform for restaurants. There will be two type of users, customers and restaurant/business owners. Both of which will have their own separate account portal once they signed up for an account on the website. For customers, they will be able to browse through restaurants displayed on the platform (basic restaurant information) and make a reservation through the website's system. Customers will then be able to see their list of made reservations (including past reservations) on their account page. For restaurant owners, once they log in to the system,they will be able to see and manage reservations made at their diners.
+The project is a reservation platform for restaurants. There will be two type of users, customers and restaurant/business owners. Both of which will have their own separate account portal once they signed up for an account on the website. For customers, they will be able to browse through restaurants displayed on the platform (basic restaurant information) and make a reservation through the website's system. Customers will then be able to see their list of made reservations (including past reservations) on their account page. For restaurant owners, once they log in to the system,they will be able to see and manage reservations made at their diners. **To access the Owner Dashboard, you can use the demo account -> Username: ownerdemo Password: ownerdemo**
 
 ## Project Task Requirements
 

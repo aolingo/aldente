@@ -19,7 +19,10 @@ export default class About extends Component {
           </div>
           <h4 className="text-align: center">Al Dente Features</h4>
           <div className="">
-            <h6>Al Dente is a restaurant reservation platform designed for both customers and restaurant owners. Both of which will have their own dedicated dashboard once they sign up and login on the website. For customers, they will be able to browse through restaurants displayed on the platform (basic restaurant information) and make a reservation through the website's system. Customers will then be able to see their list of made reservations on their account page. For restaurant owners, once they log in to the system, they will be able to view and manage reservations made at their diners, update their restaurant's information, add a new restaurant to the front page, and view analytical graphs from their dashboard.</h6>
+            <h6>Al Dente is a restaurant reservation platform designed for both customers and restaurant owners. Both of which will have their own dedicated dashboard once they sign up and login on the website.</h6>
+            <h6>For customers, they will be able to browse through restaurants displayed on the platform (basic restaurant information) and make a reservation through the website's system. Customers will then be able to see their list of made reservations on their account page.</h6>
+            <h6>For restaurant owners, once they log in to the system, they will be able to view and manage reservations made at their diners, update their restaurant's information, add a new restaurant to the front page, and view analytical graphs from their dashboard.</h6>
+            <h6>To access the Owner Dashboard, you can use the demo account -> Username: ownerdemo Password: ownerdemo</h6>
           </div>
 
           <Row className="margin-bottom-50">
