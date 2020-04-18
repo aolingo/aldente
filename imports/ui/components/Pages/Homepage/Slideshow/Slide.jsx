@@ -44,7 +44,7 @@ export default class Slide extends Component {
           <Carousel.Item>
             <div className="vertical-crop slideshow-height">
               <img
-                src="https://resizer.otstatic.com/v2/photos/large/24929017.jpg"
+                src="https://images.squarespace-cdn.com/content/v1/549d41a3e4b003c6ce131926/1484567396699-D9M31HW948P1HCAZGQEV/ke17ZwdGBToddI8pDm48kKo6K4nzwH4_qC3GsKGYQ297gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UYIIs9GSzFoX1QQ48IpvjVfhKYOpCCKFxshznv23YZGJNKOigyfB8BfAL6B2Stgizg/image-asset.jpeg?format=1500w"
                 alt="Third slide"
                 className="width100 bauhaus-slideshow"
               />
